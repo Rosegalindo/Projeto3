@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amakha Paris - Perfumaria</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    height:100vh;
+}
+
+/* HERO */
+.hero{
+    position:relative;
+    width:100%;
+    height:100vh;
+    background-image:url("img/tela_principal.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+/* BOTÃO */
+.btn{
+    position:absolute;
+    left:50%;
+    bottom:12%;
+    transform:translateX(-50%);
+    background:#d4af37;
+    color:#000;
+    padding:16px 40px;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:30px;
+    font-size:18px;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#fff;
+}
+
+/* RODAPÉ */
+footer{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    text-align:center;
+    font-size:12px;
+    color:#fff;
+    padding:10px;
+}
+
+footer a{
+    color:#ffd700;
+    text-decoration:none;
+}
+
+/* ===== TABLETS ===== */
+@media (max-width:1024px){
+    .hero{
+        background-position:10% center;
+    }
+}
+
+/* ===== CELULAR GRANDE ===== */
+@media (max-width:768px){
+    .hero{
+        background-image:url("img/tela_mobile.png");
+        background-size:cover;
+        background-position:15% center;
+    }
+
+    .btn{
+        bottom:15%;
+        padding:14px 30px;
+        font-size:16px;
+    }
+}
+
+/* ===== CELULAR PEQUENO ===== */
+@media (max-width:300px){
+    .hero{
+        background-position:20% center;
+    }
+
+    .btn{
+        bottom:18%;
+        font-size:14px;
+        padding:12px 25px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<section class="hero">
+    
+    <!-- BOTÃO -->
+    <a href="galeria.html" class="btn">
+        PERFUMES
+    </a>
+
+    <!-- RODAPÉ -->
+    <footer>
+        Criado por Solver - 
+        <a href="https://www.instagram.com/solver.design/" target="_blank">
+            Mais informações clique aqui: @solver.design
+        </a>
+    </footer>
+
+</section>
+
+</body>
+</html>
