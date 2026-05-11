@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Amakha Paris - Feminino</title>
+
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- SWIPER -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    font-family:'Poppins', sans-serif;
+    color:#fff;
+}
+
+/* TOPO */
+.hero{
+    width:100%;
+    min-height:100vh;
+
+    background-image:url("img/produto_telamaior.png");
+     background-size:cover;
+    background-position:center top;
+    background-repeat:no-repeat;
+
+    background-attachment: fixed;
+
+    padding-top:180px;
+    padding-bottom:80px;
+    padding-left:20px;
+    padding-right:20px;
+
+    background-color:#000;
+}
+
+/* CONTAINER */
+.container{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+}
+
+/* CARD PERFUME */
+.card{
+    background:transparent;
+    border-radius:10px;
+    margin-bottom:50px;
+    overflow:hidden;
+}
+
+/* IMAGEM */
+.card img{
+    width:100%;
+    display:block;
+    border-radius:10px;
+}
+
+/* NOME */
+.nome{
+    text-align:center;
+    font-size:35px;
+    font-weight:700;
+    margin:25px 0 20px;
+}
+
+/* TEXOS */
+.descricao{
+    text-align:center;
+    line-height:1.8;
+    font-size:15px;
+    color:#ddd;
+    margin-bottom:25px;
+}
+
+/* QUANTIDADE */
+.quantidade-box{
+    background:#fff;
+    border-radius:5px;
+    padding:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.quantidade-box span{
+    color:#000;
+    font-weight:600;
+}
+
+/* CONTROLES */
+.controles{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.btn-qtd{
+    background:none;
+    border:none;
+    font-size:22px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* BOTÕES */
+.btn{
+    width:100%;
+    border:none;
+    padding:16px;
+    border-radius:5px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    margin-bottom:15px;
+    transition:0.3s;
+}
+
+/* CARRINHO */
+.carrinho{
+    background:linear-gradient(to bottom,#5a5a5a,#2d2d2d);
+    color:#fff;
+}
+
+/* COMPRAR */
+.comprar{
+    background:#e5e5e5;
+    color:#777;
+}
+
+.btn:hover{
+    opacity:0.9;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+
+    .hero{
+        background-image:url("img/produto_telamenor.png");
+
+        background-size:100% auto; /* 👈 importante */
+        background-position:center top;
+        background-repeat:repeat-y;
+
+        padding-top:120px;
+        padding-left:15px;
+        padding-right:15px;
+        padding-bottom:60px;
+
+        background-color:#000;
+    }
+
+    .container{
+        max-width:100%;
+    }
+
+    .nome{
+        font-size:28px;
+    }
+
+    .descricao{
+        font-size:14px;
+    }
+
+    .btn{
+        font-size:15px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+    <div class="container">
+
+        <!-- PERFUME 1 -->
+        <div class="card">
+
+            <img src="img/Zaya_Feminino_15ml.png">
+
+            <div class="nome">
+                Zaya
+            </div>
+
+            <div class="descricao">
+
+                Família olfativa: Floral Ambarado<br><br>
+
+                Notas:<br>
+                Topo: Pimenta Rosa, Mandarina<br>
+                Coração: Flor de Laranjeira, Benjoim, Jasmim Sambac<br>
+                Fundo: Baunilha, Fava Tonka, Patchouli<br><br>
+
+                Perfil: Confiante<br>
+                Ocasião: Noite
+
+            </div>
+
+            <!-- QUANTIDADE -->
+            <div class="quantidade-box">
+
+                <span>Quantidade:</span>
+
+                <div class="controles">
+
+                    <button class="btn-qtd">−</button>
+
+                    <span>1</span>
+
+                    <button class="btn-qtd">+</button>
+
+                </div>
+
+            </div>
+
+            <!-- BOTÕES -->
+            <button class="btn carrinho">
+                Adicionar ao Carrinho
+            </button>
+
+            <button class="btn comprar">
+                Comprar Agora
+            </button>
+
+        </div>
+
+        <!-- PERFUME 2 -->
+        <div class="card">
+
+            <img src="img/Al Saboh_Feminino_15ml.png">
+
+            <div class="nome">
+                Al Sabah
+            </div>
+
+            <div class="descricao">
+
+                Perfume sofisticado e intenso.<br>
+                Ideal para noites especiais.
+
+            </div>
+
+            <div class="quantidade-box">
+
+                <span>Quantidade:</span>
+
+                <div class="controles">
+
+                    <button class="btn-qtd">−</button>
+
+                    <span>1</span>
+
+                    <button class="btn-qtd">+</button>
+
+                </div>
+
+            </div>
+
+            <button class="btn carrinho">
+                Adicionar ao Carrinho
+            </button>
+
+            <button class="btn comprar">
+                Comprar Agora
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>
