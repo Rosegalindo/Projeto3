@@ -32,18 +32,29 @@ body{
     min-height:100vh;
 
     background-image:url("img/produto_telamaior.png");
-     background-size:cover;
+    background-size:contain;
     background-position:center top;
     background-repeat:no-repeat;
-
-    background-attachment: fixed;
+    background-color:#000;
 
     padding-top:180px;
-    padding-bottom:80px;
+    padding-bottom:120px;
     padding-left:20px;
-    padding-right:20px;
+    padding-right:20px;    
 
-    background-color:#000;
+    display:flex;
+    justify-content:center;
+}
+
+.divisor{
+    width:95%;
+    height:1px;
+
+    background:#fff;
+
+    margin:50px auto 0 auto;
+
+    opacity:0.7;
 }
 
 /* CONTAINER */
@@ -151,16 +162,15 @@ body{
     .hero{
         background-image:url("img/produto_telamenor.png");
 
-        background-size:100% auto; /* 👈 importante */
+        background-size:contain;
         background-position:center top;
-        background-repeat:repeat-y;
+        background-repeat:no-repeat;
+        background-color:#000;
 
         padding-top:120px;
         padding-left:15px;
         padding-right:15px;
-        padding-bottom:60px;
-
-        background-color:#000;
+        padding-bottom:80px;
     }
 
     .container{
@@ -185,106 +195,83 @@ body{
 
 <body>
 
+<!-- PERFUME 1 -->
 <section class="hero">
+    <hr class="divisor">
 
-    <div class="container">
-
-        <!-- PERFUME 1 -->
-        <div class="card">
-
+    <div class="card">
+        <div class="container">
             <img src="img/Zaya_Feminino_15ml.png">
-
             <div class="nome">
                 Zaya
             </div>
 
             <div class="descricao">
-
-                Família olfativa: Floral Ambarado<br><br>
-
-                Notas:<br>
+                Família olfativa: Floral Ambarado<br>
+                Notas: Flor de Laranjeira, Benjoim, Jasmim Sambac<br>
                 Topo: Pimenta Rosa, Mandarina<br>
-                Coração: Flor de Laranjeira, Benjoim, Jasmim Sambac<br>
-                Fundo: Baunilha, Fava Tonka, Patchouli<br><br>
-
+                Fundo: Baunilha, Fava Tonka, Patchouli<br>
                 Perfil: Confiante<br>
                 Ocasião: Noite
-
             </div>
 
             <!-- QUANTIDADE -->
             <div class="quantidade-box">
-
                 <span>Quantidade:</span>
-
                 <div class="controles">
-
                     <button class="btn-qtd">−</button>
-
                     <span>1</span>
-
                     <button class="btn-qtd">+</button>
-
                 </div>
-
             </div>
 
             <!-- BOTÕES -->
             <button class="btn carrinho">
                 Adicionar ao Carrinho
             </button>
-
             <button class="btn comprar">
                 Comprar Agora
             </button>
-
         </div>
+    </div>
+</section>
 
-        <!-- PERFUME 2 -->
+    <!--PERFUME 2 -->
+    <section class="hero">
+    <hr class="divisor">
+
         <div class="card">
-
+            <div class="container">
             <img src="img/Al Saboh_Feminino_15ml.png">
-
             <div class="nome">
                 Al Sabah
             </div>
 
             <div class="descricao">
-
                 Perfume sofisticado e intenso.<br>
                 Ideal para noites especiais.
-
             </div>
-
+            
+    <!-- QUANTIDADE -->
             <div class="quantidade-box">
-
                 <span>Quantidade:</span>
-
                 <div class="controles">
-
                     <button class="btn-qtd">−</button>
-
                     <span>1</span>
-
                     <button class="btn-qtd">+</button>
-
                 </div>
-
             </div>
 
+            <!-- BOTÕES -->
             <button class="btn carrinho">
                 Adicionar ao Carrinho
             </button>
-
             <button class="btn comprar">
                 Comprar Agora
             </button>
-
         </div>
-
     </div>
-
-</section>
+    </section>
 
 </body>
 </html>
