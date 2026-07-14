@@ -96,64 +96,116 @@ body{
     margin-bottom:25px;
 }
 
-/* QUANTIDADE */
-.quantidade-box{
+/* ÁREA DE COMPRA */
+.area-compra{
+    width:100%;
+    max-width:500px;
+    margin:25px auto 0;
+}
+
+/* PREÇOS */
+.precos{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end; /* joga os preços para a direita */
+    text-align:right;
+    margin-bottom:12px;
+}
+
+.preco-antigo{
+    color:#aaa;
+    font-size:14px;
+    text-decoration:line-through;
+    margin-bottom:4px;
+}
+
+.preco-atual{
+    color:#19b394;
+    font-size:24px;
+    font-weight:700;
+}
+
+/* LINHA */
+.linha{
+    width:100%;
+    height:1px;
+    background:#444;
+    margin:12px 0 18px;
+}
+
+/* TÍTULO QUANTIDADE */
+.quantidade-titulo{
+    color:#fff;
+    font-size:14px;
+    text-align:left;
+    margin-bottom:5px;
+}
+
+/* CONTROLE DE QUANTIDADE */
+.quantidade{
+    width:100%;
+    height:42px;
     background:#fff;
-    border-radius:5px;
-    padding:14px;
+    border:1px solid #ccc;
+
     display:flex;
+    align-items:center;
     justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
+
+    margin-bottom:10px;
 }
 
-.quantidade-box span{
-    color:#000;
-    font-weight:600;
-}
-
-/* CONTROLES */
-.controles{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.btn-qtd{
-    background:none;
+.quantidade button{
+    width:50px;
+    height:100%;
     border:none;
-    font-size:22px;
-    font-weight:bold;
+    background:transparent;
+    color:#666;
+    font-size:24px;
     cursor:pointer;
+}
+
+.quantidade span{
+    color:#222;
+    font-size:16px;
 }
 
 /* BOTÕES */
 .btn{
     width:100%;
+    min-height:48px;
     border:none;
-    padding:16px;
-    border-radius:5px;
     font-size:16px;
     font-weight:600;
     cursor:pointer;
-    margin-bottom:15px;
+    margin-bottom:10px;
     transition:0.3s;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-/* CARRINHO */
+/* ADICIONAR AO CARRINHO */
 .carrinho{
-    background:linear-gradient(to bottom,#5a5a5a,#2d2d2d);
+    background:linear-gradient(to bottom, #666, #292929);
     color:#fff;
 }
 
-/* COMPRAR */
-.comprar{
-    background:#e5e5e5;
-    color:#777;
+.carrinho:hover{
+    background:#222;
 }
 
-.btn:hover{
-    opacity:0.9;
+/* COMPRAR AGORA */
+.comprar{
+    background:transparent;
+    color:#d28a4a;
+    border:1px solid #d28a4a;
+}
+
+.comprar:hover{
+    background:#d28a4a;
+    color:#fff;
 }
 
 /* MOBILE */
@@ -207,33 +259,46 @@ body{
             </div>
 
             <div class="descricao">
-                Família olfativa: Floral Ambarado<br>
-                Notas: Flor de Laranjeira, Benjoim, Jasmim Sambac<br><br>
-                Topo: Pimenta Rosa, Mandarina<br><br>
-                Fundo: Baunilha, Fava Tonka, Patchouli<br><br>
-                Perfil: Confiante<br><br>
-                Ocasião: Noite<br><br>
+                Família olfativa: Floral Ambarado.<br>
+                Notas: Flor de Laranjeira, Benjoim, Jasmim Sambac.<br><br>
+                Topo: Pimenta Rosa, Mandarina.<br><br>
+                Fundo: Baunilha, Fava Tonka, Patchouli.<br><br>
+                Perfil: Confiante.<br><br>
+                Ocasião: Noite.
             </div>
 
-            <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+            <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
 </section>
 
     <!--PERFUME 2 -->
@@ -249,31 +314,43 @@ body{
             </div>
 
             <div class="descricao">
-                Família olfativa: Floral Ambarado<br>
-                Notas: Pimenta rosa, Mandarina<br><br>
-                Topo: Flor de Laranjeira, Semente de Cacau, Jasmim Sambac<br><br>
-                Fundo: Baunilha, Fava Tonka, Patchouli<br><br>
-                Perfil: Confiante<br><br>
-                Ocasião: Noite<br><br>
+                Família olfativa: Floral Ambarado.<br>
+                Notas: Pimenta rosa, Mandarina.<br><br>
+                Topo: Flor de Laranjeira, Semente de Cacau, Jasmim Sambac.<br><br>
+                Fundo: Baunilha, Fava Tonka, Patchouli.<br><br>
+                Perfil: Confiante.<br><br>
+                Ocasião: Noite.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -296,26 +373,38 @@ body{
                 Topo: Frutas, Lírio, Romã<br><br>
                 Fundo: Baunilha, Almíscar Branco, Ambroxan, Sândalo, Musk<br><br>
                 Perfil: Confiante.<br><br>
-                Ocasião: Dia e noite.<br><br>
+                Ocasião: Dia e noite.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -338,26 +427,38 @@ body{
                 Topo: Groselha Preta e Pera.<br><br>
                 Fundo: Pralinê, Baunilha, Patchouli e Fava Tonka.<br><br>
                 Perfil: Comunicativo.<br><br>
-                Ocasião: Dia.<br><br>
+                Ocasião: Dia.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -380,26 +481,38 @@ body{
                 Topo: Ylang Ylang, mandarina, bergamota.<br><br>
                 Fundo: Doce de leite, fava tonka, âmbar dourado e notas amadeiradas.<br><br>
                 Perfil: Sensual, moderna, comunicativa.<br><br>
-                Ocasião: Dia e noite.<br><br>
+                Ocasião: Dia e noite.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -422,26 +535,38 @@ body{
                 Topo: Pera e Bergamota.<br><br>
                 Fundo: Patchouli, Baunilha, Ambroxan e Vetiver.<br><br>
                 Perfil: Enigmática e Misteriosa.<br><br>
-                Ocasião: Noite.<br><br>
+                Ocasião: Noite.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -464,26 +589,38 @@ body{
                 Topo: Pera, Bergamota e Pimenta Rosa.<br><br>
                 Fundo: Almíscar Branco, Baunilha, Patchouli, Cedro.<br><br>
                 Perfil: Confiante e Comunicativo.<br><br>
-                Ocasião: Dia.<br><br>
+                Ocasião: Dia.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -506,26 +643,38 @@ body{
                 Topo: Lavanda, Mandarina, Groselha Preta, Petitgrain.<br><br>
                 Fundo: Baunilha de Madagascar, Almíscar, Cedro, Âmbar.<br><br>
                 Perfil: Confiante e Independente.<br><br>
-                Ocasião: Dia e Noite.<br><br>
+                Ocasião: Dia e Noite.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -551,23 +700,35 @@ body{
                 Ocasião: Noite.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -590,26 +751,38 @@ body{
                 Topo: Framboesa e Tangerina.<br><br>
                 Fundo: Sândalo e Cedro.<br><br>
                 Perfil: Confiante.<br><br>
-                Ocasião: Dia.<br><br>
+                Ocasião: Dia.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -632,26 +805,38 @@ body{
                 Topo: Lichia e Groselha.<br><br>
                 Fundo: Baunilha e Vetiver.<br><br>
                 Perfil: Comunicativo.<br><br>
-                Ocasião: Dia.<br><br>
+                Ocasião: Dia.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -677,23 +862,35 @@ body{
                 Ocasião: Noite.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -716,26 +913,38 @@ body{
                 Topo: Groselha Preta, Laranja, Mandarina, Toranja, Cássia e Bergamota.<br><br>
                 Fundo: Baunilha, Fava Tonka, Almíscar, Âmbar e Cedro da Virgínia.<br><br>
                 Perfil: Comunicativo.<br><br>
-                Ocasião: Dia.<br><br>
+                Ocasião: Dia.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -758,26 +967,38 @@ body{
                 Topo:  Açafrão, Tomilho e Mandarina.<br><br>
                 Fundo: Sensualidade, afetuosidade.<br><br>
                 Perfil: Amável.<br><br>
-                Ocasião: Noite.<br><br>
+                Ocasião: Noite.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -798,26 +1019,38 @@ body{
                 Família olfativa: Floral.<br>
                 Topo: Flor de Laranjeira, Pêssego, Ameixa, Néroli, Pau-Rosa, Mandarina e Violeta.<br><br>
                 Corpo: Tuberosa, Mimosa, Gardênia, Ylang Ylang, Jasmim, Acácia branca ou falsa acácia, Cravo, Bagas vermelhas, Groselha Preta, Cássia, Rosa e Orquídea.<br><br>
-                Fundo: Sândalo, Notas Amadeiradas, Baunilha, Âmbar, Fava Tonka, Almíscar e Cedro.<br><br>
+                Fundo: Sândalo, Notas Amadeiradas, Baunilha, Âmbar, Fava Tonka, Almíscar e Cedro.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -844,27 +1077,38 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
-
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -891,26 +1135,38 @@ body{
                 Estação: Primavera.<br><br>
                 Ocasião: Dia.<br><br>
                 Atividade: Festa glamourosa.<br><br>
-                Sensações: Integração, comunicação.<br><br>
+                Sensações: Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -937,26 +1193,38 @@ body{
                 Estação: Verão.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -982,26 +1250,38 @@ body{
                 Estação: Outono / Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Cinema, Teatro, Festa, Encontro com amigos.<br><br>
-                Sensações: Concentração / Sensualidade, afetuosidade.<br><br>
+                Sensações: Concentração / Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1028,26 +1308,38 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1074,26 +1366,38 @@ body{
                 Estação: Outono / Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Cinema, Teatro, Festa, Encontro com amigos.<br><br>
-                Sensações: Concentração / Sensualidade, afetuosidade.<br><br>
+                Sensações: Concentração / Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1119,26 +1423,38 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1164,26 +1480,38 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1210,26 +1538,38 @@ body{
                 Estação: Primavera.<br><br>
                 Ocasião: Dia.<br><br>
                 Atividade: Festa glamourosa.<br><br>
-                Sensações: Integração, comunicação.<br><br>
+                Sensações: Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1256,26 +1596,38 @@ body{
                 Estação: Inverno / Primavera.<br><br>
                 Ocasião: Dia ou noite.<br><br>
                 Atividade: Festa glamourosa, encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade, Integração, comunicação.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1301,26 +1653,38 @@ body{
                 Estação: Inverno / Primavera.<br><br>
                 Ocasião: Dia ou noite.<br><br>
                 Atividade: Festa glamourosa, encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade, Integração, comunicação.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1347,26 +1711,38 @@ body{
                 Estação: Inverno / Outono.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro com amigos, cinema, teatro ou prática religiosa.<br><br>
-                Sensações: Sensualidade, afetuosidade / Concentração.<br><br>
+                Sensações: Sensualidade, afetuosidade / Concentração.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1393,26 +1769,38 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1438,26 +1826,38 @@ body{
                 Estação: Primavera.<br><br>
                 Ocasião: Dia.<br><br>
                 Atividade: Festa glamourosa.<br><br>
-                Sensações: Integração, comunicação.<br><br>
+                Sensações: Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1484,26 +1884,38 @@ body{
                 Estação: Outono / Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Sensualidade, afetuosidade / Concentração.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+   <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1530,26 +1942,38 @@ body{
                 Estação: Inverno / Primavera.<br><br>
                 Ocasião: Dia ou noite.<br><br>
                 Atividade: Festa glamourosa, encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade, Integração, comunicação.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1576,26 +2000,38 @@ body{
                 Estação: Inverno / Primavera.<br><br>
                 Ocasião: Dia ou noite.<br><br>
                 Atividade: Festa glamourosa, encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade, Integração, comunicação.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1622,26 +2058,38 @@ body{
                 Estação: Outono / Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Cinema, Teatro, Festa, Encontro com amigos.<br><br>
-                Sensações: Concentração, Sensualidade, afetuosidade.<br><br>
+                Sensações: Concentração, Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1668,26 +2116,38 @@ body{
                 Estação: Inverno / Primavera.<br><br>
                 Ocasião: Dia ou noite.<br><br>
                 Atividade: Festa glamourosa, encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade, Integração, comunicação.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1714,26 +2174,38 @@ body{
                 Estação: Primavera.<br><br>
                 Ocasião: Dia.<br><br>
                 Atividade: Festa glamourosa.<br><br>
-                Sensações: Integração, comunicação.<br><br>
+                Sensações: Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1760,26 +2232,38 @@ body{
                 Estação: Inverno / Outono.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro com amigos, cinema, teatro ou prática religiosa.<br><br>
-                Sensações: Sensualidade, afetuosidade / Concentração.<br><br>
+                Sensações: Sensualidade, afetuosidade / Concentração.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1806,26 +2290,38 @@ body{
                 Estação: Inverno / Primavera.<br><br>
                 Ocasião: Dia ou noite.<br><br>
                 Atividade: Festa glamourosa, encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade, Integração, comunicação.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1852,26 +2348,38 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1898,26 +2406,38 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro romântico.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+   <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section>
@@ -1944,26 +2464,38 @@ body{
                 Estação: Inverno / Primavera.<br><br>
                 Ocasião: Dia ou noite.<br><br>
                 Atividade: Festa glamourosa, encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade, Integração, comunicação.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
         </div>
     </div>
     </section><!--PERFUME 40 -->
@@ -1988,28 +2520,40 @@ body{
                 Estação: Inverno / Primavera.<br><br>
                 Ocasião: Dia ou noite.<br><br>
                 Atividade: Festa glamourosa, encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade, Integração, comunicação.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+   <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
                 </div>
             </div>
-
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
         </div>
-    </div>
     </section>
 
     </section><!--PERFUME 41 -->
@@ -2034,28 +2578,40 @@ body{
                 Estação: Primavera.<br><br>
                 Ocasião: Dia.<br><br>
                 Atividade: Festa glamourosa.<br><br>
-                Sensações: Integração, comunicação.<br><br>
+                Sensações: Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
                 </div>
             </div>
-
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
         </div>
-    </div>
     </section>
 
     </section><!--PERFUME 42 -->
@@ -2080,28 +2636,41 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
     </section><!--PERFUME 43 -->
@@ -2125,28 +2694,41 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro romântico.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
     </section><!--PERFUME 44 -->
@@ -2170,28 +2752,41 @@ body{
                 Estação: Inverno / Primavera.<br><br>
                 Ocasião: Dia ou noite.<br><br>
                 Atividade: Festa glamourosa, encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade, Integração, comunicação.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+   <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
     </section><!--PERFUME 45 -->
@@ -2216,28 +2811,41 @@ body{
                 Estação: Inverno / Primavera.<br><br>
                 Ocasião: Dia ou noite.<br><br>
                 Atividade: Festa glamourosa, encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade, Integração, comunicação.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
     </section><!--PERFUME 46 -->
@@ -2262,28 +2870,41 @@ body{
                 Estação: Primavera.<br><br>
                 Ocasião: Dia.<br><br>
                 Atividade: Festa glamourosa.<br><br>
-                Sensações: Integração, comunicação.<br><br>
+                Sensações: Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
     </section><!--PERFUME 47 -->
@@ -2308,28 +2929,41 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
     </section><!--PERFUME 48 -->
@@ -2354,28 +2988,41 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
     </section><!--PERFUME 49 -->
@@ -2400,28 +3047,41 @@ body{
                 Estação: Primavera.<br><br>
                 Ocasião: Dia.<br><br>
                 Atividade: Festa glamourosa.<br><br>
-                Sensações: Integração, comunicação.<br>
+                Sensações: Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
     </section><!--PERFUME 50 -->
@@ -2445,28 +3105,41 @@ body{
                 Estação: Inverno / Outono.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro com amigos, cinema, teatro ou <br>prática religiosa.<br><br>
-                Sensações: Sensualidade, afetuosidade / Concentração.<br>
+                Sensações: Sensualidade, afetuosidade / Concentração.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
      </section><!--PERFUME 51 -->
@@ -2491,28 +3164,41 @@ body{
                 Estação: Primavera.<br><br>
                 Ocasião: Dia.<br><br>
                 Atividade: Festa glamourosa.<br><br>
-                Sensações: Integração, comunicação.<br><br>
+                Sensações: Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
      </section><!--PERFUME 52 -->
@@ -2537,28 +3223,41 @@ body{
                 Estação: Primavera.<br><br>
                 Ocasião: Dia.<br><br>
                 Atividade: Festa glamourosa.<br><br>
-                Sensações: Integração, comunicação.<br><br>
+                Sensações: Integração, comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
      </section><!--PERFUME 53 -->
@@ -2583,28 +3282,41 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
      </section><!--PERFUME 54 -->
@@ -2629,28 +3341,41 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
                 Atividade: Encontro romântico.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+   <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
      </section><!--PERFUME 55 -->
@@ -2675,28 +3400,41 @@ body{
                 Estação: Inverno.<br><br>
                 Ocasião: Dia e noite.<br><br>
                 Atividade: Encontro Amoroso.<br><br>
-                Sensações: Sensualidade, afetuosidade.<br><br>
+                Sensações: Sensualidade, afetuosidade.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
      </section><!--PERFUME 56 -->
@@ -2720,30 +3458,59 @@ body{
                 Indicações:<br>
                 Estação: Inverno.<br><br>
                 Ocasião: Noite.<br><br>
-                Atividade: Encontro Amoroso.<br><br>
-                Sensações: Concentração / Integração, Comunicação.<br><br>
+                Atividade: Encontro Amoroso.<br>
+                Sensações: Concentração / Integração, Comunicação.
             </div>
             
-    <!-- QUANTIDADE -->
-            <div class="quantidade-box">
-                <span>Quantidade:</span>
-                <div class="controles">
-                    <button class="btn-qtd">−</button>
-                    <span>1</span>
-                    <button class="btn-qtd">+</button>
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
                 </div>
-            </div>
 
-            <!-- BOTÕES -->
-            <button class="btn carrinho">
-                Adicionar ao Carrinho
-            </button>
-            <button class="btn comprar">
-                Comprar Agora
-            </button>
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 
-</body>
+        <script>
+            let quantidade = 1;
+
+            function aumentar(){
+                quantidade++;
+                document.getElementById("qtd").textContent = quantidade;
+            }
+
+            function diminuir(){
+                if(quantidade > 1){
+                    quantidade--;
+                    document.getElementById("qtd").textContent = quantidade;
+                }
+            }
+        </script>
+
+    </body>
 </html>
