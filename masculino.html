@@ -1,26 +1,3533 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Amakha Paris - Perfumes 15ml</title>
+<title>Amakha Paris - Masculino</title>
 
-    <!-- GOOGLE FONTS -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- SWIPER -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    font-family:'Poppins', sans-serif;
+    color:#fff;
+}
+
+/* TOPO */
+.hero{
+    width:100%;
+    min-height:100vh;
+
+    background-image:url("img/produto_telamaior.png");
+    background-size:contain;
+    background-position:center top;
+    background-repeat:no-repeat;
+    background-color:#000;
+
+    padding-top:180px;
+    padding-bottom:40px;
+    padding-left:20px;
+    padding-right:20px;    
+
+    display:flex;
+    justify-content:center;
+}
+
+.divisor{
+    width:95%;
+    height:1px;
+
+    background:#fff;
+
+    margin:5px auto 0 auto;
+
+    opacity:0.7;
+}
+
+/* CONTAINER */
+.container{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+}
+
+/* CARD PERFUME */
+.card{
+    background:transparent;
+    border-radius:10px;
+    margin-bottom:50px;
+    overflow:hidden;
+}
+
+/* IMAGEM */
+.card img{
+    width:100%;
+    display:block;
+    border-radius:10px;
+}
+
+/* NOME */
+.nome{
+    text-align:center;
+    font-size:35px;
+    font-weight:700;
+    margin:25px 0 20px;
+}
+
+/* TEXOS */
+.descricao{
+    text-align:center;
+    line-height:1.8;
+    font-size:15px;
+    color:#ddd;
+    margin-bottom:25px;
+}
+
+/* ÁREA DE COMPRA */
+.area-compra{
+    width:100%;
+    max-width:500px;
+    margin:25px auto 0;
+}
+
+/* PREÇOS */
+.precos{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end; /* joga os preços para a direita */
+    text-align:right;
+    margin-bottom:12px;
+}
+
+.preco-antigo{
+    color:#aaa;
+    font-size:14px;
+    text-decoration:line-through;
+    margin-bottom:4px;
+}
+
+.preco-atual{
+    color:#19b394;
+    font-size:24px;
+    font-weight:700;
+}
+
+/* LINHA */
+.linha{
+    width:100%;
+    height:1px;
+    background:#444;
+    margin:12px 0 18px;
+}
+
+/* TÍTULO QUANTIDADE */
+.quantidade-titulo{
+    color:#fff;
+    font-size:14px;
+    text-align:left;
+    margin-bottom:5px;
+}
+
+/* CONTROLE DE QUANTIDADE */
+.quantidade{
+    width:100%;
+    height:42px;
+    background:#fff;
+    border:1px solid #ccc;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:10px;
+}
+
+.quantidade button{
+    width:50px;
+    height:100%;
+    border:none;
+    background:transparent;
+    color:#666;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.quantidade span{
+    color:#222;
+    font-size:16px;
+}
+
+/* BOTÕES */
+.btn{
+    width:100%;
+    min-height:48px;
+    border:none;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    margin-bottom:10px;
+    transition:0.3s;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* ADICIONAR AO CARRINHO */
+.carrinho{
+    background:linear-gradient(to bottom, #666, #292929);
+    color:#fff;
+}
+
+.carrinho:hover{
+    background:#222;
+}
+
+/* COMPRAR AGORA */
+.comprar{
+    background:transparent;
+    color:#d28a4a;
+    border:1px solid #d28a4a;
+}
+
+.comprar:hover{
+    background:#d28a4a;
+    color:#fff;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+
+    .hero{
+        background-image:url("img/produto_telamenor.png");
+
+        background-size:contain;
+        background-position:center top;
+        background-repeat:no-repeat;
+        background-color:#000;
+
+        padding-top:120px;
+        padding-left:15px;
+        padding-right:15px;
+        padding-bottom:30px;
+    }
+
+    .container{
+        max-width:100%;
+    }
+
+    .nome{
+        font-size:28px;
+    }
+
+    .descricao{
+        font-size:14px;
+    }
+
+    .btn{
+        font-size:15px;
+    }
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="container">
+<!-- PERFUME 1 -->
+ 
+<section class="hero">
+    
+    <div class="card">
+        <div class="container">
+            <img src="img/masculino/Masculino 1.png">
+            <div class="nome">
+                Provoque Parfum
+            </div>
 
-    <!-- LOGO -->
-    <img src="img/logo.png" alt="Amakha Paris" class="logo">
+            <div class="descricao">
+                Família olfativa: Ambarado Amadeirado.<br>
+                Topo: Citrus, Bergamota, Grapefruit.<br>
+                Corpo: Gardênia, Lírio do Vale, Rosas.<br><br>
+                Fundo: Cedro, Âmbar, Almíscar, Sândalo, 
+                Bálsamo, Fava Tonka, Musgo, Baunilha, Caramelo<br><br>
+                Perfil: Impactante, resistível e memorável<br>
+                Sensações: Presença e conquista.
+            </div>
 
-    <!-- BOTÕES -->
-    <a href="feminino.html" class="btn">FEMININO</a>
-    <a href="masculino.html" class="btn">MASCULINO</a>
+            <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
 
-</div>
+                <div class="linha"></div>
 
-</body>
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+</section>
+
+    <!--PERFUME 2 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/masculino/Masculino 2.png">
+            <div class="nome">
+                Hasan Black Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Amadeirado aromático.<br>
+                Topo: maçã verde, lavanda, gengibre.<br>
+                Corpo: gerânio, zimbro, sálvia.<br>
+                Fundo: fava tonka, cedro, vetiver, musk.<br>
+                Perfil: Confiante.<br><br>
+                Indicações:<br>
+                Estação: Outono/Inverno<br>
+                Ocasião: Noite<br>
+                Atividade: Elegante<br>
+                Sensações: Confiança
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 3 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/masculino/Masculino 3.png">
+            <div class="nome">
+                Malik Nuit Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Amadeirado Especiado.<br>
+                Topo: Limão, Abacaxi, Bergamota, Groselha Preta, Maçã.<br>
+                Coração: Vidoeiro, Jasmim, Rosa<br>
+                Fundo: Almíscar, Âmbar Cinzento, Patchouli, Baunilha.<br>
+                Perfil: Confiante, detalhista.<br><br>
+                Indicações:<br>
+                Estação: todas as estações<br>
+                Ocasião: Dia e Noite<br>
+                Atividade: Elegância, eventos sociais<br>
+                Sensação: Presença marcante e confiança total.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 4 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/masculino/Masculino 4.png">
+            <div class="nome">
+                Asadiyy Parfum 
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Ambarado Amadeirado.<br>
+                Topo: Pimenta Preta, Bergamota Itália, Cravo Botão, Grapefruit.<br>
+                Corpo: Noz Moscada, Canela, Cedro.<br>
+                Fundo: Patchouli, Musgo, Vetiver Haiti.<br>
+                Perfil: Confiante e conquistador.<br><br>
+                Indicações:<br>
+                Estação: Primavera/Outono<br>
+                Ocasião: Noite<br>
+                Atividade: Sedução, Elegância.<br>
+                Sensações: Conquistador, confiante
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 5 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/masculino/Masculino 5.png">
+            <div class="nome">
+                Fortune Lucky Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Ambarado Gourmand.<br>
+                Topo: Ameixa, toranja, bergamota.<br>
+                Corpo: Mel, avelã, flor de laranjeira, jasmim.<br>
+                Fundo: Âmbar dourado e notas amadeiradas.<br>
+                Perfil: Independente, confiante, com atitude.<br><br>
+                Indicações:<br>
+                Estação: Primavera/Outono.<br>
+                Ocasião: Noite.<br>
+                Atividade: Cinema, teatro, encontros amorosos.<br>
+                Sensações: Confiança, segurança.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 6 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 6.png">
+            <div class="nome">
+                Mystère Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Amadeirado.<br>
+                Notas: Tuberosa, Flor de Laranjeira e Jasmim e Sândalo.<br><br>
+                Topo: Pera e Bergamota.<br><br>
+                Fundo: Patchouli, Baunilha, Ambroxan e Vetiver.<br><br>
+                Perfil: Enigmática e Misteriosa.<br><br>
+                Ocasião: Noite.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 7 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino  7.png">
+            <div class="nome">
+                Change Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Chipre Floral.<br>
+                Notas: Rosa e Jasmim.<br><br>
+                Topo: Pera, Bergamota e Pimenta Rosa.<br><br>
+                Fundo: Almíscar Branco, Baunilha, Patchouli, Cedro.<br><br>
+                Perfil: Confiante e Comunicativo.<br><br>
+                Ocasião: Dia.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 8 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino  8.png">
+            <div class="nome">
+                Liberté Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Fougère Ambarado.<br>
+                Notas: Lavanda, Flor de Laranjeira, Jasmim.<br><br>
+                Topo: Lavanda, Mandarina, Groselha Preta, Petitgrain.<br><br>
+                Fundo: Baunilha de Madagascar, Almíscar, Cedro, Âmbar.<br><br>
+                Perfil: Confiante e Independente.<br><br>
+                Ocasião: Dia e Noite.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+     <!--PERFUME 9 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino  9.png">
+            <div class="nome">
+                Famous for Her Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Amadeirado.<br>
+                Notas: Jasmim e Notas Metálicas.<br><br>
+                Topo: Manga e Bergamota.<br><br>
+                Fundo: Baunilha, Sândalo e Olíbano.<br><br>
+                Perfil: Antenado e Sofisticado.<br><br>
+                Ocasião: Noite.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+     <!--PERFUME 10 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 10.png">
+            <div class="nome">
+                521 Young for Her Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutado.<br>
+                Notas: Flor de Laranjeira e Jasmim.<br><br>
+                Topo: Framboesa e Tangerina.<br><br>
+                Fundo: Sândalo e Cedro.<br><br>
+                Perfil: Confiante.<br><br>
+                Ocasião: Dia.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 11 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 11.png">
+            <div class="nome">
+                Intense Girl Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutado.<br>
+                Notas: Rosa Vermelha.<br><br>
+                Topo: Lichia e Groselha.<br><br>
+                Fundo: Baunilha e Vetiver.<br><br>
+                Perfil: Comunicativo.<br><br>
+                Ocasião: Dia.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 12 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 51.png">
+            <div class="nome">
+                Classic Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Notas: Ylang Ylang, Gengibre, Orquídea, Íris, Tuberosa e Ameixa.<br>
+                Topo: Flor de Laranjeira, Anis Estrelado, Rosa, Mandarina, Pera e Bergamota.<br>
+                Fundo: Baunilha, Âmbar, Almíscar, Canela e Sândalo.<br>
+                Perfil: Amável.<br>
+                Ocasião: Noite.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 13 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 12.png">
+            <div class="nome">
+                Love Parfum 
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutal.<br>
+                Notas: Rosa, Damasco, Jasmim, Lírio e Lírio-do-Vale.<br><br>
+                Topo: Groselha Preta, Laranja, Mandarina, Toranja, Cássia e Bergamota.<br><br>
+                Fundo: Baunilha, Fava Tonka, Almíscar, Âmbar e Cedro da Virgínia.<br><br>
+                Perfil: Comunicativo.<br><br>
+                Ocasião: Dia.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 14 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 13.png">
+            <div class="nome">
+                Anjos Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Notas: Lírio, Ylang Ylang e Orquídea.<br><br>
+                Topo:  Açafrão, Tomilho e Mandarina.<br><br>
+                Fundo: Sensualidade, afetuosidade.<br><br>
+                Perfil: Amável.<br><br>
+                Ocasião: Noite.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 15 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 14.png">
+            <div class="nome">
+                Clássica Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral.<br>
+                Topo: Flor de Laranjeira, Pêssego, Ameixa, Néroli, Pau-Rosa, Mandarina e Violeta.<br><br>
+                Corpo: Tuberosa, Mimosa, Gardênia, Ylang Ylang, Jasmim, Acácia branca ou falsa acácia, Cravo, Bagas vermelhas, Groselha Preta, Cássia, Rosa e Orquídea.<br><br>
+                Fundo: Sândalo, Notas Amadeiradas, Baunilha, Âmbar, Fava Tonka, Almíscar e Cedro.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 16 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 15.png">
+            <div class="nome">
+                Emoções Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Perfil:Amável.<br><br>
+                Topo: Pêssego, Lichia, Mandarina e Bergamota.<br><br>
+                Corpo: Lírio, Ameixa, Jasmim e Lírio-do-Vale.<br><br>
+                Fundo: Baunilha, Âmbar, Almíscar e Vetiver.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 17 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 16.png">
+            <div class="nome">
+                Queen Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutal.<br>
+                Perfil: Comunicativo.<br><br>
+                Topo: Morango, Groselha Preta e Lima.<br><br>
+                Corpo: Ylang Ylang, Jasmim e Lírio-do-Vale.<br><br>
+                Fundo: Musgo de Carvalho e Opoponax.<br><br>
+                Indicações:<br>
+                Estação: Primavera.<br><br>
+                Ocasião: Dia.<br><br>
+                Atividade: Festa glamourosa.<br><br>
+                Sensações: Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 18 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 17.png">
+            <div class="nome">
+                Summer Flowers Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Perfil: Amável.<br><br>
+                Topo: Rosa Búlgara, Espinheiro branco, Groselha Preta e Mandarina.<br><br>
+                Corpo: Violeta de Parma, Rosa, Opoponax e Jasmim Baunilha, Almíscar.<br><br>
+                Fundo: Branco e Incenso.<br><br>
+                Indicações:<br>
+                Estação: Verão.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 19 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 18.png">
+            <div class="nome">
+                Voluptuous Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Chipre Frutal.<br>
+                Topo: Cassis ou groselha.<br>
+                Corpo: Rosa de Maio e Frésia.<br><br>
+                Fundo:<br> Baunilha, Patchouli ou Oriza, Ambroxan e Notas Amadeiradas.<br><br>
+                Indicações:<br>
+                Estação: Outono / Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Cinema, Teatro, Festa, Encontro com amigos.<br><br>
+                Sensações: Concentração / Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 20 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 19.png">
+            <div class="nome">
+                Be You Parfum 
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Perfil: Amável.<br><br>
+                Topo: Framboesa, Mandarina, Limão e Bergamota.<br><br>
+                Corpo: Gardênia, Flor de Gengibre, Âmbar, Jasmim, Rosa e Flor de Laranjeira.<br><br>
+                Fundo: Leite, Caramelo, Baunilha, Cardamomo, Alcaçuz, Cumarina, Benjoim, Madeira de Âmbar e Sândalo.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 20 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 20.png">
+            <div class="nome">
+                Escandalosa Parfum 
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Chipre Floral.<br>
+                Perfil: Detalhista e comunicativo.<br>
+                Topo: Laranja Sanguínea e Mandarina.<br><br>
+                Corpo: Mel , Gardênia, Flor de Laranjeira, Jasmim e Pêssego.<br><br>
+                Fundo: Cera de Abelha, Caramelo, Patchouli ou Oriza e Alcaçuz.<br><br>
+                Indicações:<br>
+                Estação: Outono / Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Cinema, Teatro, Festa, Encontro com amigos.<br><br>
+                Sensações: Concentração / Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 21 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 21.png">
+            <div class="nome">
+                Euphoric Parfum 
+            </div>
+
+            <div class="descricao">
+                Família olfativa: loral Ambarado.<br>
+                Topo: Romã, Caqui e Acorde Verde.<br><br>
+                Corpo: Orquídea Negra, Lótus e Champaca.<br><br>
+                Fundo: Mogno, Âmbar, Violeta Negra e Chantilly.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 22 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 22.png">
+            <div class="nome">
+                Green Apple Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutal.<br>
+                Topo: Pepino, Toranja e Magnólia.<br><br>
+                Corpo: Maçã Verde, Lírio-do-Vale, Tuberosa, Violeta e Rosa.<br><br>
+                Fundo: Notas Amadeiradas, Sândalo e Âmba.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 23 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 23.png">
+            <div class="nome">
+                Joy Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutal.<br>
+                Topo: Sal Marinho.<br>
+                Corpo: Jasmim Sambac, Ylang Ylang, Néroli e Tuberosa.<br><br>
+                Fundo: Pêssego.<br><br>
+                Perfil: Comunicativo.<br><br>
+                Indicações:<br>
+                Estação: Primavera.<br><br>
+                Ocasião: Dia.<br><br>
+                Atividade: Festa glamourosa.<br><br>
+                Sensações: Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 24 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 24.png">
+            <div class="nome">
+                World Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral.<br>
+                Topo: Frutas Vermelhas.<br>
+                Corpo: Peônia, Notas Florais e Jasmim.<br><br>
+                Fundo: Ambroxan.<br><br>
+                Perfil: Comunicativo e amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Primavera.<br><br>
+                Ocasião: Dia ou noite.<br><br>
+                Atividade: Festa glamourosa, encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 25 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 25.png">
+            <div class="nome">
+                Happiness Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral.<br>
+                Topo: Gengibre e Laranja Amarga.<br>
+                Corpo: Jasmim Sambac, Flor de Laranjeira e Rosa.<br><br>
+                Fundo: Mel, Âmbar, Caramelo, Baunilha, Sândalo e Madeira de Cashmere.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Primavera.<br><br>
+                Ocasião: Dia ou noite.<br><br>
+                Atividade: Festa glamourosa, encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 26 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 52.png">
+            <div class="nome">
+                All Sexes Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Amadeirado.<br>
+                Topo: Lavanda, Notas Verdes, Bergamota, Hortelã, Junípero ou zimbro e Mandarina.<br>
+                Corpo: Grama verde, Pêssego, Jasmim, Frésia, Magnólia e Orquídea.<br><br>
+                Fundo: Almíscar, Sândalo, Cedro, Baunilha, Âmbar e Opoponax.<br><br>
+                Perfil: Comunicativo e detalhista.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Outono.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro com amigos, cinema, teatro ou prática religiosa.<br><br>
+                Sensações: Sensualidade, afetuosidade / Concentração.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 27 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 26.png">
+            <div class="nome">
+                Felina Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Topo: Folhas de Ruibarbo e Bergamota.<br><br>
+                Corpo: Notas Verdes, Flor de Laranjeira, Ylang Ylang e Pera.<br><br>
+                Fundo: Baunilha de Bourbon, Notas Amadeiradas, Madeira de Âmbar, Sândalo e Cumarina.<br><br>
+                Perfil: Amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 28 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 56.png">
+            <div class="nome">
+                Delice Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutal.<br>
+                Topo: Pêssego, Mandarina e Laranja.<br><br>
+                Corpo: Caramelo, Flor de Laranjeira e Jasmim.<br><br>
+                Fundo: Âmbar, Sândalo, Madeira Guaiac e Cedro.<br><br>
+                Indicações:<br>
+                Estação: Primavera.<br><br>
+                Ocasião: Dia.<br><br>
+                Atividade: Festa glamourosa.<br><br>
+                Sensações: Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 29 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 27.png">
+            <div class="nome">
+                Alen Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Ambarado Amadeirado.<br>
+                Topo: Jasmim.<br>
+                Corpo: Notas Amadeiradas.<br><br>
+                Fundo: Âmbar.<br><br>
+                Perfil: Amável e detalhista.<br><br>
+                Indicações:<br>
+                Estação: Outono / Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Sensualidade, afetuosidade / Concentração.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+   <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 30 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 53.png">
+            <div class="nome">
+                Attractive Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral.<br>
+                Topo: Jacinto, Gálbano e Flor de Laranjeira.<br>
+                Corpo: Lírio, Jasmim e Rosa.<br><br>
+                Fundo: a Incenso, Sândalo, Âmbar e Cedro.<br><br>
+                Perfil: Comunicativo e amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Primavera.<br><br>
+                Ocasião: Dia ou noite.<br><br>
+                Atividade: Festa glamourosa, encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 31 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 28.png">
+            <div class="nome">
+                Bouquet Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral.<br>
+                Topo: Jasmim.<br>
+                Corpo: Tuberosa.<br><br>
+                Fundo: Rastejador de Rangoon.<br><br>
+                Perfil: Comunicativo e amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Primavera.<br><br>
+                Ocasião: Dia ou noite.<br><br>
+                Atividade: Festa glamourosa, encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 32 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 54.png">
+            <div class="nome">
+                Miss Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Chipre Floral.<br>
+                Topo: Pimenta Rosa.<br>
+                Corpo: Jasmim e Íris Patchouli ou Oriza.<br><br>
+                Fundo: Patchouli ou Oriza Almíscar e Baunilha.<br><br>
+                Perfil: Detalhista e comunicativo.<br><br>
+                Indicações:<br>
+                Estação: Outono / Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Cinema, Teatro, Festa, Encontro com amigos.<br><br>
+                Sensações: Concentração, Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 33 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 55.png">
+            <div class="nome">
+                Wonderful Girl Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral.<br>
+                Topo: Bergamota.<br>
+                Corpo: Lírio Casablanca, Ylang Ylang e Flor de Laranjeira.<br><br>
+                Fundo: Sândalo, Baunilha do Tahiti e Âmbar.<br><br>
+                Perfil: Comunicativo e amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Primavera.<br><br>
+                Ocasião: Dia ou noite.<br><br>
+                Atividade: Festa glamourosa, encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 34 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 29.png">
+            <div class="nome">
+                Águas Marinhas Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Leve Aquático.<br>
+                Topo: Limão de Amalfi e Hortelã.<br>
+                Corpo: Jasmim, Peônia e Pimenta Ros.<br><br>
+                Fundo: Cedro da Virgínia, Ládano francês e Açúcar mascavo.<br><br>
+                Perfil: Comunicativa.<br><br>
+                Indicações:<br>
+                Estação: Primavera.<br><br>
+                Ocasião: Dia.<br><br>
+                Atividade: Festa glamourosa.<br><br>
+                Sensações: Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 35 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 57.png">
+            <div class="nome">
+                Night´s Lady Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Amadeirado.<br>
+                Topo: Oxicoco, Pimenta Rosa e Tamarindo.<br>
+                Corpo: Cacau, Rosa e Violeta Negra.<br><br>
+                Fundo: Baunilha, Patchouli ou Oriza e Madeira de Massoia.<br><br>
+                Perfil: Comunicativo e detalhista.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Outono.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro com amigos, cinema, teatro ou prática religiosa.<br><br>
+                Sensações: Sensualidade, afetuosidade / Concentração.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 36 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 30.png">
+            <div class="nome">
+                Clô Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral.<br>
+                Topo: Peônia, Lichia e Frésia.<br>
+                Corpo: Rosa, Lírio-do-Vale e Magnólia.<br><br>
+                Fundo: Cedro da Virgínia e Âmbar.<br><br>
+                Perfil: Comunicativo e amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Primavera.<br><br>
+                Ocasião: Dia ou noite.<br><br>
+                Atividade: Festa glamourosa, encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 37 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 31.png">
+            <div class="nome">
+                Chic Woman Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Topo: Laranja, Mandarina, Bergamota e Flor de Laranjeir.<br>
+                Corpo: Rosa Turca, Jasmim, Mimosa e Ylang Ylang.<br><br>
+                Fundo: Patchouli ou Oriza, Almíscar Branco, Baunilha, Vetiver, Fava Tonka e Opoponax.<br><br>
+                Perfil: Amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 38 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 33.png">
+            <div class="nome">
+                Angelina Parfum 
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Ambarado Gourmand.<br>
+                Topo: Algodão-doce, Coco, Cassis ou groselha, Melão, Jasmim, Bergamota, Abacaxi e Mandarina.<br><br>
+                Corpo: Mel, Bagas vermelhas, Amora, Ameixa, Damasco, Pêssego, Jasmim, Orquídea, Alcarávia, Noz-moscada, Rosa e Lírio-do-Vale.<br><br>
+                Fundo: Patchouli ou Oriza, Chocolate, Caramelo, Baunilha, Fava Tonka, Âmbar, Almíscar e Sândalo.<br><br>
+                Perfil: Amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro romântico.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+   <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!--PERFUME 39 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 32.png">
+            <div class="nome">
+                L'Eternite Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral.<br>
+                Topo: Notas Verdes, Frésia, Sálvia, Cítricos e Mandarina C.<br>
+                Corpo: Cravo, Lírio, Lírio-do-Vale, Narciso, Cravo-de-Defunto, Violeta, Rosa e Jasmim.<br><br>
+                Fundo: Heliotrópio, Almíscar, Sândalo, Âmbar e Patchouli ou Oriza.<br><br>
+                Perfil: Independente.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Primavera.<br><br>
+                Ocasião: Dia ou noite.<br><br>
+                Atividade: Festa glamourosa, encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+        </div>
+    </div>
+    </section><!--PERFUME 40 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 34.png">
+            <div class="nome">
+                Nº5 Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Aldéidico.<br>
+                Topo: Ylang Ylang, Néroli, Bergamota e Pêssego.<br>
+                Corpo: Ìris, Jasmim, Rosa e Lírio-do-Vale.<br><br>
+                Fundo: Sândalo, Baunilha, Musgo de Carvalho, Vetiver e Patchouli ou Oriza.<br><br>
+                Perfil: Comunicativo e amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Primavera.<br><br>
+                Ocasião: Dia ou noite.<br><br>
+                Atividade: Festa glamourosa, encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
+            </div>
+            
+   <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </section><!--PERFUME 41 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 35.png">
+            <div class="nome">
+                521 Vip Rosé Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutal.<br>
+                Topo: Champanhe e Notas Frutadas.<br>
+                Corpo: Flor de Pêssego.<br><br>
+                Fundo: Almíscar Branco, Notas Amadeiradas e Âmbar.<br><br>
+                Perfil: Comunicativo.<br><br>
+                Indicações:<br>
+                Estação: Primavera.<br><br>
+                Ocasião: Dia.<br><br>
+                Atividade: Festa glamourosa.<br><br>
+                Sensações: Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </section><!--PERFUME 42 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 42.png">
+            <div class="nome">
+                AK Woman Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Topo: Fruta tropical, Bergamota, Limão de Amalfi, Toranja e Notas Aquáticas.<br>
+                Corpo: Pralinê, Canela, Flor de Laranjeira Africana, Jasmim e Tintura de Rosa.<br><br>
+                Fundo: Camurça, Patchouli ou Oriza, Madeira de Cashmere, Sândalo, Almíscar, Âmbar e Cedro da Virgínia.<br><br>
+                Perfil: Amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section><!--PERFUME 43 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 36.png">
+            <div class="nome">
+                Hypnotize Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Ambarado Gourmand.<br>
+                Topo: Flor de Maracujá.<br>
+                Corpo: Jasmim e Gardênia.<br>
+                Fundo: Baunilha e Vetiver.<br><br>            
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro romântico.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section><!--PERFUME 44 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 37.png">
+            <div class="nome">
+                Elegance Parfum 
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Aldéidico.<br>
+                Topo: Aldeídos, Manjericão, Cítricos, Hera, Mandarina, Frésia e Bergamota.<br><br>
+                Corpo: Cravo, Cravo-de-Defunto, Coentro, Flor de Laranjeira, Lírio, Jasmim, Rosa Búlgara e Lírio-do-Vale.<br><br>
+                Fundo: Sândalo, Baunilha, Almíscar e Fava Tonka.<br><br>         
+                Indicações:<br>
+                Estação: Inverno / Primavera.<br><br>
+                Ocasião: Dia ou noite.<br><br>
+                Atividade: Festa glamourosa, encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
+            </div>
+            
+   <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section><!--PERFUME 45 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 38.png">
+            <div class="nome">
+                Exclusive Code Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral.<br>
+                Topo: Laranja Italiana, Jasmim e Laranja Amarga.<br>
+                Corpo: Jasmim, Flor de Laranjeira e Gengibre.<br>
+                Fundo: Mel, Baunilha e Sândalo.<br>
+                Perfil: Comunicativo e amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno / Primavera.<br><br>
+                Ocasião: Dia ou noite.<br><br>
+                Atividade: Festa glamourosa, encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade, Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section><!--PERFUME 46 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 39.png">
+            <div class="nome">
+                521 Woman Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutal.<br>
+                Topo: Flor de Laranjeira, Mandarina, Bergamota e Toranja Rosa.<br>
+                Corpo: Gardênia, Camélia, Lírio-do-Vale e Íris.<br><br>
+                Fundo: Almíscar Branco e Sândalo.<br><br>
+                Perfil: Comunicativo.<br><br>
+                Indicações:<br>
+                Estação: Primavera.<br><br>
+                Ocasião: Dia.<br><br>
+                Atividade: Festa glamourosa.<br><br>
+                Sensações: Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section><!--PERFUME 47 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 40.png">
+            <div class="nome">
+                521 Vip Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Gourmand.<br>
+                Topo: Rum e Maracujá.<br>
+                Corpo: Gardênia e Almíscar.<br>
+                Fundo: Baunilha e Fava Tonka.<br>
+                Perfil: Comunicativo e amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section><!--PERFUME 48 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 41.png">
+            <div class="nome">
+                521 Sexy Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Topo: Pimenta Rosa, Mandarina e Bergamota.<br>
+                Corpo: Algodão-doce, Gardênia, Flores, Pelargonium e Rosa.<br><br>
+                Fundo: Baunilha, Almíscar, Sândalo, Caramelo, Patchouli ou Oriza e Violeta.<br><br>
+                Perfil: Amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section><!--PERFUME 49 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 43.png">
+            <div class="nome">
+                Elegance Light Blue Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutal.<br>
+                Topo: Limão Siciliano, Maçã,Cedro e Câmpanula.<br><br>
+                Corpo: Bambú, Jasmim e Rosa Branca.<br><br>
+                Fundo: Cedro, Almíscar e Âmbar.<br><br>
+                Perfil: Comunicativo.<br><br>
+                Indicações:<br>
+                Estação: Primavera.<br><br>
+                Ocasião: Dia.<br><br>
+                Atividade: Festa glamourosa.<br><br>
+                Sensações: Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section><!--PERFUME 50 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 44.png">
+            <div class="nome">
+                Gabriela Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Amadeirado.<br>
+                Topo: Aldeídos, Notas Frutadas, Bergamota,<br> Mandarina e Limão.<br><br>
+                Corpo: Jasmim, Madressilva, Flor de Laranjeira,<br> Heliotrópio, Lírio-do-Vale e Rosa.<br><br>
+                Fundo: Baunilha, Âmbar, Fava Tonka,<br> Sândalo, Almíscar,<br> Musgo de Carvalho e Patchouli ou Oriza.<br><br>            
+                Indicações:<br>
+                Estação: Inverno / Outono.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro com amigos, cinema, teatro ou <br>prática religiosa.<br><br>
+                Sensações: Sensualidade, afetuosidade / Concentração.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+     </section><!--PERFUME 51 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 45.png">
+            <div class="nome">
+                Je t'aime Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutal.<br>
+                Topo: Pera, Melão, Magnólia, Pêssego, Mandarina e Bergamota.<br><br>
+                Corpo: Jasmim, Lírio-do-Vale, Tuberosa,<br> Frésia, Rosa, Orquídea,<br> Ameixa e Violeta.<br><br>
+                Fundo: Almíscar, Baunilha, Amora e Cedro.<br><br>
+                Perfil: Comunicativo.<br><br>
+                Indicações:<br>
+                Estação: Primavera.<br><br>
+                Ocasião: Dia.<br><br>
+                Atividade: Festa glamourosa.<br><br>
+                Sensações: Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+     </section><!--PERFUME 52 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 46.png">
+            <div class="nome">
+                Lady Money Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Frutal.<br>
+                Topo: Framboesa, Néroli e Limão de Amalfi.<br><br>
+                Corpo: Jasmim, Flor de Laranjeira Africana e Gardênia.<br><br>
+                Fundo: Mel branco, Patchouli ou Oriza e Âmbar.<br><br>
+                Perfil: Comunicativo.<br><br>
+                Indicações:<br>
+                Estação: Primavera.<br><br>
+                Ocasião: Dia.<br><br>
+                Atividade: Festa glamourosa.<br><br>
+                Sensações: Integração, comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+     </section><!--PERFUME 53 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 47.png">
+            <div class="nome">
+                GD Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Topo: Amêndoa, Café, Bergamota e Limão.<br><br>
+                Corpo: Tuberosa, Jasmim Sambac, Flor de Laranjeira,<br> Raíz de Orris ou Lírio Florentino e Rosa Búlgara.<br><br>
+                Fundo: Fava Tonka, Cacau, Baunilha,<br> Pralinê, Sândalo, Âmbar, Almíscar,<br> Madeira de Cashmere, Canela,<br> Patchouli ou Oriza e Cedro.<br><br>
+                Perfil: Amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+     </section><!--PERFUME 54 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 48.png">
+            <div class="nome">
+                Luxuria Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Ambarado Gourmand.<br>
+                Topo: Pera, Tangerina e Bergamota.<br><br>
+                Corpo: Morango, Orquídea Baunilha, Rosa Negra e Maracujá.<br><br>
+                Fundo: Pralinê, Caramelo, Lichia, Baunilha, Patchouli ou Oriza, Incenso, Café, Alcaçuz, Cumarina e Papiro.<br><br>
+                Perfil: Amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro romântico.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+   <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+     </section><!--PERFUME 55 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 49.png">
+            <div class="nome">
+                Fantastic Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Gourmand.<br>
+                Topo: Kiwi, Lichia vermelha e Marmelo.<br><br>
+                Corpo: Chocolate branco, Cupcake, Orquídea.<br><br>
+                Fundo: Almíscar, Raíz de Orris ou Lírio Florentino e Notas Amadeiradas.<br><br>
+                Perfil: Comunicativo e Amável.<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Dia e noite.<br><br>
+                Atividade: Encontro Amoroso.<br><br>
+                Sensações: Sensualidade, afetuosidade.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+     </section><!--PERFUME 56 -->
+    <hr class="divisor">
+
+    <section class="hero">
+    
+        <div class="card">
+            <div class="container">
+            <img src="img/feminino/Feminino 50.png">
+            <div class="nome">
+                Athena Parfum
+            </div>
+
+            <div class="descricao">
+                Família olfativa: Floral Ambarado.<br>
+                Topo: Jasmim Aquático, Flor de Gengibre e Mandarina Verde.<br><br>
+                Corpo: Sal e Baunilha.<br><br>
+                Fundo: Âmbar Cinzento, Madeira de Cashmere e Sândalo.<br><br>
+                Perfil: Amável<br><br>
+                Indicações:<br>
+                Estação: Inverno.<br><br>
+                Ocasião: Noite.<br><br>
+                Atividade: Encontro Amoroso.<br>
+                Sensações: Concentração / Integração, Comunicação.
+            </div>
+            
+    <div class="area-compra">
+                <!-- PREÇOS -->
+                <div class="precos">
+                    <span class="preco-antigo">De: R$ 65,85</span>
+                    <span class="preco-atual">R$ 43,90</span>
+                </div>
+
+                <div class="linha"></div>
+
+                <!-- QUANTIDADE -->
+                <div class="quantidade-titulo">Quantidade:</div>
+
+                <div class="quantidade">
+                    <button type="button" onclick="diminuir()">−</button>
+
+                    <span id="qtd">1</span>
+
+                    <button type="button" onclick="aumentar()">+</button>
+                </div>
+
+                <!-- BOTÕES -->
+                <button class="btn carrinho">
+                    Adicionar ao Carrinho
+                </button>
+
+                <button class="btn comprar">
+                    Comprar Agora
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+        <script>
+            let quantidade = 1;
+
+            function aumentar(){
+                quantidade++;
+                document.getElementById("qtd").textContent = quantidade;
+            }
+
+            function diminuir(){
+                if(quantidade > 1){
+                    quantidade--;
+                    document.getElementById("qtd").textContent = quantidade;
+                }
+            }
+        </script>
+
+    </body>
 </html>
