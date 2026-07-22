@@ -691,8 +691,131 @@ const produtos = {
 // MASCULINO
 // ==========================
 
+ {
+        id: 101,
+        categoria: "masculino",
+        nome: "Provoque",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 1.png"
+        familia: "Ambarado Amadeirado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
 
+     {
+        id: 102,
+        categoria: "masculino",
+        nome: "Hasan Black",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 2.png"
+        familia: "Amadeirado aromático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
 
+         {
+        id: 103,
+        categoria: "masculino",
+        nome: "Malik Nuit",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 3.png"
+        familia: "Amadeirado Especiado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    
+         {
+        id: 104,
+        categoria: "masculino",
+        nome: "Asadiyy",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 4.png"
+        familia: "Ambarado Amadeirado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+    
+         {
+        id: 105,
+        categoria: "masculino",
+        nome: "Fortune Lucky",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 5.png"
+        familia: "Ambarado Gourmand",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    
+         {
+        id: 106,
+        categoria: "masculino",
+        nome: "AMK for Men",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 6.png"
+        familia: "Fougère Aromático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    
+         {
+        id: 107,
+        categoria: "masculino",
+        nome: "521 Vip Black",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 7.png"
+        familia: "Fougère Aromático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    
+         {
+        id: 108,
+        categoria: "masculino",
+        nome: "521 Sexy Men",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 8.png"
+        familia: "Ambarado Especiado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    
+         {
+        id: 109,
+        categoria: "masculino",
+        nome: "Malik Nuit",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 3.png"
+        familia: "Amadeirado Especiado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    
+         {
+        id: 110,
+        categoria: "masculino",
+        nome: "Malik Nuit",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 3.png"
+        familia: "Amadeirado Especiado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
 
 
 };
