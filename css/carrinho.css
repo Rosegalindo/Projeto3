@@ -1,0 +1,54 @@
+/* ==========================
+   CARRINHO FIXO
+========================== */
+
+.carrinho-fixo{
+    position:fixed;
+    top:25px;
+    right:25px;
+
+    width:60px;
+    height:60px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-decoration:none;
+
+    z-index:9999;
+}
+
+.carrinho-fixo img{
+    width:42px;
+}
+
+#contador-carrinho{
+
+    position:absolute;
+
+    top:-6px;
+    right:-5px;
+
+    width:24px;
+    height:24px;
+
+    background:#E53935;
+
+    color:#fff;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    box-shadow:0 0 8px rgba(0,0,0,.35);
+
+}
