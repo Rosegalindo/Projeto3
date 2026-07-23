@@ -148,6 +148,18 @@ const produtos = {
 },
 
 {
+    id: 58,
+    categoria: "feminino",
+    nome: "Glamour Sexy",
+    preco: 43.90,
+    imagem: "../img/feminino/Feminino 58.png",
+    familia: "Ambarado Gourmand",
+    volume: "15ml",
+    estoque: 50,
+    ativo: true
+},
+
+{
     id: 13,
     categoria: "feminino",
     nome: "Love",
@@ -795,10 +807,10 @@ const produtos = {
          {
         id: 109,
         categoria: "masculino",
-        nome: "Malik Nuit",
+        nome: "521 Young for Him",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 3.png"
-        familia: "Amadeirado Especiado",
+        imagem: "../img/masculino/Masculino 9.png"
+        familia: "Fougère Aromático",
         volume: "15ml",
         estoque: 50,
         ativo: true
@@ -808,14 +820,435 @@ const produtos = {
          {
         id: 110,
         categoria: "masculino",
-        nome: "Malik Nuit",
+        nome: "Famous for Him",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 3.png"
+        imagem: "../img/masculino/Masculino 10.png"
+        familia: "Amadeirado Aromático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+           {
+        id: 111,
+        categoria: "masculino",
+        nome: "Bad Man",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 11.png"
+        familia: "Ambarado Especiado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+               {
+        id: 112,
+        categoria: "masculino",
+        nome: "Blue",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 12.png"
+        familia: "Fougére Aromático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    
+
+    {
+        id: 113,
+        categoria: "masculino",
+        nome: "Black",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 13.png"
+        familia: "Amadeirado Aromático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+      {
+        id: 114,
+        categoria: "masculino",
+        nome: "Acqua",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 14.png"
+        familia: "Aromático Aquático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+          {
+        id: 115,
+        categoria: "masculino",
+        nome: "Insigne",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 45.png"
+        familia: "Amadeirado Especificado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+           {
+        id: 116,
+        categoria: "masculino",
+        nome: "Trust",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 15.png"
+        familia: "Chipre Frutal",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 117,
+        categoria: "masculino",
+        nome: "Brave",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 16.png"
+        familia: "Fougere Ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 118,
+        categoria: "masculino",
+        nome: "Challenge",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 17.png"
+        familia: "Fougere Cítrico",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 119,
+        categoria: "masculino",
+        nome: "Rock",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 18.png"
+        familia: "Fougere Ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 120,
+        categoria: "masculino",
+        nome: "Aphrodisiac",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 19.png"
+        familia: "Ambarado Amadeirado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 121,
+        categoria: "masculino",
+        nome: "Smell for Men",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 20.png"
+        familia: "Ambarado Amadeirado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 122,
+        categoria: "masculino",
+        nome: "Mister Tom",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 21.png"
+        familia: "Ambarado Amadeirado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 123,
+        categoria: "masculino",
+        nome: "Fire Men",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 22.png"
+        familia: "Fougere Ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 124,
+        categoria: "masculino",
+        nome: "Satisfaction",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 25.png"
+        familia: "Amadeirado Aromático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 125,
+        categoria: "masculino",
+        nome: "Tedd",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 24.png"
+        familia: "Amadeirado Especificado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 126,
+        categoria: "masculino",
+        nome: "Intense",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 26.png"
+        familia: "Ambarado Amadeirado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 127,
+        categoria: "masculino",
+        nome: "Bratt",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 27.png"
+        familia: "Amadeirado aromático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 128,
+        categoria: "masculino",
+        nome: "Allur",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 28.png"
+        familia: "Amadeirado Especificado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 129,
+        categoria: "masculino",
+        nome: "Jump Life",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 29.png"
+        familia: "Fougere Ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 130,
+        categoria: "masculino",
+        nome: "521 Men",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 30.png"
+        familia: "Amadeirado Floral",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 131,
+        categoria: "masculino",
+        nome: "Exclusive Code",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 31.png"
+        familia: "Fougere Ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 132,
+        categoria: "masculino",
+        nome: "Man",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 32.png"
+        familia: "Cítrico Aromático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 133,
+        categoria: "masculino",
+        nome: "AK Men",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 46.png"
+        familia: "Ambarado Especiado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+        {
+        id: 134,
+        categoria: "masculino",
+        nome: "Apolo",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 33.png"
+        familia: "Chipre Amadeirado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 135,
+        categoria: "masculino",
+        nome: "Radical Sports",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 34.png"
+        familia: "Amadeirado Especificado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 136,
+        categoria: "masculino",
+        nome: "Pole Sports",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 35.png"
+        familia: "Fougere Ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 137,
+        categoria: "masculino",
+        nome: "Korus",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 36.png"
+        familia: "Fougere Ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 138,
+        categoria: "masculino",
+        nome: "Animals",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 37.png"
+        familia: "Ambarado Especiado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 139,
+        categoria: "masculino",
+        nome: "Fast Car Black",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 38.png"
+        familia: "Fougere Ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 140,
+        categoria: "masculino",
+        nome: "L'Éternite",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 39.png"
+        familia: "Fougere Ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 141,
+        categoria: "masculino",
+        nome: "Strong Man",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 40.png"
+        familia: "Fougere Ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 142,
+        categoria: "masculino",
+        nome: "Silver",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 41.png"
+        familia: "Ambarado Amadeirado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 143,
+        categoria: "masculino",
+        nome: "521 Vip Men",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 42.png"
+        familia: "Amadeirado ambarado",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
+
+    {
+        id: 144,
+        categoria: "masculino",
+        nome: "Fortune",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 43.png"
         familia: "Amadeirado Especiado",
         volume: "15ml",
         estoque: 50,
         ativo: true
     },
 
+    {
+        id: 145,
+        categoria: "masculino",
+        nome: "Imortal",
+        preco: 43.90,
+        imagem: "../img/masculino/Masculino 44.png"
+        familia: "Amadeirado Aquático",
+        volume: "15ml",
+        estoque: 50,
+        ativo: true
+    },
 
 };
