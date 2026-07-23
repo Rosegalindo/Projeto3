@@ -1,4 +1,4 @@
-const produtos = {
+const produtos = [
    
 // ==========================
 // FEMININO
@@ -708,7 +708,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Provoque",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 1.png"
+        imagem: "../img/masculino/Masculino 1.png",
         familia: "Ambarado Amadeirado",
         volume: "15ml",
         estoque: 50,
@@ -720,7 +720,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Hasan Black",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 2.png"
+        imagem: "../img/masculino/Masculino 2.png",
         familia: "Amadeirado aromático",
         volume: "15ml",
         estoque: 50,
@@ -732,7 +732,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Malik Nuit",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 3.png"
+        imagem: "../img/masculino/Masculino 3.png",
         familia: "Amadeirado Especiado",
         volume: "15ml",
         estoque: 50,
@@ -745,7 +745,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Asadiyy",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 4.png"
+        imagem: "../img/masculino/Masculino 4.png",
         familia: "Ambarado Amadeirado",
         volume: "15ml",
         estoque: 50,
@@ -757,7 +757,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Fortune Lucky",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 5.png"
+        imagem: "../img/masculino/Masculino 5.png",
         familia: "Ambarado Gourmand",
         volume: "15ml",
         estoque: 50,
@@ -770,7 +770,7 @@ const produtos = {
         categoria: "masculino",
         nome: "AMK for Men",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 6.png"
+        imagem: "../img/masculino/Masculino 6.png",
         familia: "Fougère Aromático",
         volume: "15ml",
         estoque: 50,
@@ -783,7 +783,7 @@ const produtos = {
         categoria: "masculino",
         nome: "521 Vip Black",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 7.png"
+        imagem: "../img/masculino/Masculino 7.png",
         familia: "Fougère Aromático",
         volume: "15ml",
         estoque: 50,
@@ -796,7 +796,7 @@ const produtos = {
         categoria: "masculino",
         nome: "521 Sexy Men",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 8.png"
+        imagem: "../img/masculino/Masculino 8.png",
         familia: "Ambarado Especiado",
         volume: "15ml",
         estoque: 50,
@@ -809,7 +809,7 @@ const produtos = {
         categoria: "masculino",
         nome: "521 Young for Him",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 9.png"
+        imagem: "../img/masculino/Masculino 9.png",
         familia: "Fougère Aromático",
         volume: "15ml",
         estoque: 50,
@@ -822,7 +822,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Famous for Him",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 10.png"
+        imagem: "../img/masculino/Masculino 10.png",
         familia: "Amadeirado Aromático",
         volume: "15ml",
         estoque: 50,
@@ -834,7 +834,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Bad Man",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 11.png"
+        imagem: "../img/masculino/Masculino 11.png",
         familia: "Ambarado Especiado",
         volume: "15ml",
         estoque: 50,
@@ -846,7 +846,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Blue",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 12.png"
+        imagem: "../img/masculino/Masculino 12.png",
         familia: "Fougére Aromático",
         volume: "15ml",
         estoque: 50,
@@ -860,7 +860,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Black",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 13.png"
+        imagem: "../img/masculino/Masculino 13.png",
         familia: "Amadeirado Aromático",
         volume: "15ml",
         estoque: 50,
@@ -872,7 +872,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Acqua",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 14.png"
+        imagem: "../img/masculino/Masculino 14.png",
         familia: "Aromático Aquático",
         volume: "15ml",
         estoque: 50,
@@ -884,7 +884,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Insigne",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 45.png"
+        imagem: "../img/masculino/Masculino 45.png",
         familia: "Amadeirado Especificado",
         volume: "15ml",
         estoque: 50,
@@ -896,7 +896,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Trust",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 15.png"
+        imagem: "../img/masculino/Masculino 15.png",
         familia: "Chipre Frutal",
         volume: "15ml",
         estoque: 50,
@@ -908,7 +908,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Brave",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 16.png"
+        imagem: "../img/masculino/Masculino 16.png",
         familia: "Fougere Ambarado",
         volume: "15ml",
         estoque: 50,
@@ -920,7 +920,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Challenge",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 17.png"
+        imagem: "../img/masculino/Masculino 17.png",
         familia: "Fougere Cítrico",
         volume: "15ml",
         estoque: 50,
@@ -932,7 +932,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Rock",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 18.png"
+        imagem: "../img/masculino/Masculino 18.png",
         familia: "Fougere Ambarado",
         volume: "15ml",
         estoque: 50,
@@ -944,7 +944,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Aphrodisiac",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 19.png"
+        imagem: "../img/masculino/Masculino 19.png",
         familia: "Ambarado Amadeirado",
         volume: "15ml",
         estoque: 50,
@@ -956,7 +956,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Smell for Men",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 20.png"
+        imagem: "../img/masculino/Masculino 20.png",
         familia: "Ambarado Amadeirado",
         volume: "15ml",
         estoque: 50,
@@ -968,7 +968,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Mister Tom",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 21.png"
+        imagem: "../img/masculino/Masculino 21.png",
         familia: "Ambarado Amadeirado",
         volume: "15ml",
         estoque: 50,
@@ -980,7 +980,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Fire Men",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 22.png"
+        imagem: "../img/masculino/Masculino 22.png",
         familia: "Fougere Ambarado",
         volume: "15ml",
         estoque: 50,
@@ -992,7 +992,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Satisfaction",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 25.png"
+        imagem: "../img/masculino/Masculino 25.png",
         familia: "Amadeirado Aromático",
         volume: "15ml",
         estoque: 50,
@@ -1004,7 +1004,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Tedd",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 24.png"
+        imagem: "../img/masculino/Masculino 24.png",
         familia: "Amadeirado Especificado",
         volume: "15ml",
         estoque: 50,
@@ -1016,7 +1016,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Intense",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 26.png"
+        imagem: "../img/masculino/Masculino 26.png",
         familia: "Ambarado Amadeirado",
         volume: "15ml",
         estoque: 50,
@@ -1028,7 +1028,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Bratt",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 27.png"
+        imagem: "../img/masculino/Masculino 27.png",
         familia: "Amadeirado aromático",
         volume: "15ml",
         estoque: 50,
@@ -1040,7 +1040,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Allur",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 28.png"
+        imagem: "../img/masculino/Masculino 28.png",
         familia: "Amadeirado Especificado",
         volume: "15ml",
         estoque: 50,
@@ -1052,7 +1052,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Jump Life",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 29.png"
+        imagem: "../img/masculino/Masculino 29.png",
         familia: "Fougere Ambarado",
         volume: "15ml",
         estoque: 50,
@@ -1064,7 +1064,7 @@ const produtos = {
         categoria: "masculino",
         nome: "521 Men",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 30.png"
+        imagem: "../img/masculino/Masculino 30.png",
         familia: "Amadeirado Floral",
         volume: "15ml",
         estoque: 50,
@@ -1076,7 +1076,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Exclusive Code",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 31.png"
+        imagem: "../img/masculino/Masculino 31.png",
         familia: "Fougere Ambarado",
         volume: "15ml",
         estoque: 50,
@@ -1088,7 +1088,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Man",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 32.png"
+        imagem: "../img/masculino/Masculino 32.png",
         familia: "Cítrico Aromático",
         volume: "15ml",
         estoque: 50,
@@ -1100,7 +1100,7 @@ const produtos = {
         categoria: "masculino",
         nome: "AK Men",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 46.png"
+        imagem: "../img/masculino/Masculino 46.png",
         familia: "Ambarado Especiado",
         volume: "15ml",
         estoque: 50,
@@ -1112,7 +1112,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Apolo",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 33.png"
+        imagem: "../img/masculino/Masculino 33.png",
         familia: "Chipre Amadeirado",
         volume: "15ml",
         estoque: 50,
@@ -1124,7 +1124,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Radical Sports",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 34.png"
+        imagem: "../img/masculino/Masculino 34.png",
         familia: "Amadeirado Especificado",
         volume: "15ml",
         estoque: 50,
@@ -1136,7 +1136,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Pole Sports",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 35.png"
+        imagem: "../img/masculino/Masculino 35.png",
         familia: "Fougere Ambarado",
         volume: "15ml",
         estoque: 50,
@@ -1148,7 +1148,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Korus",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 36.png"
+        imagem: "../img/masculino/Masculino 36.png",
         familia: "Fougere Ambarado",
         volume: "15ml",
         estoque: 50,
@@ -1160,7 +1160,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Animals",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 37.png"
+        imagem: "../img/masculino/Masculino 37.png",
         familia: "Ambarado Especiado",
         volume: "15ml",
         estoque: 50,
@@ -1172,7 +1172,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Fast Car Black",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 38.png"
+        imagem: "../img/masculino/Masculino 38.png",
         familia: "Fougere Ambarado",
         volume: "15ml",
         estoque: 50,
@@ -1184,7 +1184,7 @@ const produtos = {
         categoria: "masculino",
         nome: "L'Éternite",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 39.png"
+        imagem: "../img/masculino/Masculino 39.png",
         familia: "Fougere Ambarado",
         volume: "15ml",
         estoque: 50,
@@ -1196,7 +1196,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Strong Man",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 40.png"
+        imagem: "../img/masculino/Masculino 40.png",
         familia: "Fougere Ambarado",
         volume: "15ml",
         estoque: 50,
@@ -1208,7 +1208,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Silver",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 41.png"
+        imagem: "../img/masculino/Masculino 41.png",
         familia: "Ambarado Amadeirado",
         volume: "15ml",
         estoque: 50,
@@ -1220,7 +1220,7 @@ const produtos = {
         categoria: "masculino",
         nome: "521 Vip Men",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 42.png"
+        imagem: "../img/masculino/Masculino 42.png",
         familia: "Amadeirado ambarado",
         volume: "15ml",
         estoque: 50,
@@ -1232,7 +1232,7 @@ const produtos = {
         categoria: "masculino",
         nome: "Fortune",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 43.png"
+        imagem: "../img/masculino/Masculino 43.png",
         familia: "Amadeirado Especiado",
         volume: "15ml",
         estoque: 50,
@@ -1244,11 +1244,11 @@ const produtos = {
         categoria: "masculino",
         nome: "Imortal",
         preco: 43.90,
-        imagem: "../img/masculino/Masculino 44.png"
+        imagem: "../img/masculino/Masculino 44.png",
         familia: "Amadeirado Aquático",
         volume: "15ml",
         estoque: 50,
         ativo: true
     },
 
-};
+];
