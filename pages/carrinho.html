@@ -1,25 +1,74 @@
-document.addEventListener("DOMContentLoaded", () => {
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-    atualizarBadge();
+<head>
 
-    const botoes = document.querySelectorAll(".btn.carrinho");
+    <meta charset="UTF-8">
 
-    botoes.forEach(botao => {
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-        botao.addEventListener("click", () => {
+    <title>Carrinho | Solver Store</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
-            const id = Number(botao.dataset.id);
+    <link rel="stylesheet"
+          href="../css/carrinho.css">
 
-            const card = botao.closest(".area-compra");
+</head>
 
-            const quantidade = Number(
-                card.querySelector(".qtd").textContent
-            );
+<body>
 
-            adicionarCarrinho(id, quantidade);
+<header>
 
-        });
+    <h1>🛒 Meu Carrinho</h1>
 
-    });
+</header>
 
-});
+<main>
+
+    <!-- Produtos -->
+
+    <div id="lista-carrinho">
+
+    </div>
+
+    <!-- Total -->
+
+    <div class="resumo">
+
+        <h2>
+
+            Total:
+
+            <span id="total-geral">
+
+                R$ 0,00
+
+            </span>
+
+        </h2>
+
+        <button id="btn-finalizar">
+
+            Finalizar Pedido
+
+        </button>
+
+        <button
+            onclick="window.location.href='feminino.html'">
+
+            Continuar Comprando
+
+        </button>
+
+    </div>
+
+</main>
+
+<script src="../js/jprodutos.js"></script>
+
+<script src="../js/carrinho.js"></script>
+
+</body>
+
+</html>

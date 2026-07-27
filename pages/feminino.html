@@ -3566,24 +3566,44 @@ body{
         </div>
     </section>
 
-        <script>
-            let quantidade = 1;
+       <script>
 
-            function aumentar(){
-                quantidade++;
-                document.getElementById("qtd").textContent = quantidade;
-            }
+function aumentar(botao){
 
-            function diminuir(){
-                if(quantidade > 1){
-                    quantidade--;
-                    document.getElementById("qtd").textContent = quantidade;
-                }
-            }
-        </script>
+    const areaQuantidade = botao.parentElement;
 
-        <script src="../js/jprodutos.js"></script>
-        <script src="../js/carrinho.js"></script>
+    const span = areaQuantidade.querySelector(".qtd");
+
+    let quantidade = parseInt(span.textContent);
+
+    quantidade++;
+
+    span.textContent = quantidade;
+
+}
+
+function diminuir(botao){
+
+    const areaQuantidade = botao.parentElement;
+
+    const span = areaQuantidade.querySelector(".qtd");
+
+    let quantidade = parseInt(span.textContent);
+
+    if(quantidade > 1){
+
+        quantidade--;
+
+        span.textContent = quantidade;
+
+    }
+
+}
+
+</script>
+
+<script src="../js/jprodutos.js"></script>
+<script src="../js/carrinho.js"></script>
 
     </body>
 </html>
