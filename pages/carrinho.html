@@ -1,0 +1,25 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+    atualizarBadge();
+
+    const botoes = document.querySelectorAll(".btn.carrinho");
+
+    botoes.forEach(botao => {
+
+        botao.addEventListener("click", () => {
+
+            const id = Number(botao.dataset.id);
+
+            const card = botao.closest(".area-compra");
+
+            const quantidade = Number(
+                card.querySelector(".qtd").textContent
+            );
+
+            adicionarCarrinho(id, quantidade);
+
+        });
+
+    });
+
+});
