@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | Solver Store</title>
+
+    <link rel="stylesheet" href="../css/checkout.css">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Finalizar Pedido</h1>
+
+</header>
+
+<main class="container">
+
+    <!-- COLUNA ESQUERDA -->
+
+    <section class="checkout">
+
+        <!-- Dados do Cliente -->
+
+        <div class="card">
+
+            <h2><i class='bx bx-user'></i> Dados do Cliente</h2>
+
+            <input type="text" id="nome" placeholder="Nome Completo">
+
+            <input type="tel" id="telefone" placeholder="WhatsApp">
+
+        </div>
+
+        <!-- Entrega -->
+
+        <div class="card">
+
+            <h2><i class='bx bx-map'></i> Entrega</h2>
+
+            <div class="radio">
+
+                <label>
+
+                    <input type="radio"
+                           name="entrega"
+                           value="retirada"
+                           checked>
+
+                    Retirar no Local
+
+                </label>
+
+                <label>
+
+                    <input type="radio"
+                           name="entrega"
+                           value="entrega">
+
+                    Entrega em Domicílio
+
+                </label>
+
+            </div>
+
+            <div id="endereco">
+
+                <input type="text" placeholder="CEP">
+
+                <input type="text" placeholder="Estado">
+
+                <input type="text" placeholder="Cidade">
+
+                <input type="text" placeholder="Bairro">
+
+                <input type="text" placeholder="Rua">
+
+                <input type="text" placeholder="Número">
+
+                <input type="text" placeholder="Complemento">
+
+                <input type="text" placeholder="Ponto de Referência">
+
+            </div>
+
+        </div>
+
+        <!-- Pagamento -->
+
+        <div class="card">
+
+            <h2><i class='bx bx-credit-card'></i> Pagamento</h2>
+
+            <div class="radio">
+
+                <label>
+
+                    <input type="radio"
+                           name="pagamento"
+                           value="pix"
+                           checked>
+
+                    PIX
+
+                </label>
+
+                <label>
+
+                    <input type="radio"
+                           name="pagamento"
+                           value="cartao">
+
+                    Cartão de Crédito
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- COLUNA DIREITA -->
+
+    <aside class="resumo">
+
+        <div class="card">
+
+            <h2><i class='bx bx-cart'></i> Resumo do Pedido</h2>
+
+            <div id="lista-checkout">
+
+                <!-- Produtos carregados pelo JavaScript -->
+
+            </div>
+
+            <hr>
+
+            <div class="linha">
+
+                <span>Subtotal</span>
+
+                <span id="subtotal">
+                    R$ 0,00
+                </span>
+
+            </div>
+
+            <div class="linha">
+
+                <span>Entrega</span>
+
+                <span id="frete">
+                    R$ 0,00
+                </span>
+
+            </div>
+
+            <div class="linha total">
+
+                <span>Total</span>
+
+                <span id="total">
+                    R$ 0,00
+                </span>
+
+            </div>
+
+            <button id="btn-finalizar">
+
+                <i class='bx bxl-whatsapp'></i>
+
+                Finalizar Pedido
+
+            </button>
+
+        </div>
+
+    </aside>
+
+</main>
+
+<script src="../js/checkout.js"></script>
+
+</body>
+
+</html>
