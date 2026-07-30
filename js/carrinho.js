@@ -289,3 +289,23 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 });
 
+// ===============================
+// Comprar Agora
+// ===============================
+
+const botoesComprar = document.querySelectorAll(".btn.comprar");
+
+botoesComprar.forEach(botao => {
+
+    botao.addEventListener("click", () => {
+
+        const id = Number(botao.dataset.id);
+
+        localStorage.setItem("comprarAgora", id);
+
+        window.location.href = "checkout.html";
+
+    });
+
+});
+

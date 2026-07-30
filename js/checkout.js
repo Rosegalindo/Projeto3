@@ -103,3 +103,46 @@ function atualizarTotais(){
         (valorSubtotal + valorFrete).toFixed(2);
 
 }
+
+// ================================
+// ENTREGA
+// ================================
+
+const endereco = document.getElementById("endereco");
+
+const campoBairro = document.getElementById("bairro");
+
+const radiosEntrega = document.querySelectorAll("input[name='entrega']");
+
+radiosEntrega.forEach(radio => {
+
+   radio.addEventListener("change", atualizarEntrega);
+
+});
+
+function atualizarEntrega(){
+
+    const tipoEntrega = document.querySelector("input[name='entrega']:checked").value;
+
+    if(tipoEntrega == "retirada"){
+
+        endereco.style.display = "none";
+
+        valorFrete = 0;
+
+    }else{
+
+        endereco.style.display = "block";
+
+        const bairro = document.getElementById("bairro").value;
+
+        valorFrete = calcularFrete(bairro);
+
+    }
+
+    atualizarTotais();
+
+}
+
+// Inicializa a tela
+atualizarEntrega();
