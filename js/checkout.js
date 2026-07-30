@@ -14,8 +14,9 @@ let valorFrete = 0;
 
 let valorSubtotal = 0;
 
-
+// ====================================
 // Verifica se veio do Comprar Agora
+// ====================================
 
 const comprarAgora = localStorage.getItem("comprarAgora");
 
@@ -25,7 +26,10 @@ if(comprarAgora){
 
     mostrarProduto(produto,1);
 
-    // Limpa o localStorage após carregar
+
+// ====================================
+// Limpa o LocalStorage após carregar
+// ====================================
     localStorage.removeItem("comprarAgora");
 
 }else{
@@ -144,5 +148,134 @@ function atualizarEntrega(){
 
 }
 
+// ================================
 // Inicializa a tela
+// ================================
+
 atualizarEntrega();
+
+// ====================================
+// BOTÃO FINALIZAR PEDIDO
+// ====================================
+
+const btnFinalizar = document.getElementById("btn-finalizar");
+
+btnFinalizar.addEventListener("click", finalizarPedido);
+
+// ====================================
+// VALIDAR FORMULÁRIO
+// ====================================
+
+function validarFormulario(){
+
+    const nome = document.getElementById("nome").value.trim();
+
+    const telefone = document.getElementById("telefone").value.trim();
+
+    if(nome === ""){
+
+        alert("Informe seu nome.");
+
+        return false;
+
+    }
+
+    if(telefone === ""){
+
+        alert("Informe seu WhatsApp.");
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+// ====================================
+// FINALIZAR PEDIDO
+// ====================================
+
+function finalizarPedido(){
+
+    if(!validarFormulario()){
+
+    return;
+
+    }
+
+    const nome = document.getElementById("nome").value.trim();
+
+    const telefone = document.getElementById("telefone").value.trim();
+
+
+
+    if(telefone === ""){
+
+        alert("Informe seu WhatsApp.");
+
+        return;
+
+    }
+
+    let mensagem = "🛍️ *SOLVER STORE*%0A%0A";
+
+    mensagem += "👤 *Cliente:* " + nome + "%0A";
+
+    mensagem += "📱 *WhatsApp:* " + telefone + "%0A%0A";
+
+    mensagem += "🛒 *Produtos*%0A";
+
+    // ==========================
+    // Comprar Agora
+    // ==========================
+
+    const idComprarAgora = localStorage.getItem("comprarAgora");
+
+    if(idComprarAgora){
+
+        const produto = produtos.find(p => p.id == idComprarAgora);
+
+        if(produto){
+
+            mensagem +=
+                "• " +
+                produto.nome +
+                " (Qtd: 1)%0A";
+
+        }
+
+    }else{
+
+        // ==========================
+        // Carrinho
+        // ==========================
+
+        const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+        carrinho.forEach(produto => {
+
+            mensagem +=
+                "• " +
+                produto.nome +
+                " (Qtd: " +
+                produto.quantidade +
+                ")%0A";
+
+        });
+
+    }
+
+    mensagem += "%0A";
+
+    mensagem +=
+        "💰 *Total:* " +
+        document.getElementById("total").textContent;
+
+    const numeroLoja = "5512999999999"; // Coloque aqui o número da Solver Store
+
+const url = `https://wa.me/${numeroLoja}?text=${mensagem}`;
+
+window.open(url, "_blank");
+
+}
