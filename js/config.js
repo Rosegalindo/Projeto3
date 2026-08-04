@@ -6,7 +6,7 @@ const CONFIG = {
 
     nomeLoja: "*🛍️ *PERFUMARIA AMAKHA PARIS*",
 
-    whatsapp: "5511999999999",
+    whatsapp: "5512982072887",
 
     instagram: "#",
 
