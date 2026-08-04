@@ -1,60 +1,99 @@
-console.log("🔥🔥🔥🔥🔥");
 // ======================================================
 // SOLVER STORE
-// CHECKOUT
+// CHECKOUT 2.0
 // ======================================================
 
-// ================================
-// 01. PRODUTOS
-// ================================
+// ====================================
+// 01. SELETORES
+// ====================================
 
-//Lista
-const lista = document.getElementById("lista-checkout");
+const UI = {
 
-//Subtotal
-const subtotal = document.getElementById("subtotal");
+    lista: document.getElementById("lista-checkout"),
 
-//Total
-const total = document.getElementById("total");
+    subtotal: document.getElementById("subtotal"),
 
-//Frete
-const frete = document.getElementById("frete");
+    frete: document.getElementById("frete"),
 
-let valorFrete = 0;
+    total: document.getElementById("total"),
+
+    endereco: document.getElementById("endereco"),
+
+    nome: document.getElementById("nome"),
+
+    telefone: document.getElementById("telefone"),
+
+    btnFinalizar: document.getElementById("btn-finalizar"),
+
+    radiosEntrega: document.querySelectorAll("input[name='entrega']")
+
+};
+
+// ====================================
+// 02. VARIÁVEIS
+// ====================================
 
 let valorSubtotal = 0;
 
+let valorFrete = 0;
+
 // ====================================
-// 02. INICIALIZAÇÃO DO CHECKOUT
+// 03. INICIALIZAÇÃO
 // ====================================
 
-const comprarAgora = localStorage.getItem("comprarAgora");
+document.addEventListener("DOMContentLoaded", iniciarCheckout);
 
-if (comprarAgora) {
+function iniciarCheckout(){
 
-    const produto = produtos.find(p => p.id == comprarAgora);
+    carregarProdutos();
 
-    if (produto) {
-        mostrarProduto(produto, 1);
-    }
-
-    localStorage.removeItem("comprarAgora");
-
-} else {
-
-    carregarCarrinho();
+    atualizarEntrega();
 
 }
 
 // ====================================
-// 03. EXIBIÇÃO DOS PRODUTOS
+// 04. PRODUTOS
 // ====================================
+
+function carregarProdutos(){
+
+    valorSubtotal = 0;
+
+    UI.lista.innerHTML = "";
+
+    const comprarAgora = localStorage.getItem("comprarAgora");
+
+    if(comprarAgora){
+
+        const produto = produtos.find(p => p.id == comprarAgora);
+
+        if(produto){
+
+            mostrarProduto(produto,1);
+
+        }
+
+        localStorage.removeItem("comprarAgora");
+
+        return;
+
+    }
+
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+    carrinho.forEach(produto => {
+
+        mostrarProduto(produto, produto.quantidade);
+
+    });
+
+}
 
 function mostrarProduto(produto, quantidade){
 
     valorSubtotal += produto.preco * quantidade;
 
-    lista.innerHTML += `
+    const html = `
 
     <div class="produto-checkout">
 
@@ -67,7 +106,9 @@ function mostrarProduto(produto, quantidade){
             <p>Quantidade: ${quantidade}</p>
 
             <strong>
+
                 R$ ${(produto.preco * quantidade).toFixed(2)}
+
             </strong>
 
         </div>
@@ -76,44 +117,32 @@ function mostrarProduto(produto, quantidade){
 
     `;
 
+    UI.lista.insertAdjacentHTML("beforeend", html);
+
     atualizarTotais();
 
 }
 
-function carregarCarrinho(){
-
-    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-
-    carrinho.forEach(produto => {
-
-        mostrarProduto(produto, produto.quantidade);
-
-    });
-
-}
-
 // ====================================
-// 04. TOTAIS
+// 05. TOTAIS
 // ====================================
 
 function atualizarTotais(){
 
-    subtotal.textContent = "R$ " + valorSubtotal.toFixed(2);
+    UI.subtotal.textContent =
+        "R$ " + valorSubtotal.toFixed(2);
 
-    frete.textContent = "R$ " + valorFrete.toFixed(2);
+    UI.frete.textContent =
+        "R$ " + valorFrete.toFixed(2);
 
-    total.textContent =
+    UI.total.textContent =
         "R$ " + (valorSubtotal + valorFrete).toFixed(2);
 
 }
 
 // ====================================
-// 05. ENTREGA
+// 06. ENTREGA
 // ====================================
-
-const endereco = document.getElementById("endereco");
-
-const radiosEntrega = document.querySelectorAll("input[name='entrega']");
 
 function atualizarEntrega(){
 
@@ -129,21 +158,17 @@ function atualizarEntrega(){
 
     if(tipoEntrega === "retirada"){
 
-        endereco.style.display = "none";
+        UI.endereco.style.display = "none";
 
         valorFrete = 0;
 
     }else{
 
-        endereco.style.display = "block";
+        UI.endereco.style.display = "block";
 
-        const campoBairro = document.getElementById("bairro");
+        const bairro = document.getElementById("bairro")?.value || "";
 
-        if(campoBairro){
-
-            valorFrete = calcularFrete(campoBairro.value);
-
-        }
+        valorFrete = calcularFrete(bairro);
 
     }
 
@@ -152,26 +177,26 @@ function atualizarEntrega(){
 }
 
 // ====================================
-// 06. VALIDAÇÃO
+// 07. VALIDAÇÃO
 // ====================================
 
 function validarFormulario(){
 
-    const nome = document.getElementById("nome").value.trim();
-
-    const telefone = document.getElementById("telefone").value.trim();
-
-    if(nome === ""){
+    if(UI.nome.value.trim() === ""){
 
         alert("Informe seu nome.");
+
+        UI.nome.focus();
 
         return false;
 
     }
 
-    if(telefone === ""){
+    if(UI.telefone.value.trim() === ""){
 
         alert("Informe seu WhatsApp.");
+
+        UI.telefone.focus();
 
         return false;
 
@@ -180,92 +205,83 @@ function validarFormulario(){
     return true;
 
 }
+
 // ====================================
-// 07. MENSAGEM WHATSAPP
+// 08. MENSAGEM WHATSAPP
 // ====================================
 
-// ------------------------------------
+// -----------------------------
 // CABEÇALHO
-// ------------------------------------
+// -----------------------------
 
 function montarCabecalho(){
 
-    const nome = document.getElementById("nome").value.trim();
-
-    const telefone = document.getElementById("telefone").value.trim();
-
     return `
-PERFUMARIA AMAKHA PARIS
+🛍️ *${CONFIG.nomeLoja}*
 
-═══════════════
+═══════════════════════
 
-Cliente:
-⭐ TESTE
-${nome}
+👤 *Cliente:*
+${UI.nome.value}
 
-WHATSAPP:
-${telefone}
-
-═══════════════
+📱 *WhatsApp:*
+${UI.telefone.value}
 
 `;
+
 }
 
-// ------------------------------------
+// -----------------------------
 // ENTREGA
-// ------------------------------------
+// -----------------------------
 
 function montarEntrega(){
 
     const tipoEntrega =
         document.querySelector("input[name='entrega']:checked").value;
 
-    let entregaTexto = "";
-
-    if(tipoEntrega === "retirada"){
-
-        entregaTexto = "Retirar no Local";
-
-    }else{
-
-        entregaTexto = "Entrega em Domicílio";
-
-    }
-
-    const cep = document.getElementById("cep").value.trim();
-    const estado = document.getElementById("estado").value.trim();
-    const cidade = document.getElementById("cidade").value.trim();
-    const bairro = document.getElementById("bairro").value.trim();
-    const rua = document.getElementById("rua").value.trim();
-    const numero = document.getElementById("numero").value.trim();
-    const complemento = document.getElementById("complemento").value.trim();
-    const referencia = document.getElementById("referencia").value.trim();
+    let textoEntrega =
+        tipoEntrega === "retirada"
+        ? "Retirar no Local"
+        : "Entrega em Domicílio";
 
     let mensagem = `
+
+═══════════════════════
+
 🚚 *ENTREGA*
 
-${entregaTexto}
+${textoEntrega}
+
 `;
 
     if(tipoEntrega === "entrega"){
 
         mensagem += `
 
-CEP: ${cep}
+CEP:
+${document.getElementById("cep").value}
 
-Estado: ${estado}
+Estado:
+${document.getElementById("estado").value}
 
-Cidade: ${cidade}
+Cidade:
+${document.getElementById("cidade").value}
 
-Bairro: ${bairro}
+Bairro:
+${document.getElementById("bairro").value}
 
-Rua: ${rua}
+Rua:
+${document.getElementById("rua").value}
 
-Número: ${numero}
+Número:
+${document.getElementById("numero").value}
 
-Complemento: ${complemento}
+Complemento:
+${document.getElementById("complemento").value}
 
-Referência: ${referencia}
+Referência:
+${document.getElementById("referencia").value}
 
 `;
 
@@ -275,194 +291,28 @@ Referência: ${referencia}
 
 }
 
-
-// ------------------------------------
+// -----------------------------
 // PAGAMENTO
-// ------------------------------------
+// -----------------------------
 
 function montarPagamento(){
 
     const pagamento =
         document.querySelector("input[name='pagamento']:checked").value;
 
-    let pagamentoTexto = "";
-
-    if(pagamento === "pix"){
-
-        pagamentoTexto = "PIX";
-
-    }else{
-
-        pagamentoTexto = "Cartão de Crédito";
-
-    }
+    let textoPagamento =
+        pagamento === "pix"
+        ? "PIX"
+        : "Cartão de Crédito";
 
     return `
 
-═══════════════
+═══════════════════════
 
 💳 *PAGAMENTO*
 
-${pagamentoTexto}
+${textoPagamento}
 
 `;
 
 }
-
-// ------------------------------------
-// PRODUTOS
-// ------------------------------------
-
-function montarProdutos(){
-
-    let mensagem = "";
-
-    const idComprarAgora = localStorage.getItem("comprarAgora");
-
-    if(idComprarAgora){
-
-        const produto = produtos.find(p => p.id == idComprarAgora);
-
-        if(produto){
-
-            mensagem += `
-🛒 *PRODUTOS*
-
-• ${produto.nome}
-
-Quantidade: 1
-
-Valor: R$ ${produto.preco.toFixed(2)}
-
-`;
-
-        }
-
-    }else{
-
-        const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-
-        carrinho.forEach(produto => {
-
-            mensagem += `
-• ${produto.nome}
-
-Quantidade: ${produto.quantidade}
-
-Valor: R$ ${(produto.preco * produto.quantidade).toFixed(2)}
-
-`;
-
-        });
-
-    }
-
-    return mensagem;
-
-}
-
-
-// ------------------------------------
-// RODAPÉ
-// ------------------------------------
-
-function montarRodape(){
-
-    return `
-
-═══════════════
-
-Subtotal: ${subtotal.textContent}
-
-Frete: ${frete.textContent}
-
-💰 *TOTAL*
-
-${total.textContent}
-
-═══════════════
-
-🌹 Obrigado pela preferência!
-
-Equipe ${CONFIG.nomeLoja}
-
-`;
-
-}
-
-//==========================
-// 08. ENVIAR WHATSAPP
-//==========================
-function enviarWhatsApp(mensagem){
-
-    console.log(mensagem);
-
-    const texto = encodeURIComponent(mensagem);
-
-    console.log(texto);
-
-    const numeroLoja = CONFIG.whatsapp;
-
-    const texto = encodeURIComponent(mensagem);
-
-    console.log(texto);
-
-    const url = `https://api.whatsapp.com/send?phone=${numeroLoja}&text=${texto}`;
-
-    window.open(url, "_blank");
-
-}
-
-// ====================================
-// 09. FINALIZAR PEDIDO
-// ====================================
-
-function finalizarPedido(){
-
-    if(!validarFormulario()) return;
-
-    let mensagem = "";
-
-    mensagem += montarCabecalho();
-
-    mensagem += montarEntrega();
-
-    mensagem += montarPagamento();
-
-    mensagem += montarProdutos();
-
-    mensagem += montarRodape();
-
-    enviarWhatsApp(mensagem);
-
-}
-
-// ====================================
-// 10. INICIALIZAÇÃO DA TELA
-// ====================================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    atualizarEntrega();
-
-});
-
-// ====================================
-// 11. EVENTOS
-// ====================================
-
-// Botão Finalizar Pedido
-const btnFinalizar = document.getElementById("btn-finalizar");
-
-if(btnFinalizar){
-
-    btnFinalizar.addEventListener("click", finalizarPedido);
-
-}
-
-// Alteração do tipo de entrega
-radiosEntrega.forEach(radio => {
-
-    radio.addEventListener("change", atualizarEntrega);
-
-});
