@@ -193,14 +193,15 @@ function montarCabecalho(){
 
     const telefone = document.getElementById("telefone").value.trim();
 
-    return `🛍️ *${CONFIG.nomeLoja}*
+    return `
+PERFUMARIA AMAKHA PARIS
 
 ═══════════════
 
-👤 *Cliente:*
+CLIENTE:
 ${nome}
 
-📱 *WhatsApp:*
+WHATSAPP:
 ${telefone}
 
 ═══════════════
