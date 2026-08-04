@@ -199,36 +199,73 @@ function validarFormulario(){
 function finalizarPedido(){
 
     if(!validarFormulario()){
-
-    return;
-
+        return;
     }
 
     const nome = document.getElementById("nome").value.trim();
-
     const telefone = document.getElementById("telefone").value.trim();
 
+    // Tipo de entrega
+    const tipoEntrega = document.querySelector("input[name='entrega']:checked").value;
 
+    let entregaTexto = "";
 
-    if(telefone === ""){
+    if(tipoEntrega === "retirada"){
 
-        alert("Informe seu WhatsApp.");
+        entregaTexto = "Retirar no Local";
 
-        return;
+    }else{
+
+        entregaTexto = "Entrega em Domicílio";
 
     }
 
-    let mensagem = "🛍️ *SOLVER STORE*%0A%0A";
+    // Forma de pagamento
+    const pagamento = document.querySelector("input[name='pagamento']:checked").value;
 
-    mensagem += "👤 *Cliente:* " + nome + "%0A";
+    let pagamentoTexto = "";
 
-    mensagem += "📱 *WhatsApp:* " + telefone + "%0A%0A";
+    if(pagamento === "pix"){
 
-    mensagem += "🛒 *Produtos*%0A";
+        pagamentoTexto = "PIX";
 
-    // ==========================
+    }else{
+
+        pagamentoTexto = "Cartão de Crédito";
+
+    }
+
+    //==========================
+    // MONTA A MENSAGEM
+    //==========================
+
+    let mensagem = `🛍️ *${CONFIG.nomeLoja}*
+
+        ═══════════════════════
+
+        👤 *Cliente:*
+        ${nome}
+
+        📱 *WhatsApp:*
+        ${telefone}
+
+        ═══════════════════════
+
+        🚚 *Entrega:*
+        ${entregaTexto}
+
+        💳 *Pagamento:*
+        ${pagamentoTexto}
+
+        ═══════════════════════
+
+        🛒 *PRODUTOS*
+
+        `;
+
+    //==========================
     // Comprar Agora
-    // ==========================
+    //==========================
 
     const idComprarAgora = localStorage.getItem("comprarAgora");
 
@@ -238,44 +275,69 @@ function finalizarPedido(){
 
         if(produto){
 
-            mensagem +=
-                "• " +
-                produto.nome +
-                " (Qtd: 1)%0A";
+            mensagem += `
+        • ${produto.nome}
+
+        Quantidade: 1
+
+        Valor: R$ ${produto.preco.toFixed(2)}
+
+        `;
 
         }
 
     }else{
 
-        // ==========================
+        //==========================
         // Carrinho
-        // ==========================
+        //==========================
 
         const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
         carrinho.forEach(produto => {
 
-            mensagem +=
-                "• " +
-                produto.nome +
-                " (Qtd: " +
-                produto.quantidade +
-                ")%0A";
+            mensagem += `
+• ${produto.nome}
+
+Quantidade: ${produto.quantidade}
+
+Valor: R$ ${(produto.preco * produto.quantidade).toFixed(2)}
+
+`;
 
         });
 
     }
 
-    mensagem += "%0A";
+    mensagem += `
 
-    mensagem +=
-        "💰 *Total:* " +
-        document.getElementById("total").textContent;
+═══════════════════════
 
-    const numeroLoja = "5512999999999"; // Coloque aqui o número da Solver Store
+Subtotal: ${document.getElementById("subtotal").textContent}
 
-const url = `https://wa.me/${numeroLoja}?text=${mensagem}`;
+Frete: ${document.getElementById("frete").textContent}
 
-window.open(url, "_blank");
+💰 *TOTAL*
+
+${document.getElementById("total").textContent}
+
+═══════════════════════
+
+🌹 Obrigado pela preferência!
+
+    Equipe ${CONFIG.nomeLoja}
+`;
+
+    //==========================
+    // Envia WhatsApp
+    //==========================
+
+    const numeroLoja = CONFIG.whatsapp; // <-- coloque seu número aqui
+
+    const texto = encodeURIComponent(mensagem);
+
+    const url = `https://wa.me/${numeroLoja}?text=${texto}`;
+
+    window.open(url, "_blank");
 
 }
