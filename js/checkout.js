@@ -397,13 +397,17 @@ function enviarWhatsApp(mensagem){
 
     console.log(mensagem);
 
+    const texto = encodeURIComponent(mensagem);
+
+    console.log(texto);
+
     const numeroLoja = CONFIG.whatsapp;
 
     const texto = encodeURIComponent(mensagem);
 
     console.log(texto);
 
-    const url = `https://wa.me/${numeroLoja}?text=${texto}`;
+    const url = `https://api.whatsapp.com/send?phone=${numeroLoja}&text=${texto}`;
 
     window.open(url, "_blank");
 
