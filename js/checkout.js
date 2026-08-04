@@ -394,9 +394,13 @@ Equipe ${CONFIG.nomeLoja}
 //==========================
 function enviarWhatsApp(mensagem){
 
+    console.log(mensagem);
+
     const numeroLoja = CONFIG.whatsapp;
 
     const texto = encodeURIComponent(mensagem);
+
+    console.log(texto);
 
     const url = `https://wa.me/${numeroLoja}?text=${texto}`;
 
