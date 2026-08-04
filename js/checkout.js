@@ -1,13 +1,22 @@
+// ======================================================
+// SOLVER STORE
+// CHECKOUT
+// ======================================================
+
 // ================================
-// PRODUTO OU CARRINHO
+// 01. PRODUTOS
 // ================================
 
+//Lista
 const lista = document.getElementById("lista-checkout");
 
+//Subtotal
 const subtotal = document.getElementById("subtotal");
 
+//Total
 const total = document.getElementById("total");
 
+//Frete
 const frete = document.getElementById("frete");
 
 let valorFrete = 0;
@@ -15,28 +24,30 @@ let valorFrete = 0;
 let valorSubtotal = 0;
 
 // ====================================
-// Verifica se veio do Comprar Agora
+// 02. INICIALIZAÇÃO DO CHECKOUT
 // ====================================
 
 const comprarAgora = localStorage.getItem("comprarAgora");
 
-if(comprarAgora){
+if (comprarAgora) {
 
     const produto = produtos.find(p => p.id == comprarAgora);
 
-    mostrarProduto(produto,1);
+    if (produto) {
+        mostrarProduto(produto, 1);
+    }
 
-
-// ====================================
-// Limpa o LocalStorage após carregar
-// ====================================
     localStorage.removeItem("comprarAgora");
 
-}else{
+} else {
 
     carregarCarrinho();
 
 }
+
+// ====================================
+// 03. EXIBIÇÃO DOS PRODUTOS
+// ====================================
 
 function mostrarProduto(produto, quantidade){
 
@@ -46,24 +57,16 @@ function mostrarProduto(produto, quantidade){
 
     <div class="produto-checkout">
 
-        <img src="${produto.imagem}">
+        <img src="${produto.imagem}" alt="${produto.nome}">
 
         <div>
 
             <h3>${produto.nome}</h3>
 
-            <p>
-
-                Quantidade: ${quantidade}
-
-            </p>
+            <p>Quantidade: ${quantidade}</p>
 
             <strong>
-
-                R$
-
-                ${(produto.preco*quantidade).toFixed(2)}
-
+                R$ ${(produto.preco * quantidade).toFixed(2)}
             </strong>
 
         </div>
@@ -78,57 +81,52 @@ function mostrarProduto(produto, quantidade){
 
 function carregarCarrinho(){
 
-    const carrinho =
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
-    JSON.parse(localStorage.getItem("carrinho")) || [];
+    carrinho.forEach(produto => {
 
-    carrinho.forEach(produto=>{
-
-        mostrarProduto(produto,produto.quantidade);
+        mostrarProduto(produto, produto.quantidade);
 
     });
 
 }
 
+// ====================================
+// 04. TOTAIS
+// ====================================
+
 function atualizarTotais(){
 
-    subtotal.textContent =
+    subtotal.textContent = "R$ " + valorSubtotal.toFixed(2);
 
-        "R$ " + valorSubtotal.toFixed(2);
-
-    frete.textContent =
-
-        "R$ " + valorFrete.toFixed(2);
+    frete.textContent = "R$ " + valorFrete.toFixed(2);
 
     total.textContent =
-
-        "R$ " +
-
-        (valorSubtotal + valorFrete).toFixed(2);
+        "R$ " + (valorSubtotal + valorFrete).toFixed(2);
 
 }
 
-// ================================
-// ENTREGA
-// ================================
+// ====================================
+// 05. ENTREGA
+// ====================================
 
 const endereco = document.getElementById("endereco");
 
-const campoBairro = document.getElementById("bairro");
-
 const radiosEntrega = document.querySelectorAll("input[name='entrega']");
-
-radiosEntrega.forEach(radio => {
-
-   radio.addEventListener("change", atualizarEntrega);
-
-});
 
 function atualizarEntrega(){
 
-    const tipoEntrega = document.querySelector("input[name='entrega']:checked").value;
+    const radioSelecionado = document.querySelector(
+        "input[name='entrega']:checked"
+    );
 
-    if(tipoEntrega == "retirada"){
+    if(!radioSelecionado){
+        return;
+    }
+
+    const tipoEntrega = radioSelecionado.value;
+
+    if(tipoEntrega === "retirada"){
 
         endereco.style.display = "none";
 
@@ -138,9 +136,13 @@ function atualizarEntrega(){
 
         endereco.style.display = "block";
 
-        const bairro = document.getElementById("bairro").value;
+        const campoBairro = document.getElementById("bairro");
 
-        valorFrete = calcularFrete(bairro);
+        if(campoBairro){
+
+            valorFrete = calcularFrete(campoBairro.value);
+
+        }
 
     }
 
@@ -148,22 +150,8 @@ function atualizarEntrega(){
 
 }
 
-// ================================
-// Inicializa a tela
-// ================================
-
-atualizarEntrega();
-
 // ====================================
-// BOTÃO FINALIZAR PEDIDO
-// ====================================
-
-const btnFinalizar = document.getElementById("btn-finalizar");
-
-btnFinalizar.addEventListener("click", finalizarPedido);
-
-// ====================================
-// VALIDAR FORMULÁRIO
+// 06. VALIDAÇÃO
 // ====================================
 
 function validarFormulario(){
@@ -191,22 +179,45 @@ function validarFormulario(){
     return true;
 
 }
-
 // ====================================
-// FINALIZAR PEDIDO
+// 07. MENSAGEM WHATSAPP
 // ====================================
 
-function finalizarPedido(){
+// ------------------------------------
+// CABEÇALHO
+// ------------------------------------
 
-    if(!validarFormulario()){
-        return;
-    }
+function montarCabecalho(){
 
     const nome = document.getElementById("nome").value.trim();
+
     const telefone = document.getElementById("telefone").value.trim();
 
-    // Tipo de entrega
-    const tipoEntrega = document.querySelector("input[name='entrega']:checked").value;
+    return `🛍️ *${CONFIG.nomeLoja}*
+
+═══════════════════════
+
+👤 *Cliente:*
+${nome}
+
+📱 *WhatsApp:*
+${telefone}
+
+═══════════════════════
+
+`;
+
+}
+
+
+// ------------------------------------
+// ENTREGA
+// ------------------------------------
+
+function montarEntrega(){
+
+    const tipoEntrega =
+        document.querySelector("input[name='entrega']:checked").value;
 
     let entregaTexto = "";
 
@@ -220,8 +231,58 @@ function finalizarPedido(){
 
     }
 
-    // Forma de pagamento
-    const pagamento = document.querySelector("input[name='pagamento']:checked").value;
+    const cep = document.getElementById("cep").value.trim();
+    const estado = document.getElementById("estado").value.trim();
+    const cidade = document.getElementById("cidade").value.trim();
+    const bairro = document.getElementById("bairro").value.trim();
+    const rua = document.getElementById("rua").value.trim();
+    const numero = document.getElementById("numero").value.trim();
+    const complemento = document.getElementById("complemento").value.trim();
+    const referencia = document.getElementById("referencia").value.trim();
+
+    let mensagem = `
+🚚 *ENTREGA*
+
+${entregaTexto}
+`;
+
+    if(tipoEntrega === "entrega"){
+
+        mensagem += `
+
+CEP: ${cep}
+
+Estado: ${estado}
+
+Cidade: ${cidade}
+
+Bairro: ${bairro}
+
+Rua: ${rua}
+
+Número: ${numero}
+
+Complemento: ${complemento}
+
+Referência: ${referencia}
+
+`;
+
+    }
+
+    return mensagem;
+
+}
+
+
+// ------------------------------------
+// PAGAMENTO
+// ------------------------------------
+
+function montarPagamento(){
+
+    const pagamento =
+        document.querySelector("input[name='pagamento']:checked").value;
 
     let pagamentoTexto = "";
 
@@ -235,37 +296,25 @@ function finalizarPedido(){
 
     }
 
-    //==========================
-    // MONTA A MENSAGEM
-    //==========================
+    return `
 
-    let mensagem = `🛍️ *${CONFIG.nomeLoja}*
+═══════════════════════
 
-        ═══════════════════════
+💳 *PAGAMENTO*
 
-        👤 *Cliente:*
-        ${nome}
+${pagamentoTexto}
 
-        📱 *WhatsApp:*
-        ${telefone}
+`;
 
-        ═══════════════════════
+}
 
-        🚚 *Entrega:*
-        ${entregaTexto}
+// ------------------------------------
+// PRODUTOS
+// ------------------------------------
 
-        💳 *Pagamento:*
-        ${pagamentoTexto}
+function montarProdutos(){
 
-        ═══════════════════════
-
-        🛒 *PRODUTOS*
-
-        `;
-
-    //==========================
-    // Comprar Agora
-    //==========================
+    let mensagem = "";
 
     const idComprarAgora = localStorage.getItem("comprarAgora");
 
@@ -276,21 +325,19 @@ function finalizarPedido(){
         if(produto){
 
             mensagem += `
-        • ${produto.nome}
+🛒 *PRODUTOS*
 
-        Quantidade: 1
+• ${produto.nome}
 
-        Valor: R$ ${produto.preco.toFixed(2)}
+Quantidade: 1
 
-        `;
+Valor: R$ ${produto.preco.toFixed(2)}
+
+`;
 
         }
 
     }else{
-
-        //==========================
-        // Carrinho
-        //==========================
 
         const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
@@ -309,30 +356,45 @@ Valor: R$ ${(produto.preco * produto.quantidade).toFixed(2)}
 
     }
 
-    mensagem += `
+    return mensagem;
+
+}
+
+
+// ------------------------------------
+// RODAPÉ
+// ------------------------------------
+
+function montarRodape(){
+
+    return `
 
 ═══════════════════════
 
-Subtotal: ${document.getElementById("subtotal").textContent}
+Subtotal: ${subtotal.textContent}
 
-Frete: ${document.getElementById("frete").textContent}
+Frete: ${frete.textContent}
 
 💰 *TOTAL*
 
-${document.getElementById("total").textContent}
+${total.textContent}
 
 ═══════════════════════
 
 🌹 Obrigado pela preferência!
 
-    Equipe ${CONFIG.nomeLoja}
+Equipe ${CONFIG.nomeLoja}
+
 `;
 
-    //==========================
-    // Envia WhatsApp
-    //==========================
+}
 
-    const numeroLoja = CONFIG.whatsapp; // <-- coloque seu número aqui
+//==========================
+// 08. ENVIAR WHATSAPP
+//==========================
+function enviarWhatsApp(mensagem){
+
+    const numeroLoja = CONFIG.whatsapp;
 
     const texto = encodeURIComponent(mensagem);
 
@@ -341,3 +403,59 @@ ${document.getElementById("total").textContent}
     window.open(url, "_blank");
 
 }
+
+// ====================================
+// 09. FINALIZAR PEDIDO
+// ====================================
+
+function finalizarPedido(){
+
+    if(!validarFormulario()) return;
+
+    let mensagem = "";
+
+    mensagem += montarCabecalho();
+
+    mensagem += montarEntrega();
+
+    mensagem += montarPagamento();
+
+    mensagem += montarProdutos();
+
+    mensagem += montarRodape();
+
+    enviarWhatsApp(mensagem);
+
+}
+
+// ====================================
+// 10. INICIALIZAÇÃO DA TELA
+// ====================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    atualizarEntrega();
+
+});
+
+// ====================================
+// 11. EVENTOS
+// ====================================
+
+// Botão Finalizar Pedido
+const btnFinalizar = document.getElementById("btn-finalizar");
+
+if(btnFinalizar){
+
+    btnFinalizar.addEventListener("click", finalizarPedido);
+
+}
+
+// Alteração do tipo de entrega
+radiosEntrega.forEach(radio => {
+
+    radio.addEventListener("change", atualizarEntrega);
+
+});
+
+
