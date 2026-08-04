@@ -37,11 +37,31 @@ function iniciarCheckout(){
     radiosEntrega = document.querySelectorAll("input[name='entrega']");
 
     if(!lista){
+
         console.error("Elemento #lista-checkout não encontrado.");
+
         return;
+
     }
 
     carregarProdutos();
+
+    atualizarEntrega();
+
+    // Eventos
+    const btnFinalizar = document.getElementById("btn-finalizar");
+
+    if(btnFinalizar){
+
+        btnFinalizar.addEventListener("click", finalizarPedido);
+
+    }
+
+    radiosEntrega.forEach(radio => {
+
+        radio.addEventListener("change", atualizarEntrega);
+
+    });
 
 }
 // ====================================
@@ -273,5 +293,54 @@ function montarPagamento(){
 ${pagamento === "pix" ? "PIX" : "Cartão de Crédito"}
 
 `;
+
+}
+
+// ====================================
+// 08. ENVIAR WHATSAPP
+// ====================================
+
+function enviarWhatsApp(mensagem){
+
+    // Número configurado em config.js
+    const numeroLoja = CONFIG.whatsapp;
+
+    // Codifica a mensagem para URL
+    const texto = encodeURIComponent(mensagem);
+
+    // Monta o link do WhatsApp
+    const url = `https://wa.me/${numeroLoja}?text=${texto}`;
+
+    // Abre o WhatsApp em uma nova aba
+    window.open(url, "_blank");
+
+}
+
+// ====================================
+// 09. FINALIZAR PEDIDO
+// ====================================
+
+function finalizarPedido(){
+
+    // Valida os campos obrigatórios
+    if(!validarFormulario()){
+        return;
+    }
+
+    // Monta a mensagem
+    let mensagem = "";
+
+    mensagem += montarCabecalho();
+
+    mensagem += montarEntrega();
+
+    mensagem += montarPagamento();
+
+    mensagem += montarProdutos();
+
+    mensagem += montarRodape();
+
+    // Envia para o WhatsApp
+    enviarWhatsApp(mensagem);
 
 }
