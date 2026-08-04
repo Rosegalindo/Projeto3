@@ -10,6 +10,7 @@
 let valorSubtotal = 0;
 let valorFrete = 0;
 
+
 // Elementos da página
 let lista;
 let subtotal;
@@ -228,14 +229,14 @@ function montarCabecalho(){
 
     const telefone = document.getElementById("telefone").value;
 
-    return `🛍️ *${CONFIG.nomeLoja}*
+    return `${CONFIG.emoji.loja} *${CONFIG.nomeLoja}*;
 
 ══════════════════════
 
 👤 Cliente
 ${nome}
 
-📱 WhatsApp
+📞 WhatsApp
 ${telefone}
 
 `;
@@ -296,6 +297,82 @@ ${pagamento === "pix" ? "PIX" : "Cartão de Crédito"}
 
 }
 
+function montarProdutos(){
+
+    let mensagem = `
+
+══════════════════════
+
+🛒 PRODUTOS
+
+`;
+
+    const comprarAgora = localStorage.getItem("comprarAgora");
+
+    if(comprarAgora){
+
+        const produto = produtos.find(p => p.id == comprarAgora);
+
+        if(produto){
+
+            mensagem += `
+• ${produto.nome}
+
+Quantidade: 1
+
+Valor: R$ ${produto.preco.toFixed(2)}
+
+`;
+
+        }
+
+    }else{
+
+        const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+        carrinho.forEach(produto => {
+
+            mensagem += `
+• ${produto.nome}
+
+Quantidade: ${produto.quantidade}
+
+Valor: R$ ${(produto.preco * produto.quantidade).toFixed(2)}
+
+`;
+
+        });
+
+    }
+
+    return mensagem;
+
+}
+
+function montarRodape(){
+
+    return `
+
+══════════════════════
+
+Subtotal: ${subtotal.textContent}
+
+Frete: ${frete.textContent}
+
+💰 TOTAL
+
+${total.textContent}
+
+══════════════════════
+
+🌸 Obrigado pela preferência!
+
+Equipe ${CONFIG.nomeLoja}
+
+`;
+
+}
+
 // ====================================
 // 08. ENVIAR WHATSAPP
 // ====================================
@@ -321,6 +398,12 @@ function enviarWhatsApp(mensagem){
 // ====================================
 
 function finalizarPedido(){
+
+        console.log("Botão Finalizar clicado");
+
+    if(!validarFormulario()){
+        return;
+    }
 
     // Valida os campos obrigatórios
     if(!validarFormulario()){

@@ -1,10 +1,11 @@
-//=====================================
+// ====================================
 // CONFIGURAÇÕES DA LOJA
-//=====================================
+// ====================================
 
 const CONFIG = {
 
-    nomeLoja: "*🛍️ *PERFUMARIA AMAKHA PARIS*",
+    // Loja
+    nomeLoja: "PERFUMARIA AMAKHA PARIS",
 
     whatsapp: "5512982072887",
 
@@ -12,16 +13,40 @@ const CONFIG = {
 
     email: "rosemayara193@gmail.com",
 
+    // PIX
     chavePix: "41180675878",
 
-    moeda: "R$",
-
+    // Localização
     cidade: "São Sebastião",
 
     estado: "SP",
 
-    enderecoRetirada: "Rua quinze de novembro, nº 336, casa 2",
+    enderecoRetirada: "Rua Quinze de Novembro, nº 336, Casa 2",
 
     horarioFuncionamento: "08:00 às 18:00",
+
+    // Financeiro
+    moeda: "R$",
+
+    // Emojis
+    emoji: {
+
+        loja: "🏪",
+
+        cliente: "👤",
+
+        telefone: "📱",
+
+        entrega: "🚚",
+
+        pagamento: "💳",
+
+        produtos: "🛒",
+
+        total: "💰",
+
+        obrigado: "🌹"
+
+    }
 
 };
