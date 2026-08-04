@@ -4,62 +4,61 @@
 // ======================================================
 
 // ====================================
-// 01. SELETORES
-// ====================================
-
-const UI = {
-
-    lista: document.getElementById("lista-checkout"),
-
-    subtotal: document.getElementById("subtotal"),
-
-    frete: document.getElementById("frete"),
-
-    total: document.getElementById("total"),
-
-    endereco: document.getElementById("endereco"),
-
-    nome: document.getElementById("nome"),
-
-    telefone: document.getElementById("telefone"),
-
-    btnFinalizar: document.getElementById("btn-finalizar"),
-
-    radiosEntrega: document.querySelectorAll("input[name='entrega']")
-
-};
-
-// ====================================
-// 02. VARIÁVEIS
+// 01. VARIÁVEIS
 // ====================================
 
 let valorSubtotal = 0;
-
 let valorFrete = 0;
 
+// Elementos da página
+let lista;
+let subtotal;
+let frete;
+let total;
+let endereco;
+let radiosEntrega;
+
 // ====================================
-// 03. INICIALIZAÇÃO
+// 02. INICIALIZAÇÃO
 // ====================================
 
 document.addEventListener("DOMContentLoaded", iniciarCheckout);
 
 function iniciarCheckout(){
 
+    console.log("✅ Checkout iniciado");
+
+    // Busca os elementos do HTML
+    lista = document.querySelector("#lista-checkout");
+    console.log("Lista encontrada:", lista);
+    console.log(document.body.innerHTML);
+    subtotal = document.getElementById("subtotal");
+    frete = document.getElementById("frete");
+    total = document.getElementById("total");
+    endereco = document.getElementById("endereco");
+    radiosEntrega = document.querySelectorAll("input[name='entrega']");
+
+    // Confere se encontrou a lista
+    if(!lista){
+
+        console.error("❌ Não encontrou #lista-checkout");
+
+        return;
+
+    }
+
     carregarProdutos();
 
-    atualizarEntrega();
-
 }
-
 // ====================================
-// 04. PRODUTOS
+// 03. PRODUTOS
 // ====================================
 
 function carregarProdutos(){
 
     valorSubtotal = 0;
 
-    UI.lista.innerHTML = "";
+    lista.innerHTML = "";
 
     const comprarAgora = localStorage.getItem("comprarAgora");
 
@@ -93,55 +92,56 @@ function mostrarProduto(produto, quantidade){
 
     valorSubtotal += produto.preco * quantidade;
 
-    const html = `
+    lista.insertAdjacentHTML("beforeend",`
 
-    <div class="produto-checkout">
+        <div class="produto-checkout">
 
-        <img src="${produto.imagem}" alt="${produto.nome}">
+            <img src="${produto.imagem}" alt="${produto.nome}">
 
-        <div>
+            <div>
 
-            <h3>${produto.nome}</h3>
+                <h3>${produto.nome}</h3>
 
-            <p>Quantidade: ${quantidade}</p>
+                <p>Quantidade: ${quantidade}</p>
 
-            <strong>
+                <strong>
 
-                R$ ${(produto.preco * quantidade).toFixed(2)}
+                    R$ ${(
+                        produto.preco * quantidade
+                    ).toFixed(2)}
 
-            </strong>
+                </strong>
+
+            </div>
 
         </div>
 
-    </div>
-
-    `;
-
-    UI.lista.insertAdjacentHTML("beforeend", html);
+    `);
 
     atualizarTotais();
 
 }
 
 // ====================================
-// 05. TOTAIS
+// 04. TOTAIS
 // ====================================
 
 function atualizarTotais(){
 
-    UI.subtotal.textContent =
+    subtotal.textContent =
         "R$ " + valorSubtotal.toFixed(2);
 
-    UI.frete.textContent =
+    frete.textContent =
         "R$ " + valorFrete.toFixed(2);
 
-    UI.total.textContent =
-        "R$ " + (valorSubtotal + valorFrete).toFixed(2);
+    total.textContent =
+        "R$ " +
+        (valorSubtotal + valorFrete).toFixed(2);
 
 }
 
 // ====================================
-// 06. ENTREGA
+// 05. ENTREGA
 // ====================================
 
 function atualizarEntrega(){
@@ -150,23 +150,21 @@ function atualizarEntrega(){
         "input[name='entrega']:checked"
     );
 
-    if(!radioSelecionado){
-        return;
-    }
+    if(!radioSelecionado) return;
 
     const tipoEntrega = radioSelecionado.value;
 
     if(tipoEntrega === "retirada"){
 
-        UI.endereco.style.display = "none";
+        endereco.style.display = "none";
 
         valorFrete = 0;
 
     }else{
 
-        UI.endereco.style.display = "block";
+        endereco.style.display = "block";
 
-        const bairro = document.getElementById("bairro")?.value || "";
+        const bairro = document.getElementById("bairro").value;
 
         valorFrete = calcularFrete(bairro);
 
@@ -177,26 +175,26 @@ function atualizarEntrega(){
 }
 
 // ====================================
-// 07. VALIDAÇÃO
+// 06. VALIDAÇÃO
 // ====================================
 
 function validarFormulario(){
 
-    if(UI.nome.value.trim() === ""){
+    const nome = document.getElementById("nome").value.trim();
+
+    const telefone = document.getElementById("telefone").value.trim();
+
+    if(nome === ""){
 
         alert("Informe seu nome.");
-
-        UI.nome.focus();
 
         return false;
 
     }
 
-    if(UI.telefone.value.trim() === ""){
+    if(telefone === ""){
 
         alert("Informe seu WhatsApp.");
-
-        UI.telefone.focus();
 
         return false;
 
@@ -207,83 +205,59 @@ function validarFormulario(){
 }
 
 // ====================================
-// 08. MENSAGEM WHATSAPP
+// 07. MENSAGEM
 // ====================================
-
-// -----------------------------
-// CABEÇALHO
-// -----------------------------
 
 function montarCabecalho(){
 
-    return `
-🛍️ *${CONFIG.nomeLoja}*
+    const nome = document.getElementById("nome").value;
 
-═══════════════════════
+    const telefone = document.getElementById("telefone").value;
 
-👤 *Cliente:*
-${UI.nome.value}
+    return `🛍️ *${CONFIG.nomeLoja}*
 
-📱 *WhatsApp:*
-${UI.telefone.value}
+══════════════════════
+
+👤 Cliente
+${nome}
+
+📱 WhatsApp
+${telefone}
 
 `;
 
 }
-
-// -----------------------------
-// ENTREGA
-// -----------------------------
 
 function montarEntrega(){
 
     const tipoEntrega =
         document.querySelector("input[name='entrega']:checked").value;
 
-    let textoEntrega =
-        tipoEntrega === "retirada"
-        ? "Retirar no Local"
-        : "Entrega em Domicílio";
-
     let mensagem = `
 
-═══════════════════════
+══════════════════════
 
-🚚 *ENTREGA*
-
-${textoEntrega}
+🚚 ENTREGA
 
 `;
 
-    if(tipoEntrega === "entrega"){
+    if(tipoEntrega === "retirada"){
 
-        mensagem += `
+        mensagem += "Retirar no Local";
 
-CEP:
-${document.getElementById("cep").value}
+    }else{
 
-Estado:
-${document.getElementById("estado").value}
+        mensagem += "Entrega em Domicílio\n\n";
 
-Cidade:
-${document.getElementById("cidade").value}
-
-Bairro:
-${document.getElementById("bairro").value}
-
-Rua:
-${document.getElementById("rua").value}
-
-Número:
-${document.getElementById("numero").value}
-
-Complemento:
-${document.getElementById("complemento").value}
-
-Referência:
-${document.getElementById("referencia").value}
-
-`;
+        mensagem +=
+`CEP: ${document.getElementById("cep").value}
+Estado: ${document.getElementById("estado").value}
+Cidade: ${document.getElementById("cidade").value}
+Bairro: ${document.getElementById("bairro").value}
+Rua: ${document.getElementById("rua").value}
+Número: ${document.getElementById("numero").value}
+Complemento: ${document.getElementById("complemento").value}
+Referência: ${document.getElementById("referencia").value}`;
 
     }
 
@@ -291,27 +265,18 @@ ${document.getElementById("referencia").value}
 
 }
 
-// -----------------------------
-// PAGAMENTO
-// -----------------------------
-
 function montarPagamento(){
 
     const pagamento =
         document.querySelector("input[name='pagamento']:checked").value;
 
-    let textoPagamento =
-        pagamento === "pix"
-        ? "PIX"
-        : "Cartão de Crédito";
-
     return `
 
-═══════════════════════
+══════════════════════
 
-💳 *PAGAMENTO*
+💳 PAGAMENTO
 
-${textoPagamento}
+${pagamento === "pix" ? "PIX" : "Cartão de Crédito"}
 
 `;
 
