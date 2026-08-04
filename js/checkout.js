@@ -195,9 +195,7 @@ function montarCabecalho(){
 
     return `🛍️ *${CONFIG.nomeLoja}*
 
-═══════════════════════
-
-🔥🔥🔥 TESTE 🔥🔥🔥
+═══════════════
 
 👤 *Cliente:*
 ${nome}
@@ -205,7 +203,7 @@ ${nome}
 📱 *WhatsApp:*
 ${telefone}
 
-═══════════════════════
+═══════════════
 
 `;
 
@@ -300,7 +298,7 @@ function montarPagamento(){
 
     return `
 
-═══════════════════════
+═══════════════
 
 💳 *PAGAMENTO*
 
@@ -371,7 +369,7 @@ function montarRodape(){
 
     return `
 
-═══════════════════════
+═══════════════
 
 Subtotal: ${subtotal.textContent}
 
@@ -381,7 +379,7 @@ Frete: ${frete.textContent}
 
 ${total.textContent}
 
-═══════════════════════
+═══════════════
 
 🌹 Obrigado pela preferência!
 
