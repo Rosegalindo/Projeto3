@@ -29,22 +29,16 @@ function iniciarCheckout(){
     console.log("✅ Checkout iniciado");
 
     // Busca os elementos do HTML
-    lista = document.querySelector("#lista-checkout");
-    console.log("Lista encontrada:", lista);
-    console.log(document.body.innerHTML);
+    lista = document.getElementById("lista-checkout");
     subtotal = document.getElementById("subtotal");
     frete = document.getElementById("frete");
     total = document.getElementById("total");
     endereco = document.getElementById("endereco");
     radiosEntrega = document.querySelectorAll("input[name='entrega']");
 
-    // Confere se encontrou a lista
     if(!lista){
-
-        console.error("❌ Não encontrou #lista-checkout");
-
+        console.error("Elemento #lista-checkout não encontrado.");
         return;
-
     }
 
     carregarProdutos();
