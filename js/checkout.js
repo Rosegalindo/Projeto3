@@ -202,7 +202,7 @@ Cliente:
 ⭐ TESTE
 ${nome}
 
-${EMOJIS.telefone} *WhatsApp:*
+WHATSAPP:
 ${telefone}
 
 ═══════════════
