@@ -460,5 +460,3 @@ radiosEntrega.forEach(radio => {
     radio.addEventListener("change", atualizarEntrega);
 
 });
-
-
