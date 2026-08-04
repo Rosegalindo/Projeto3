@@ -198,10 +198,10 @@ PERFUMARIA AMAKHA PARIS
 
 ═══════════════
 
-CLIENTE:
+${EMOJIS.cliente} *Cliente:*
 ${nome}
 
-WHATSAPP:
+${EMOJIS.telefone} *WhatsApp:*
 ${telefone}
 
 ═══════════════
@@ -210,6 +210,16 @@ ${telefone}
 
 }
 
+const EMOJIS = {
+    loja: "\u{1F6CD}",      // 🛍️
+    cliente: "\u{1F464}",   // 👤
+    telefone: "\u{1F4F1}",  // 📱
+    entrega: "\u{1F69A}",   // 🚚
+    pagamento: "\u{1F4B3}", // 💳
+    produtos: "\u{1F6D2}",  // 🛒
+    total: "\u{1F4B0}",     // 💰
+    flor: "\u{1F339}"       // 🌹
+};
 
 // ------------------------------------
 // ENTREGA
