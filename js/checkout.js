@@ -327,6 +327,8 @@ RESUMO DO PEDIDO
 
 Subtotal: ${subtotal.textContent}
 Frete: ${frete.textContent}
+
+====================
 TOTAL: ${total.textContent}
 ══════════════════════
 
