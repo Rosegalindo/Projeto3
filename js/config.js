@@ -27,26 +27,4 @@ const CONFIG = {
 
     // Financeiro
     moeda: "R$",
-
-    // Emojis
-    emoji: {
-
-        loja: "🏪",
-
-        cliente: "👤",
-
-        telefone: "📱",
-
-        entrega: "🚚",
-
-        pagamento: "💳",
-
-        produtos: "🛒",
-
-        total: "💰",
-
-        obrigado: "🌹"
-
-    }
-
 };

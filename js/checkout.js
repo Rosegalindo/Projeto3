@@ -9,6 +9,7 @@
 
 let valorSubtotal = 0;
 let valorFrete = 0;
+let produtosPedido = [];
 
 
 // Elementos da página
@@ -71,11 +72,13 @@ function iniciarCheckout(){
 
 function carregarProdutos(){
 
+    produtosPedido = [];
     valorSubtotal = 0;
 
     lista.innerHTML = "";
 
     const comprarAgora = localStorage.getItem("comprarAgora");
+    console.log("carrinho:", localStorage.getItem("carrinho"));
 
     if(comprarAgora){
 
@@ -106,6 +109,16 @@ function carregarProdutos(){
 function mostrarProduto(produto, quantidade){
 
     valorSubtotal += produto.preco * quantidade;
+
+    produtosPedido.push({
+
+    nome: produto.nome,
+
+    quantidade,
+
+    preco: produto.preco
+
+    });
 
     lista.insertAdjacentHTML("beforeend",`
 
@@ -225,22 +238,18 @@ function validarFormulario(){
 
 function montarCabecalho(){
 
-    const nome = document.getElementById("nome").value;
+    const nome = document.getElementById("nome").value.trim();
 
-    const telefone = document.getElementById("telefone").value;
+    const telefone = document.getElementById("telefone").value.trim();
 
-    return `${CONFIG.emoji.loja} *${CONFIG.nomeLoja}*;
-
+return `══════════════════════
+*${CONFIG.nomeLoja}*
 ══════════════════════
-
-👤 Cliente
 ${nome}
 
-📞 WhatsApp
+WHATSAPP
 ${telefone}
-
 `;
-
 }
 
 function montarEntrega(){
@@ -248,14 +257,9 @@ function montarEntrega(){
     const tipoEntrega =
         document.querySelector("input[name='entrega']:checked").value;
 
-    let mensagem = `
-
-══════════════════════
-
-🚚 ENTREGA
-
+    let mensagem = `══════════════════════
+ENTREGA
 `;
-
     if(tipoEntrega === "retirada"){
 
         mensagem += "Retirar no Local";
@@ -285,55 +289,24 @@ function montarPagamento(){
     const pagamento =
         document.querySelector("input[name='pagamento']:checked").value;
 
-    return `
-
+return `
 ══════════════════════
-
-💳 PAGAMENTO
+PAGAMENTO
 
 ${pagamento === "pix" ? "PIX" : "Cartão de Crédito"}
-
 `;
-
 }
 
 function montarProdutos(){
 
     let mensagem = `
-
 ══════════════════════
-
-🛒 PRODUTOS
-
-`;
-
-    const comprarAgora = localStorage.getItem("comprarAgora");
-
-    if(comprarAgora){
-
-        const produto = produtos.find(p => p.id == comprarAgora);
-
-        if(produto){
-
-            mensagem += `
-• ${produto.nome}
-
-Quantidade: 1
-
-Valor: R$ ${produto.preco.toFixed(2)}
+PRODUTOS
 
 `;
+    produtosPedido.forEach(produto => {
 
-        }
-
-    }else{
-
-        const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-
-        carrinho.forEach(produto => {
-
-            mensagem += `
-• ${produto.nome}
+mensagem += ` • ${produto.nome}
 
 Quantidade: ${produto.quantidade}
 
@@ -341,9 +314,7 @@ Valor: R$ ${(produto.preco * produto.quantidade).toFixed(2)}
 
 `;
 
-        });
-
-    }
+    });
 
     return mensagem;
 
@@ -351,26 +322,18 @@ Valor: R$ ${(produto.preco * produto.quantidade).toFixed(2)}
 
 function montarRodape(){
 
-    return `
-
-══════════════════════
+return `══════════════════════
+RESUMO DO PEDIDO 
 
 Subtotal: ${subtotal.textContent}
-
 Frete: ${frete.textContent}
-
-💰 TOTAL
-
-${total.textContent}
-
+TOTAL: ${total.textContent}
 ══════════════════════
 
-🌸 Obrigado pela preferência!
+Obrigado pela preferência!
 
-Equipe ${CONFIG.nomeLoja}
-
+${CONFIG.nomeLoja}
 `;
-
 }
 
 // ====================================
@@ -379,16 +342,18 @@ Equipe ${CONFIG.nomeLoja}
 
 function enviarWhatsApp(mensagem){
 
-    // Número configurado em config.js
+    console.log("====== MENSAGEM ======");
+    console.log(mensagem);
+
     const numeroLoja = CONFIG.whatsapp;
 
-    // Codifica a mensagem para URL
     const texto = encodeURIComponent(mensagem);
 
-    // Monta o link do WhatsApp
+    console.log("====== URL ======");
+    console.log(texto);
+
     const url = `https://wa.me/${numeroLoja}?text=${texto}`;
 
-    // Abre o WhatsApp em uma nova aba
     window.open(url, "_blank");
 
 }
