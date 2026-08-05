@@ -391,20 +391,40 @@ function finalizarPedido(){
         return;
     }
 
-    // Monta a mensagem
-    let mensagem = "";
+// ====================================
+// SALVAR PEDIDO
+// ====================================
 
-    mensagem += montarCabecalho();
+const pedido = {
 
-    mensagem += montarEntrega();
+    cliente: {
+        nome: document.getElementById("nome").value.trim(),
+        telefone: document.getElementById("telefone").value.trim()
+    },
 
-    mensagem += montarPagamento();
+    entrega: {
+        tipo: document.querySelector("input[name='entrega']:checked").value
+    },
 
-    mensagem += montarProdutos();
+    pagamento: {
+        metodo: document.querySelector("input[name='pagamento']:checked").value
+    },
 
-    mensagem += montarRodape();
+    valores: {
+        subtotal: valorSubtotal,
+        frete: valorFrete,
+        total: valorSubtotal + valorFrete
+    }
 
-    // Envia para o WhatsApp
-    enviarWhatsApp(mensagem);
+};
+
+// Salva no navegador
+localStorage.setItem(
+    "pedido",
+    JSON.stringify(pedido)
+);
+
+// Vai para a página de pagamento
+window.location.href = "pagamento.html";
 
 }
