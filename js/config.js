@@ -4,27 +4,45 @@
 
 const CONFIG = {
 
-    // Loja
-    nomeLoja: "PERFUMARIA AMAKHA PARIS",
+    loja: {
 
-    whatsapp: "5512982072887",
+        nome: "AMAKHA PARIS",
 
-    instagram: "#",
+        whatsapp: "5512982072887",
 
-    email: "rosemayara193@gmail.com",
+        instagram: "#",
 
-    // PIX
-    chavePix: "41180675878",
+        email: "#"
+    },
 
-    // Localização
-    cidade: "São Sebastião",
+    pagamento: {
 
-    estado: "SP",
+        pix: {
+            chave:"41180675878",
 
-    enderecoRetirada: "Rua Quinze de Novembro, nº 336, Casa 2",
+            favorecido:"ROSE MAYARA GALINDO FERREIRA"
+        },
 
-    horarioFuncionamento: "08:00 às 18:00",
+        cartao: {
 
-    // Financeiro
-    moeda: "R$",
+            linkMercadoPago: "#"
+        }
+    },
+
+    endereco: {
+
+        cidade: "SÃO SEBASTIÃO",
+
+        estado: "SP",
+
+        retirada: "PONTAL DA CRUZ, RUA XV DE NOVEMBRO, Nº 336 CASA 2",
+
+        horario: "9h ás 18h"
+    },
+
+    financeiro: {
+
+        moeda: "R$"
+    }
+
 };

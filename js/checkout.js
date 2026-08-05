@@ -160,13 +160,19 @@ function atualizarTotais(){
         "R$ " + valorSubtotal.toFixed(2);
 
     frete.textContent =
-    valorFrete === 0
+        valorFrete === 0
         ? "Grátis"
         : "R$ " + valorFrete.toFixed(2);
 
     total.textContent =
         "R$ " +
         (valorSubtotal + valorFrete).toFixed(2);
+
+    // SALVA O TOTAL
+    localStorage.setItem(
+        "totalPedido",
+        valorSubtotal + valorFrete
+    );
 
 }
 
@@ -201,6 +207,9 @@ function atualizarEntrega(){
     }
 
     atualizarTotais();
+    console.log("Subtotal:", valorSubtotal);
+    console.log("Frete:", valorFrete);
+    console.log("Total salvo:", localStorage.getItem("totalPedido"));
 
 }
 

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pagamento | Solver Store</title>
+
+    <link rel="stylesheet"
+          href="../css/pagamento.css">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>
+
+        <i class='bx bx-credit-card'></i>
+
+        Pagamento
+
+    </h1>
+
+</header>
+
+<main class="container">
+
+    <!-- ========================= -->
+    <!-- RESUMO -->
+    <!-- ========================= -->
+
+    <section class="card">
+
+        <h2>
+
+            <i class='bx bx-receipt'></i>
+
+            Resumo do Pedido
+
+        </h2>
+
+        <div class="linha-total">
+
+            <span>Total</span>
+
+            <strong id="valor-total">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- MÉTODOS -->
+    <!-- ========================= -->
+
+    <section class="card">
+
+        <h2>
+
+            <i class='bx bx-wallet'></i>
+
+            Escolha a Forma de Pagamento
+
+        </h2>
+
+        <div class="radio">
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="pagamento"
+                    value="pix"
+                    checked>
+
+                PIX
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="pagamento"
+                    value="cartao">
+
+                Cartão de Crédito
+
+            </label>
+
+        </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- PIX -->
+    <!-- ========================= -->
+
+    <section
+        class="card"
+        id="pix-area">
+
+        <h2>
+
+            <i class='bx bx-qr'></i>
+
+            Pagamento via PIX
+
+        </h2>
+
+        <div class="pix-box">
+
+            <img
+
+                id="qrcode"
+
+                src="../img/qrcode-pix.png"
+
+                alt="QR Code PIX">
+
+            <h3>
+
+                Chave PIX
+
+            </h3>
+
+            <p id="pix-chave">
+
+                Carregando...
+
+            </p>
+
+            <h3>
+
+                Favorecido
+
+            </h3>
+
+            <p id="pix-favorecido">
+
+                Carregando...
+
+            </p>
+
+            <button id="btn-copiar">
+
+                <i class='bx bx-copy'></i>
+
+                Copiar Chave
+
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- CARTÃO -->
+    <!-- ========================= -->
+
+    <section
+        class="card"
+        id="cartao-area"
+        style="display:none;">
+
+        <h2>
+
+            <i class='bx bx-credit-card'></i>
+
+            Cartão de Crédito
+
+        </h2>
+
+        <p>
+
+            Você será direcionado
+            para o Mercado Pago.
+
+        </p>
+
+        <button id="btn-cartao">
+
+            <i class='bx bxl-mastercard'></i>
+
+            Pagar com Mercado Pago
+
+        </button>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- FINALIZAR -->
+    <!-- ========================= -->
+
+    <section class="card">
+
+        <button id="btn-ja-paguei">
+
+            <i class='bx bx-check-circle'></i>
+
+            Já Realizei o Pagamento
+
+        </button>
+
+    </section>
+
+</main>
+
+<script src="../js/config.js"></script>
+
+<script src="../js/jprodutos.js"></script>
+
+<script src="../js/mensagem.js"></script>
+
+<script src="../js/pagamento.js"></script>
+
+</body>
+
+</html>
