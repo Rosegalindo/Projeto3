@@ -160,7 +160,9 @@ function atualizarTotais(){
         "R$ " + valorSubtotal.toFixed(2);
 
     frete.textContent =
-        "R$ " + valorFrete.toFixed(2);
+    valorFrete === 0
+        ? "Grátis"
+        : "R$ " + valorFrete.toFixed(2);
 
     total.textContent =
         "R$ " +
@@ -326,10 +328,13 @@ return `══════════════════════
 RESUMO DO PEDIDO 
 
 Subtotal: ${subtotal.textContent}
+
 Frete: ${frete.textContent}
 
 ====================
+
 TOTAL: ${total.textContent}
+
 ══════════════════════
 
 Obrigado pela preferência!

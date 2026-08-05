@@ -289,11 +289,11 @@ RESUMO
 
 }
 
-/*==========================
+/*=================================
 TOTAL
-==========================*/
+=================================*/
 
-.linha{
+.linha-total{
 
     display:flex;
 
@@ -301,23 +301,31 @@ TOTAL
 
     align-items:center;
 
-    padding:8px 0;
+    padding:12px 0;
+
+    font-size:17px;
 
 }
 
-.total{
-
-    font-size:24px;
+.linha-total strong{
 
     font-weight:700;
 
+}
+
+.total-geral{
+
+    margin-top:20px;
+
+    padding-top:20px;
+
+    border-top:2px solid #ececec;
+
+    font-size:22px;
+
+    font-weight:bold;
+
     color:#0f5c43;
-
-    border-top:2px solid #e5e5e5;
-
-    padding-top:15px;
-
-    margin-top:15px;
 
 }
 
@@ -348,6 +356,7 @@ BOTÃO
     cursor:pointer;
 
     transition:.25s ease;
+    box-shadow: 0 10px 20px rgba(37,211,102,.30);
 
 }
 
@@ -355,7 +364,7 @@ BOTÃO
 
     transform:translateY(-2px);
 
-    box-shadow:0 10px 25px rgba(37,211,102,.30);
+    box-shadow: 0 15px 30px rgba(37,211,102,.40);
 
 }
 
