@@ -46,3 +46,33 @@ const CONFIG = {
     }
 
 };
+
+STATUS_PEDIDO = {
+
+    AGUARDANDO_PAGAMENTO: "AGUARDANDO PAGAMENTO",
+
+    PAGO: "PAGO",
+
+    EM_SEPARACAO: "EM SEPARAÇÃO",
+
+    ENVIADO: "ENVIADO",
+
+    FINALIZADO: "FINALIZADO"
+
+};
+
+const STORAGE = {
+
+    PEDIDO: "pedido",
+
+    CARRINHO: "carrinho",
+
+    CLIENTE: "cliente",
+
+    TOTAL: "totalPedido",
+
+    PAGAMENTO: "pagamento",
+
+    CUPOM: "cupom",
+
+};
