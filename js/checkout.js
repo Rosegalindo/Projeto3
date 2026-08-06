@@ -77,8 +77,8 @@ function carregarProdutos(){
 
     lista.innerHTML = "";
 
-    const comprarAgora = localStorage.getItem("comprarAgora");
-    console.log("carrinho:", localStorage.getItem("carrinho"));
+    const comprarAgora = carregar(STORAGE.COMPRAR_AGORA);
+    console.log("carrinho:", carregar(STORAGE.CARRINHO));
 
     if(comprarAgora){
 
@@ -96,7 +96,7 @@ function carregarProdutos(){
 
     }
 
-    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    const carrinho = carregar(STORAGE.CARRINHO) || [];
 
     carrinho.forEach(produto => {
 
@@ -209,7 +209,7 @@ function atualizarEntrega(){
     atualizarTotais();
     console.log("Subtotal:", valorSubtotal);
     console.log("Frete:", valorFrete);
-    console.log("Total salvo:", localStorage.getItem("totalPedido"));
+    console.log(carregar(STORAGE.TOTAL_PEDIDO));
 
 }
 
@@ -419,9 +419,9 @@ const pedido = {
 };
 
 // Salva no navegador
-localStorage.setItem(
-    "pedido",
-    JSON.stringify(pedido)
+salvar(
+    STORAGE.PEDIDO,
+    pedido
 );
 
 // Vai para a página de pagamento

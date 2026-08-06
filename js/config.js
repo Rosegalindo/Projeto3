@@ -69,10 +69,8 @@ const STORAGE = {
 
     CLIENTE: "cliente",
 
-    TOTAL: "totalPedido",
+    COMPRAR_AGORA: "comprarAgora",
 
-    PAGAMENTO: "pagamento",
-
-    CUPOM: "cupom",
+    TOTAL_PEDIDO: "totalPedido"
 
 };
