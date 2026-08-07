@@ -20,7 +20,9 @@ const CONFIG = {
         pix: {
             chave:"41180675878",
 
-            favorecido:"ROSE MAYARA GALINDO FERREIRA"
+            favorecido:"ROSE MAYARA GALINDO FERREIRA",
+
+            qrCode: "../assets/qrcode/QRcode.jpeg",
         },
 
         cartao: {

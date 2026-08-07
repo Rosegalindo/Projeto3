@@ -63,7 +63,7 @@ function iniciarPagamento(){
 
 function carregarDados(){
 
-   console.log("===== CONFIG =====");
+    console.log("===== CONFIG =====");
     console.log(CONFIG);
 
     console.log("===== PAGAMENTO =====");
@@ -82,14 +82,18 @@ function carregarDados(){
     console.log(localStorage.getItem("totalPedido"));
 
     // Total
-    valorTotal = localStorage.getItem("totalPedido") || "0.00";
+    valorTotal =
+    carregar(STORAGE.TOTAL_PEDIDO) || 0;
 
     console.log("campoTotal:", campoTotal);
     console.log("campoChave:", campoChave);
     console.log("campoFavorecido:", campoFavorecido);
 
+    const qrCode =
+        document.getElementById("qrcode");
+
     campoTotal.textContent =
-        "R$ " + parseFloat(valorTotal).toFixed(2);
+        formatarMoeda(valorTotal);
 
     // PIX
     campoChave.textContent =

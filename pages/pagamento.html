@@ -121,47 +121,28 @@
 
         <div class="pix-box">
 
-            <img
+    <img
+        id="qrcode"
+        src="../assets/qrcode/QRcode.jpeg"
+        alt="QR Code PIX">
 
-                id="qrcode"
+    <h3>Chave PIX</h3>
 
-                src="../img/qrcode-pix.png"
+    <p id="pix-chave"></p>
 
-                alt="QR Code PIX">
+    <h3>Favorecido</h3>
 
-            <h3>
+    <p id="pix-favorecido"></p>
 
-                Chave PIX
+    <button id="btn-copiar">
 
-            </h3>
+        <i class="bx bx-copy"></i>
 
-            <p id="pix-chave">
+        Copiar Chave
 
-                Carregando...
+    </button>
 
-            </p>
-
-            <h3>
-
-                Favorecido
-
-            </h3>
-
-            <p id="pix-favorecido">
-
-                Carregando...
-
-            </p>
-
-            <button id="btn-copiar">
-
-                <i class='bx bx-copy'></i>
-
-                Copiar Chave
-
-            </button>
-
-        </div>
+</div>
 
     </section>
 
@@ -219,7 +200,11 @@
 
 <script src="../js/config.js"></script>
 
-<script src="../js/produtos.js"></script>
+<script src="../js/modules/utils.js"></script>
+
+<script src="../js/modules/armazenamento.js"></script>
+
+<script src="../js/modules/pedido.js"></script>
 
 <script src="../js/modules/mensagem.js"></script>
 
