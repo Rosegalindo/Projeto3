@@ -189,24 +189,16 @@ function abrirMercadoPago(){
 
 }
 
-// ====================================
+// ======================================
 // 08. FINALIZAR
-// ====================================
+// ======================================
 
 function finalizarPagamento(){
 
-    let mensagem = "";
+    console.log(">>> finalizarPagamento foi chamada <<<");
 
-    mensagem += montarCabecalho();
+    alert("Botão clicado!");
 
-    mensagem += montarEntrega();
-
-    mensagem += montarPagamento();
-
-    mensagem += montarProdutos();
-
-    mensagem += montarRodape();
-
-    enviarWhatsApp(mensagem);
+    window.location.href = "confirmacao.html";
 
 }

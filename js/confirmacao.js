@@ -1,38 +1,39 @@
-// ======================================
+// =====================================================
 // SOLVER STORE
 // CONFIRMAÇÃO
-// ======================================
+// =====================================================
 
-let btnEnviar;
 
-let valorTotal;
 
-let formaPagamento;
+// =====================================================
+// ELEMENTOS
+// =====================================================
 
-// ======================================
+const campoTotal =
+    document.getElementById("valor-total");
+
+const campoPagamento =
+    document.getElementById("forma-pagamento");
+
+const btnWhatsApp =
+    document.getElementById("btn-whatsapp");
+
+
+
+// =====================================================
 // INICIAR
-// ======================================
+// =====================================================
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
     iniciarConfirmacao
-
 );
+
+
 
 function iniciarConfirmacao(){
 
-    console.log("Confirmação iniciada");
-
-    btnEnviar =
-        document.getElementById("btn-enviar");
-
-    valorTotal =
-        document.getElementById("valor-total");
-
-    formaPagamento =
-        document.getElementById("forma-pagamento");
+    console.log("✔ Confirmação iniciada");
 
     carregarResumo();
 
@@ -40,44 +41,46 @@ function iniciarConfirmacao(){
 
 }
 
-// ======================================
-// CARREGAR
-// ======================================
+
+
+// =====================================================
+// CARREGAR RESUMO
+// =====================================================
 
 function carregarResumo(){
 
     const pedido =
         carregar(STORAGE.PEDIDO);
 
-console.log("PEDIDO:", pedido);
-
-console.log("VALORES:", pedido.valores.total);
-
-console.log("PAGAMENTO:", pedido.pagamento.metodo);
-
     if(!pedido){
+
+        alert("Pedido não encontrado.");
+
+        window.location.href="checkout.html";
 
         return;
 
     }
 
-    valorTotal.textContent =
-    formatarMoeda(
-        pedido.valores.total
-    );
+    campoTotal.textContent =
+        formatarMoeda(
+            pedido.valores.total
+        );
 
-formaPagamento.textContent =
-    pedido.pagamento.metodo.toUpperCase();
+    campoPagamento.textContent =
+        pedido.pagamento.metodo.toUpperCase();
 
 }
 
-// ======================================
+
+
+// =====================================================
 // EVENTOS
-// ======================================
+// =====================================================
 
 function registrarEventos(){
 
-    btnEnviar.addEventListener(
+    btnWhatsApp.addEventListener(
 
         "click",
 
@@ -87,16 +90,52 @@ function registrarEventos(){
 
 }
 
-// ======================================
-// ENVIAR
-// ======================================
+
+
+// =====================================================
+// ENVIAR PEDIDO
+// =====================================================
 
 function enviarPedido(){
 
-    alert(
+    const pedido =
+        carregar(STORAGE.PEDIDO);
 
-        "Na próxima etapa enviaremos o pedido para o WhatsApp."
+    if(!pedido){
 
-    );
+        alert("Pedido não encontrado.");
+
+        return;
+
+    }
+
+    const mensagem =
+        montarMensagem(pedido);
+
+    enviarWhatsApp(mensagem);
+
+    limparPedido();
+
+}
+
+
+
+// =====================================================
+// LIMPAR DADOS
+// =====================================================
+
+function limparPedido(){
+
+    remover(STORAGE.PEDIDO);
+
+    remover(STORAGE.CARRINHO);
+
+    localStorage.removeItem("comprarAgora");
+
+    setTimeout(()=>{
+
+        window.location.href="../index.html";
+
+    },1000);
 
 }
