@@ -9,16 +9,13 @@
 
 function montarCabecalho(pedido){
 
-    return `
-══════════════════════
+    return `══════════════════════
 *${CONFIG.loja.nome}*
 ══════════════════════
-😎​
 ${pedido.cliente.nome}
 
-📞
+Whatsapp
 ${pedido.cliente.telefone}
-
 `;
 }
 
@@ -28,13 +25,10 @@ ${pedido.cliente.telefone}
 
 function montarEntrega(pedido){
 
-    let texto = `
+    let texto = `══════════════════════
+*ENTREGA*
 ══════════════════════
-📦​ *ENTREGA*
-══════════════════════
-
 `;
-
     if(pedido.entrega.retirada){
 
         texto += "Retirada na Loja\n";
@@ -69,30 +63,23 @@ ${pedido.entrega.cidade}
 
 function montarPagamento(pedido){
 
-    return `
+    return `══════════════════════
+​*PAGAMENTO*
 ══════════════════════
-​💳​ *PAGAMENTO*
-══════════════════════
-
 ${pedido.pagamento.metodo.toUpperCase()}
 
 `;
 
 }
-
-
-
 // ======================================================
 // 04. PRODUTOS
 // ======================================================
 
 function montarProdutos(pedido){
 
-    let texto = `
+    let texto = `══════════════════════
+​*PRODUTOS*
 ══════════════════════
-​🛒​ *PRODUTOS*
-══════════════════════
-
 `;
 
     if(!pedido.produtos || pedido.produtos.length === 0){
@@ -124,9 +111,8 @@ Valor: ${formatarMoeda(produto.preco)}
 
 function montarTotal(pedido){
 
-    return `
-══════════════════════
-​💰​ *TOTAL*
+    return `══════════════════════
+​*TOTAL*
 ══════════════════════
 
 Subtotal: ${formatarMoeda(pedido.valores.subtotal)}
@@ -145,10 +131,9 @@ TOTAL: ${formatarMoeda(pedido.valores.total)}
 
 function montarRodape(){
 
-    return `
-══════════════════════
+    return `══════════════════════
 
-Obrigado pela preferência ​♥️
+Obrigado pela preferência 
 
 ${CONFIG.loja.nome}
 

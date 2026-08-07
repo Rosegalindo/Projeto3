@@ -101,6 +101,9 @@ function enviarPedido(){
     const pedido =
         carregar(STORAGE.PEDIDO);
 
+    console.log("ENTREGA:");
+    console.log(pedido.entrega);
+
     if(!pedido){
 
         alert("Pedido não encontrado.");
