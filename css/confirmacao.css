@@ -160,12 +160,24 @@ body{
 }
 
 /* =======================================
-   BOTÃO
+BOTÃO WHATSAPP
 ======================================= */
 
-#btn-enviar{
+.card-whatsapp #btn-whatsapp{
 
     width:100%;
+
+    min-height:100px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    gap:18px;
+
+    padding:16px 22px;
 
     background:#25D366;
 
@@ -173,93 +185,368 @@ body{
 
     border:none;
 
-    border-radius:12px;
+    border-radius:14px;
 
-    padding:18px;
-
-    font-size:18px;
-
-    font-weight:bold;
+    box-shadow:0 7px 18px rgba(37,211,102,.25);
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:all .3s ease;
 
 }
 
-#btn-enviar:hover{
+
+/* =======================================
+ÍCONE WHATSAPP
+======================================= */
+
+.card-whatsapp .whatsapp-icone{
+
+    width:60px;
+
+    height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border-right:2px solid rgba(255,255,255,.5);
+
+    padding-right:18px;
+
+}
+
+
+.card-whatsapp .whatsapp-icone i{
+
+    font-size:46px;
+
+    color:#fff;
+
+    line-height:1;
+
+}
+
+
+/* =======================================
+TEXTO
+======================================= */
+
+.card-whatsapp .whatsapp-texto{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    justify-content:center;
+
+    text-align:left;
+
+    gap:5px;
+
+}
+
+
+.card-whatsapp .whatsapp-texto strong{
+
+    color:#fff;
+
+    font-size:1.15rem;
+
+    font-weight:bold;
+
+    line-height:1.2;
+
+}
+
+
+.card-whatsapp .whatsapp-texto small{
+
+    color:#fff;
+
+    font-size:.85rem;
+
+    font-weight:normal;
+
+    opacity:.95;
+
+}
+
+
+/* =======================================
+HOVER
+======================================= */
+
+.card-whatsapp #btn-whatsapp:hover{
 
     background:#1fb758;
 
     transform:translateY(-2px);
 
+    box-shadow:0 10px 22px rgba(37,211,102,.35);
+
 }
 
-#btn-enviar i{
 
-    margin-right:8px;
+/* =======================================
+CLIQUE
+======================================= */
+
+.card-whatsapp #btn-whatsapp:active{
+
+    transform:translateY(0);
+
+}
+
+
+/* =======================================
+CELULAR
+======================================= */
+
+@media(max-width:480px){
+
+    .card-whatsapp{
+
+        padding:15px;
+
+    }
+
+
+    .card-whatsapp #btn-whatsapp{
+
+        min-height:95px;
+
+        padding:15px 16px;
+
+        gap:14px;
+
+    }
+
+
+    .card-whatsapp .whatsapp-icone{
+
+        width:52px;
+
+        height:58px;
+
+        padding-right:14px;
+
+    }
+
+
+    .card-whatsapp .whatsapp-icone i{
+
+        font-size:42px;
+
+    }
+
+
+    .card-whatsapp .whatsapp-texto strong{
+
+        font-size:1rem;
+
+    }
+
+
+    .card-whatsapp .whatsapp-texto small{
+
+        font-size:.76rem;
+
+    }
 
 }
 
 /* =======================================
-   RODAPÉ
+   BOTÃO WHATSAPP - AJUSTE FINAL
 ======================================= */
 
-.agradecimento{
+.card-whatsapp #btn-whatsapp{
 
-    text-align:center;
+    width:100% !important;
+
+    min-height:110px !important;
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    justify-content:flex-start !important;
+
+    gap:20px !important;
+
+    padding:18px 25px !important;
+
+    background:#25D366 !important;
+
+    color:#ffffff !important;
+
+    border:none !important;
+
+    border-radius:16px !important;
+
+    box-shadow:0 7px 18px rgba(37,211,102,.25) !important;
+
+    cursor:pointer;
+
+    transition:all .3s ease;
 
 }
 
-.agradecimento h3{
 
-    margin-bottom:10px;
+/* ÍCONE */
+
+.card-whatsapp #btn-whatsapp .whatsapp-icone{
+
+    width:65px !important;
+
+    height:65px !important;
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    flex-shrink:0;
+
+    border-right:2px solid rgba(255,255,255,.55) !important;
+
+    padding-right:20px !important;
 
 }
 
-.agradecimento p{
 
-    margin-bottom:15px;
+.card-whatsapp #btn-whatsapp .whatsapp-icone i{
 
-    color:#666;
+    font-size:52px !important;
+
+    color:#ffffff !important;
+
+    line-height:1 !important;
+
+}
+
+
+/* TEXTO */
+
+.card-whatsapp #btn-whatsapp .whatsapp-texto{
+
+    display:flex !important;
+
+    flex-direction:column !important;
+
+    align-items:flex-start !important;
+
+    justify-content:center !important;
+
+    text-align:left !important;
+
+    gap:6px;
 
 }
 
-.agradecimento strong{
 
-    color:#0d6848;
+.card-whatsapp #btn-whatsapp .whatsapp-texto strong{
 
-    font-size:1.1rem;
+    display:block;
+
+    color:#ffffff !important;
+
+    font-size:1.35rem !important;
+
+    font-weight:bold;
+
+    line-height:1.2;
 
 }
+
+
+.card-whatsapp #btn-whatsapp .whatsapp-texto small{
+
+    display:block;
+
+    color:#ffffff !important;
+
+    font-size:.9rem !important;
+
+    font-weight:normal;
+
+    opacity:.95;
+
+}
+
+
+/* HOVER */
+
+.card-whatsapp #btn-whatsapp:hover{
+
+    background:#1fb758 !important;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 22px rgba(37,211,102,.35) !important;
+
+}
+
 
 /* =======================================
-   RESPONSIVO
+   CELULAR
 ======================================= */
 
-@media(max-width:768px){
+@media(max-width:480px){
 
-    .container{
+    .card-whatsapp{
 
-        width:92%;
-
-    }
-
-    .card{
-
-        padding:22px;
+        padding:15px !important;
 
     }
 
-    .topo h1{
 
-        font-size:1.8rem;
+    .card-whatsapp #btn-whatsapp{
+
+        min-height:100px !important;
+
+        padding:15px 18px !important;
+
+        gap:15px !important;
 
     }
 
-    .linha strong{
 
-        font-size:1.25rem;
+    .card-whatsapp #btn-whatsapp .whatsapp-icone{
+
+        width:55px !important;
+
+        height:60px !important;
+
+        padding-right:15px !important;
+
+    }
+
+
+    .card-whatsapp #btn-whatsapp .whatsapp-icone i{
+
+        font-size:45px !important;
+
+    }
+
+
+    .card-whatsapp #btn-whatsapp .whatsapp-texto strong{
+
+        font-size:1.05rem !important;
+
+    }
+
+
+    .card-whatsapp #btn-whatsapp .whatsapp-texto small{
+
+        font-size:.78rem !important;
 
     }
 
