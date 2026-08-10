@@ -380,51 +380,106 @@ function enviarWhatsApp(mensagem){
 
 function finalizarPedido(){
 
-        console.log("Botão Finalizar clicado");
+    console.log("Botão Finalizar clicado");
 
+    // Valida o formulário
     if(!validarFormulario()){
         return;
     }
 
-    // Valida os campos obrigatórios
-    if(!validarFormulario()){
+    // Campos do cliente
+    const campoNome = document.getElementById("nome");
+    const campoTelefone = document.getElementById("telefone");
+
+    // Forma de entrega
+    const campoEntrega = document.querySelector(
+        "input[name='entrega']:checked"
+    );
+
+    // Forma de pagamento
+    const campoPagamento = document.querySelector(
+        "input[name='pagamento']:checked"
+    );
+
+    // Segurança
+    if(
+        !campoNome ||
+        !campoTelefone ||
+        !campoEntrega ||
+        !campoPagamento
+    ){
+
+        console.error("Erro: campos do checkout não encontrados.");
+
+        alert(
+            "Não foi possível finalizar o pedido. Verifique os campos do checkout."
+        );
+
         return;
     }
 
-// ====================================
-// SALVAR PEDIDO
-// ====================================
+    // ====================================
+    // CRIAR PEDIDO
+    // ====================================
 
-const pedido = {
+    const pedido = {
 
-    cliente: {
-        nome: document.getElementById("nome").value.trim(),
-        telefone: document.getElementById("telefone").value.trim()
-    },
+        cliente: {
 
-    entrega: {
-        tipo: document.querySelector("input[name='entrega']:checked").value
-    },
+            nome: campoNome.value.trim(),
 
-    pagamento: {
-        metodo: document.querySelector("input[name='pagamento']:checked").value
-    },
+            telefone: campoTelefone.value.trim()
 
-    valores: {
-        subtotal: valorSubtotal,
-        frete: valorFrete,
-        total: valorSubtotal + valorFrete
-    }
+        },
 
-};
+        entrega: {
 
-// Salva no navegador
-salvar(
-    STORAGE.PEDIDO,
-    pedido
-);
+            tipo: campoEntrega.value
 
-// Vai para a página de pagamento
-window.location.href = "pagamento.html";
+        },
+
+        pagamento: {
+
+            metodo: campoPagamento.value
+
+        },
+
+        produtos: produtosPedido,
+
+        valores: {
+
+            subtotal: valorSubtotal,
+
+            frete: valorFrete,
+
+            total: valorSubtotal + valorFrete
+
+        }
+
+    };
+
+    // ====================================
+    // SALVAR PEDIDO
+    // ====================================
+
+    console.log("====== PEDIDO ======");
+    console.log(pedido);
+
+    console.log("====== PRODUTOS ======");
+    console.log(produtosPedido);
+
+    console.log("====== VALORES ======");
+    console.log(pedido.valores);
+
+    salvar(
+        STORAGE.PEDIDO,
+        pedido
+    );
+
+    // ====================================
+    // IR PARA PAGAMENTO
+    // ====================================
+
+    window.location.href = "pagamento.html";
 
 }
