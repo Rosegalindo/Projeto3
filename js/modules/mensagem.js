@@ -29,30 +29,28 @@ function montarEntrega(pedido){
 *ENTREGA*
 ══════════════════════
 `;
+
     if(pedido.entrega.retirada){
 
         texto += "Retirada na Loja\n";
 
     }else{
 
-        texto += `
-Entrega
+        const endereco = pedido.entrega.endereco;
 
-${pedido.entrega.endereco}
-
-${pedido.entrega.numero}
-
-${pedido.entrega.bairro}
-
-${pedido.entrega.cidade}
-`;
+        texto += `Entrega
+    ${endereco.rua}
+    ${endereco.numero}
+    ${endereco.complemento}
+    ${endereco.bairro}
+    ${endereco.cidade}
+    `;
 
     }
 
     texto += "\n";
 
     return texto;
-
 }
 
 

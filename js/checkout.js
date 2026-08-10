@@ -432,11 +432,23 @@ function finalizarPedido(){
 
         },
 
-        entrega: {
+    entrega: {
+        tipo: document.querySelector("input[name='entrega']:checked").value,
 
-            tipo: campoEntrega.value
+        retirada:
+            document.querySelector("input[name='entrega']:checked").value === "retirada",
 
-        },
+        endereco: {
+            cep: document.getElementById("cep")?.value.trim() || "",
+            estado: document.getElementById("estado")?.value.trim() || "",
+            cidade: document.getElementById("cidade")?.value.trim() || "",
+            bairro: document.getElementById("bairro")?.value.trim() || "",
+            rua: document.getElementById("rua")?.value.trim() || "",
+            numero: document.getElementById("numero")?.value.trim() || "",
+            complemento: document.getElementById("complemento")?.value.trim() || "",
+            referencia: document.getElementById("referencia")?.value.trim() || ""
+        }
+    },
 
         pagamento: {
 
