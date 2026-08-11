@@ -67,6 +67,36 @@ function limparPedido(){
 
 function gerarNumeroPedido(){
 
-    return Date.now();
+    const hoje = new Date();
+
+    const ano = hoje.getFullYear();
+
+    const mes = String(
+        hoje.getMonth() + 1
+    ).padStart(2, "0");
+
+    const dia = String(
+        hoje.getDate()
+    ).padStart(2, "0");
+
+    const data = `${ano}${mes}${dia}`;
+
+    let contador =
+        Number(
+            localStorage.getItem("contadorPedido")
+        ) || 0;
+
+    contador++;
+
+    localStorage.setItem(
+        "contadorPedido",
+        contador
+    );
+
+    const numero = String(
+        contador
+    ).padStart(3, "0");
+
+    return `PED-${data}-${numero}`;
 
 }

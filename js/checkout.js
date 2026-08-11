@@ -419,60 +419,85 @@ function finalizarPedido(){
     }
 
     // ====================================
-    // CRIAR PEDIDO
-    // ====================================
+// CRIAR PEDIDO
+// ====================================
 
-    const pedido = {
+const dadosPedido = {
 
-        cliente: {
+    cliente: {
 
-            nome: campoNome.value.trim(),
+        nome: campoNome.value.trim(),
 
-            telefone: campoTelefone.value.trim()
+        telefone: campoTelefone.value.trim()
 
-        },
-
-    entrega: {
-        tipo: document.querySelector("input[name='entrega']:checked").value,
-
-        retirada:
-            document.querySelector("input[name='entrega']:checked").value === "retirada",
-
-        endereco: {
-            cep: document.getElementById("cep")?.value.trim() || "",
-            estado: document.getElementById("estado")?.value.trim() || "",
-            cidade: document.getElementById("cidade")?.value.trim() || "",
-            bairro: document.getElementById("bairro")?.value.trim() || "",
-            rua: document.getElementById("rua")?.value.trim() || "",
-            numero: document.getElementById("numero")?.value.trim() || "",
-            complemento: document.getElementById("complemento")?.value.trim() || "",
-            referencia: document.getElementById("referencia")?.value.trim() || ""
-        }
     },
 
-        pagamento: {
+    entrega: {
 
-            metodo: campoPagamento.value
+        tipo: campoEntrega.value,
 
-        },
+        retirada: campoEntrega.value === "retirada",
 
-        produtos: produtosPedido,
+        endereco: {
 
-        valores: {
+            cep:
+                document.getElementById("cep")?.value.trim() || "",
 
-            subtotal: valorSubtotal,
+            estado:
+                document.getElementById("estado")?.value.trim() || "",
 
-            frete: valorFrete,
+            cidade:
+                document.getElementById("cidade")?.value.trim() || "",
 
-            total: valorSubtotal + valorFrete
+            bairro:
+                document.getElementById("bairro")?.value.trim() || "",
+
+            rua:
+                document.getElementById("rua")?.value.trim() || "",
+
+            numero:
+                document.getElementById("numero")?.value.trim() || "",
+
+            complemento:
+                document.getElementById("complemento")?.value.trim() || "",
+
+            referencia:
+                document.getElementById("referencia")?.value.trim() || ""
 
         }
 
-    };
+    },
 
-    // ====================================
-    // SALVAR PEDIDO
-    // ====================================
+    pagamento: {
+
+        metodo: campoPagamento.value
+
+    },
+
+    produtos: produtosPedido,
+
+    valores: {
+
+        subtotal: valorSubtotal,
+
+        frete: valorFrete,
+
+        total: valorSubtotal + valorFrete
+
+    }
+
+};
+
+
+// ====================================
+// GERAR PEDIDO PADRONIZADO
+// ====================================
+
+const pedido = criarPedido(dadosPedido);
+
+// ====================================
+// SALVAR PEDIDO
+// ====================================
 
     console.log("====== PEDIDO ======");
     console.log(pedido);
@@ -483,14 +508,11 @@ function finalizarPedido(){
     console.log("====== VALORES ======");
     console.log(pedido.valores);
 
-    salvar(
-        STORAGE.PEDIDO,
-        pedido
-    );
+    salvarPedido(pedido);
 
-    // ====================================
-    // IR PARA PAGAMENTO
-    // ====================================
+// ====================================
+// IR PARA PAGAMENTO
+// ====================================
 
     window.location.href = "pagamento.html";
 
