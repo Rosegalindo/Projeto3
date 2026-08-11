@@ -195,10 +195,32 @@ function abrirMercadoPago(){
 
 function finalizarPagamento(){
 
-    console.log(">>> finalizarPagamento foi chamada <<<");
+    console.log(">>> Pagamento confirmado <<<");
 
-    alert("Botão clicado!");
+    const pedido = carregarPedido();
 
+    if(!pedido){
+
+        console.error("Pedido não encontrado.");
+
+        alert(
+            "Não foi possível localizar o pedido."
+        );
+
+        return;
+
+    }
+
+    // Atualiza o status do pedido
+    pedido.status = STATUS_PEDIDO.PAGO;
+
+    // Salva novamente o pedido
+    salvarPedido(pedido);
+
+    console.log("====== PEDIDO ATUALIZADO ======");
+    console.log(pedido);
+
+    // Vai para confirmação
     window.location.href = "confirmacao.html";
 
 }

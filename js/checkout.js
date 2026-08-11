@@ -51,13 +51,15 @@ function iniciarCheckout(){
     atualizarEntrega();
 
     // Eventos
-    const btnFinalizar = document.getElementById("btn-finalizar");
+        const btnFinalizar = document.getElementById("btn-finalizar");
 
-    if(btnFinalizar){
+        console.log("Botão Finalizar encontrado:", btnFinalizar);
 
-        btnFinalizar.addEventListener("click", finalizarPedido);
+        if(btnFinalizar){
 
-    }
+            btnFinalizar.addEventListener("click", finalizarPedido);
+
+        }
 
     radiosEntrega.forEach(radio => {
 
