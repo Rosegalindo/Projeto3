@@ -255,55 +255,80 @@ lista.innerHTML += `
 
 }
 
-// ================================
-// Inicialização
-// ================================
+// ===============================
+// INICIALIZAÇÃO
+// ===============================
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
 
     atualizarBadge();
 
     carregarCarrinho();
 
-    const botoes = document.querySelectorAll(".btn.carrinho");
 
-    botoes.forEach(botao=>{
+    // ===============================
+    // ADICIONAR AO CARRINHO
+    // ===============================
 
-        botao.addEventListener("click",()=>{
+    const botoesCarrinho =
+        document.querySelectorAll(".btn.carrinho");
 
-            const id = Number(botao.dataset.id);
 
-            const areaCompra = botao.closest(".area-compra");
+    botoesCarrinho.forEach(botao => {
 
-            const quantidade = Number(
+        botao.addEventListener("click", () => {
 
-                areaCompra.querySelector(".qtd").textContent
+            const id =
+                Number(botao.dataset.id);
 
+            const areaCompra =
+                botao.closest(".area-compra");
+
+
+            const quantidade =
+                Number(
+                    areaCompra
+                        .querySelector(".qtd")
+                        .textContent
+                );
+
+
+            adicionarCarrinho(
+                id,
+                quantidade
             );
-
-            adicionarCarrinho(id, quantidade);
 
         });
 
     });
 
-});
 
-// ===============================
-// Comprar Agora
-// ===============================
+    // ===============================
+    // COMPRAR AGORA
+    // ===============================
 
-const botoesComprar = document.querySelectorAll(".btn.comprar");
+    const botoesComprar =
+        document.querySelectorAll(".btn.comprar");
 
-botoesComprar.forEach(botao => {
 
-    botao.addEventListener("click", () => {
+    botoesComprar.forEach(botao => {
 
-        const id = Number(botao.dataset.id);
+        botao.addEventListener("click", () => {
 
-        localStorage.setItem("comprarAgora", id);
+            const id =
+                Number(botao.dataset.id);
 
-        window.location.href = "checkout.html";
+
+            localStorage.setItem(
+                "comprarAgora",
+                id
+            );
+
+
+            window.location.href =
+                "checkout.html";
+
+        });
 
     });
 
