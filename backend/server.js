@@ -12,12 +12,15 @@ const app = express();
 
 const {
     MercadoPagoConfig,
-    Preference
+    Preference,
+    Payment
 } = require("mercadopago");
 
 const mp = new MercadoPagoConfig({
     accessToken: process.env.MP_ACCESS_TOKEN
 });
+
+const payment = new Payment(mp);
 
 const PORT = 3000;
 
