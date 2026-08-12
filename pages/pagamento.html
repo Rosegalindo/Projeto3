@@ -16,6 +16,9 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
           rel="stylesheet">
 
+    <!-- Mercado Pago -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
 </head>
 
 <body>
@@ -146,43 +149,30 @@
 
     </section>
 
-    <!-- ========================= -->
-    <!-- CARTÃO -->
-    <!-- ========================= -->
+<!-- ========================= -->
+<!-- CARTÃO -->
+<!-- ========================= -->
 
-    <section
-        class="card"
-        id="cartao-area"
-        style="display:none;">
+<section
+    class="card"
+    id="cartao-area"
+    style="display:none;">
 
-        <h2>
+    <h2>
 
-            <i class='bx bx-credit-card'></i>
+        <i class='bx bx-credit-card'></i>
 
-            Cartão de Crédito
+        Cartão de Crédito
 
-        </h2>
+    </h2>
 
-        <p>
+    <div id="cardPaymentBrick_container"></div>
 
-            Você será direcionado
-            para o Mercado Pago.
+</section>
 
-        </p>
-
-        <button id="btn-cartao">
-
-            <i class='bx bxl-mastercard'></i>
-
-            Pagar com Mercado Pago
-
-        </button>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- FINALIZAR -->
-    <!-- ========================= -->
+<!-- ========================= -->
+<!-- FINALIZAR -->
+<!-- ========================= -->
 
     <section class="card">
 

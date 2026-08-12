@@ -20,42 +20,70 @@ let campoChave;
 let campoFavorecido;
 
 let btnCopiar;
-let btnCartao;
 let btnJaPaguei;
+
+let cardPaymentBrickController;
+
 
 // ====================================
 // 02. INICIALIZAÇÃO
 // ====================================
 
-document.addEventListener("DOMContentLoaded", iniciarPagamento);
+document.addEventListener(
+    "DOMContentLoaded",
+    iniciarPagamento
+);
+
 
 function iniciarPagamento(){
 
     console.log("💳 Pagamento iniciado");
 
     // Campos
-    campoTotal = document.getElementById("valor-total");
-    campoChave = document.getElementById("pix-chave");
-    campoFavorecido = document.getElementById("pix-favorecido");
+    campoTotal =
+        document.getElementById("valor-total");
+
+    campoChave =
+        document.getElementById("pix-chave");
+
+    campoFavorecido =
+        document.getElementById("pix-favorecido");
+
 
     // Áreas
-    areaPix = document.getElementById("pix-area");
-    areaCartao = document.getElementById("cartao-area");
+    areaPix =
+        document.getElementById("pix-area");
+
+    areaCartao =
+        document.getElementById("cartao-area");
+
 
     // Radios
-    radioPix = document.querySelector("input[value='pix']");
-    radioCartao = document.querySelector("input[value='cartao']");
+    radioPix =
+        document.querySelector(
+            "input[value='pix']"
+        );
+
+    radioCartao =
+        document.querySelector(
+            "input[value='cartao']"
+        );
+
 
     // Botões
-    btnCopiar = document.getElementById("btn-copiar");
-    btnCartao = document.getElementById("btn-cartao");
-    btnJaPaguei = document.getElementById("btn-ja-paguei");
+    btnCopiar =
+        document.getElementById("btn-copiar");
+
+    btnJaPaguei =
+        document.getElementById("btn-ja-paguei");
+
 
     carregarDados();
 
     registrarEventos();
 
 }
+
 
 // ====================================
 // 03. CARREGAR DADOS
@@ -73,27 +101,52 @@ function carregarDados(){
     console.log(CONFIG.pagamento.pix);
 
     console.log("===== CHAVE =====");
-    console.log(CONFIG.pagamento.pix.chave);
+    console.log(
+        CONFIG.pagamento.pix.chave
+    );
 
     console.log("===== FAVORECIDO =====");
-    console.log(CONFIG.pagamento.pix.favorecido);
+    console.log(
+        CONFIG.pagamento.pix.favorecido
+    );
 
     console.log("===== TOTAL PEDIDO =====");
-    console.log(localStorage.getItem("totalPedido"));
+    console.log(
+        localStorage.getItem("totalPedido")
+    );
+
 
     // Total
     valorTotal =
-    carregar(STORAGE.TOTAL_PEDIDO) || 0;
+        carregar(STORAGE.TOTAL_PEDIDO) || 0;
 
-    console.log("campoTotal:", campoTotal);
-    console.log("campoChave:", campoChave);
-    console.log("campoFavorecido:", campoFavorecido);
 
-    const qrCode =
-        document.getElementById("qrcode");
+    console.log(
+        "valorTotal:",
+        valorTotal
+    );
 
+
+    console.log(
+        "campoTotal:",
+        campoTotal
+    );
+
+    console.log(
+        "campoChave:",
+        campoChave
+    );
+
+    console.log(
+        "campoFavorecido:",
+        campoFavorecido
+    );
+
+
+    // Total na tela
     campoTotal.textContent =
         formatarMoeda(valorTotal);
+
 
     // PIX
     campoChave.textContent =
@@ -103,6 +156,7 @@ function carregarDados(){
         CONFIG.pagamento.pix.favorecido;
 
 }
+
 
 // ====================================
 // 04. EVENTOS
@@ -115,20 +169,18 @@ function registrarEventos(){
         trocarPagamento
     );
 
+
     radioCartao.addEventListener(
         "change",
         trocarPagamento
     );
+
 
     btnCopiar.addEventListener(
         "click",
         copiarChave
     );
 
-    btnCartao.addEventListener(
-        "click",
-        abrirMercadoPago
-    );
 
     btnJaPaguei.addEventListener(
         "click",
@@ -136,6 +188,7 @@ function registrarEventos(){
     );
 
 }
+
 
 // ====================================
 // 05. TROCAR PAGAMENTO
@@ -149,18 +202,140 @@ function trocarPagamento(){
 
         areaCartao.style.display = "none";
 
+        console.log("💠 Pagamento PIX");
+
     }else{
 
         areaPix.style.display = "none";
 
         areaCartao.style.display = "block";
 
+        console.log("💳 Pagamento com cartão");
+
+        iniciarCardPayment();
+
     }
 
 }
 
+
 // ====================================
-// 06. COPIAR CHAVE PIX
+// 06. CARD PAYMENT BRICK
+// ====================================
+
+async function iniciarCardPayment(){
+
+    // Evita criar o Brick várias vezes
+    if(cardPaymentBrickController){
+
+        console.log(
+            "Card Payment Brick já iniciado."
+        );
+
+        return;
+
+    }
+
+
+    console.log(
+        "🚀 Iniciando Card Payment Brick..."
+    );
+
+
+    // Public Key de TESTE
+    const publicKey =
+        "TEST-c85d3f5b-5c70-40d6-9ae0-a62fb891e527";
+
+
+    try{
+
+        const mp =
+            new MercadoPago(publicKey);
+
+
+        const bricksBuilder =
+            mp.bricks();
+
+
+        const settings = {
+
+            initialization: {
+
+                amount: Number(valorTotal)
+
+            },
+
+
+            callbacks: {
+
+                onReady: () => {
+
+                    console.log(
+                        "✅ Card Payment Brick carregado!"
+                    );
+
+                },
+
+
+                onSubmit: async (formData) => {
+
+                    console.log(
+                        "📦 Dados do cartão preparados:"
+                    );
+
+                    console.log(formData);
+
+
+                    // Por enquanto NÃO enviaremos
+                    // para o backend.
+
+                    alert(
+                        "Formulário do cartão preenchido. Integração com o backend será feita na próxima etapa."
+                    );
+
+                },
+
+
+                onError: (error) => {
+
+                    console.error(
+                        "❌ Erro no Card Payment Brick:",
+                        error
+                    );
+
+                }
+
+            }
+
+        };
+
+
+        cardPaymentBrickController =
+            await bricksBuilder.create(
+
+                "cardPayment",
+
+                "cardPaymentBrick_container",
+
+                settings
+
+            );
+
+
+    }catch(error){
+
+        console.error(
+            "❌ Erro ao iniciar Mercado Pago:",
+            error
+        );
+
+    }
+
+}
+
+
+// ====================================
+// 07. COPIAR CHAVE PIX
 // ====================================
 
 function copiarChave(){
@@ -169,25 +344,12 @@ function copiarChave(){
         CONFIG.pagamento.pix.chave
     );
 
-    alert("Chave PIX copiada!");
-
-}
-
-// ====================================
-// 07. MERCADO PAGO
-// ====================================
-
-function abrirMercadoPago(){
-
-    window.open(
-
-        CONFIG.pagamento.cartao.linkMercadoPago,
-
-        "_blank"
-
+    alert(
+        "Chave PIX copiada!"
     );
 
 }
+
 
 // ======================================
 // 08. FINALIZAR
@@ -195,13 +357,20 @@ function abrirMercadoPago(){
 
 function finalizarPagamento(){
 
-    console.log(">>> Pagamento confirmado <<<");
+    console.log(
+        ">>> Pagamento confirmado <<<"
+    );
 
-    const pedido = carregarPedido();
+
+    const pedido =
+        carregarPedido();
+
 
     if(!pedido){
 
-        console.error("Pedido não encontrado.");
+        console.error(
+            "Pedido não encontrado."
+        );
 
         alert(
             "Não foi possível localizar o pedido."
@@ -211,16 +380,25 @@ function finalizarPagamento(){
 
     }
 
+
     // Atualiza o status do pedido
-    pedido.status = STATUS_PEDIDO.PAGO;
+    pedido.status =
+        STATUS_PEDIDO.PAGO;
+
 
     // Salva novamente o pedido
     salvarPedido(pedido);
 
-    console.log("====== PEDIDO ATUALIZADO ======");
+
+    console.log(
+        "====== PEDIDO ATUALIZADO ======"
+    );
+
     console.log(pedido);
 
+
     // Vai para confirmação
-    window.location.href = "confirmacao.html";
+    window.location.href =
+        "confirmacao.html";
 
 }
