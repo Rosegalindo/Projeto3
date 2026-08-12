@@ -213,6 +213,108 @@ app.post("/processar-pagamento", async (req, res) => {
 });
 
 // ====================================
+// WEBHOOK MERCADO PAGO
+// ====================================
+
+app.post("/webhook/mercado-pago", async (req, res) => {
+
+    console.log("");
+    console.log("====================================");
+    console.log("🔔 WEBHOOK MERCADO PAGO RECEBIDO");
+    console.log("====================================");
+
+    console.log("Body recebido:");
+    console.log(req.body);
+
+    try {
+
+        // ID do pagamento enviado pelo Mercado Pago
+        const paymentId =
+            req.body?.data?.id ||
+            req.query["data.id"];
+
+        console.log("💰 ID do pagamento:", paymentId);
+
+        // Se não veio ID, não temos o que consultar
+        if (!paymentId) {
+
+            console.log(
+                "⚠️ Webhook recebido sem ID de pagamento."
+            );
+
+            return res.sendStatus(200);
+        }
+
+        // ====================================
+        // CONSULTAR PAGAMENTO NO MERCADO PAGO
+        // ====================================
+
+        const pagamento =
+            await payment.get({
+                id: paymentId
+            });
+
+        console.log("");
+        console.log("====== PAGAMENTO CONSULTADO ======");
+        console.log("ID:", pagamento.id);
+        console.log("Status:", pagamento.status);
+        console.log(
+            "Status detalhe:",
+            pagamento.status_detail
+        );
+        console.log(
+            "Valor:",
+            pagamento.transaction_amount
+        );
+
+        // ====================================
+        // VERIFICAR STATUS
+        // ====================================
+
+        if (pagamento.status === "approved") {
+
+            console.log("");
+            console.log("====================================");
+            console.log("✅ PAGAMENTO APROVADO PELO MERCADO PAGO");
+            console.log("====================================");
+
+            // Aqui será feita a atualização
+            // definitiva do pedido para PAGO.
+
+        }
+
+        if (pagamento.status === "rejected") {
+
+            console.log(
+                "❌ Pagamento rejeitado."
+            );
+
+        }
+
+        if (pagamento.status === "pending") {
+
+            console.log(
+                "⏳ Pagamento pendente."
+            );
+
+        }
+
+        // Mercado Pago precisa receber 200
+        res.sendStatus(200);
+
+    } catch (erro) {
+
+        console.error(
+            "❌ Erro ao processar Webhook:",
+            erro
+        );
+
+        res.sendStatus(500);
+    }
+
+});
+
+// ====================================
 // INICIAR SERVIDOR
 // ====================================
 
