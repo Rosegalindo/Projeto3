@@ -353,19 +353,25 @@ onSubmit: async (formData) => {
 
             const pedido = carregarPedido();
 
-            if (pedido) {
+        if (pedido) {
 
-                pedido.status =
-                    STATUS_PEDIDO.PAGO;
+            // Define o método de pagamento
+            pedido.pagamento.metodo =
+                "cartão de crédito";
 
-                salvarPedido(pedido);
+            // Atualiza o status do pedido
+            pedido.status =
+                STATUS_PEDIDO.PAGO;
 
-                console.log(
-                    "📦 Pedido atualizado:",
-                    pedido
-                );
+            // Salva o pedido atualizado
+            salvarPedido(pedido);
 
-            }
+            console.log(
+                "📦 Pedido atualizado:",
+                pedido
+            );
+
+        }
 
             window.location.href =
                 "confirmacao.html";
@@ -458,48 +464,41 @@ function copiarChave(){
 
 function finalizarPagamento(){
 
-    console.log(
-        ">>> Pagamento confirmado <<<"
-    );
+    console.log(">>> Pagamento confirmado <<<");
 
-
-    const pedido =
-        carregarPedido();
-
+    const pedido = carregarPedido();
 
     if(!pedido){
 
-        console.error(
-            "Pedido não encontrado."
-        );
+        console.error("Pedido não encontrado.");
 
         alert(
             "Não foi possível localizar o pedido."
         );
 
         return;
+    }
+
+    // Define o método de pagamento
+    if (radioCartao.checked) {
+
+        pedido.pagamento.metodo = "cartão de crédito";
+
+    } else {
+
+        pedido.pagamento.metodo = "pix";
 
     }
 
-
     // Atualiza o status do pedido
-    pedido.status =
-        STATUS_PEDIDO.PAGO;
-
+    pedido.status = STATUS_PEDIDO.PAGO;
 
     // Salva novamente o pedido
     salvarPedido(pedido);
 
-
-    console.log(
-        "====== PEDIDO ATUALIZADO ======"
-    );
-
+    console.log("====== PEDIDO ATUALIZADO ======");
     console.log(pedido);
 
-
     // Vai para confirmação
-    window.location.href =
-        "confirmacao.html";
-
+    window.location.href = "confirmacao.html";
 }
