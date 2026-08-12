@@ -1,0 +1,9 @@
+# Dependências
+node_modules/
+
+# Credenciais e variáveis de ambiente
+.env
+.env.*
+
+# Arquivos locais
+*.log
