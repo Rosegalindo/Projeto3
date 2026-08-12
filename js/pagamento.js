@@ -276,24 +276,125 @@ async function iniciarCardPayment(){
 
                 },
 
+onSubmit: async (formData) => {
 
-                onSubmit: async (formData) => {
+    console.log("💳 Enviando pagamento para o backend...");
+    console.log("Dados recebidos pelo Brick:", formData);
 
-                    console.log(
-                        "📦 Dados do cartão preparados:"
-                    );
+    try {
 
-                    console.log(formData);
+        const resposta = await fetch(
+            "http://localhost:3000/processar-pagamento",
+            {
+                method: "POST",
 
-
-                    // Por enquanto NÃO enviaremos
-                    // para o backend.
-
-                    alert(
-                        "Formulário do cartão preenchido. Integração com o backend será feita na próxima etapa."
-                    );
-
+                headers: {
+                    "Content-Type": "application/json"
                 },
+
+                body: JSON.stringify({
+
+                    transaction_amount: Number(valorTotal),
+
+                    token: formData.token,
+
+                    description: "Pedido Solver Store",
+
+                    installments: Number(
+                        formData.installments
+                    ),
+
+                    payment_method_id:
+                        formData.payment_method_id,
+
+                    issuer_id:
+                        formData.issuer_id,
+
+                    payer: {
+
+                        email:
+                            formData.payer.email,
+
+                        identification:
+                            formData.payer.identification
+
+                    }
+
+                })
+            }
+        );
+
+        const resultado =
+            await resposta.json();
+
+        console.log(
+            "💰 Resultado do pagamento:",
+            resultado
+        );
+
+        if (!resposta.ok || !resultado.sucesso) {
+
+            throw new Error(
+                resultado.erro ||
+                "Não foi possível processar o pagamento."
+            );
+
+        }
+
+        // ====================================
+        // PAGAMENTO APROVADO
+        // ====================================
+
+        if (resultado.status === "approved") {
+
+            console.log(
+                "✅ PAGAMENTO APROVADO!"
+            );
+
+            const pedido = carregarPedido();
+
+            if (pedido) {
+
+                pedido.status =
+                    STATUS_PEDIDO.PAGO;
+
+                salvarPedido(pedido);
+
+                console.log(
+                    "📦 Pedido atualizado:",
+                    pedido
+                );
+
+            }
+
+            window.location.href =
+                "confirmacao.html";
+
+        } else {
+
+            alert(
+                "O pagamento não foi aprovado.\n\n" +
+                "Status: " +
+                resultado.status
+            );
+
+        }
+
+    } catch (erro) {
+
+        console.error(
+            "❌ Erro ao processar pagamento:",
+            erro
+        );
+
+        alert(
+            "Não foi possível processar o pagamento.\n\n" +
+            "Tente novamente."
+        );
+
+    }
+
+},
 
 
                 onError: (error) => {
