@@ -226,6 +226,9 @@ app.post("/webhook/mercado-pago", async (req, res) => {
     console.log("Body recebido:");
     console.log(req.body);
 
+    // Responde imediatamente ao Mercado Pago
+        res.sendStatus(200);
+
     try {
 
         // ID do pagamento enviado pelo Mercado Pago
@@ -238,12 +241,12 @@ app.post("/webhook/mercado-pago", async (req, res) => {
         // Se não veio ID, não temos o que consultar
         if (!paymentId) {
 
-            console.log(
-                "⚠️ Webhook recebido sem ID de pagamento."
-            );
+        console.log(
+            "⚠️ Webhook recebido sem ID de pagamento."
+        );
 
-            return res.sendStatus(200);
-        }
+        return;
+    }
 
         // ====================================
         // CONSULTAR PAGAMENTO NO MERCADO PAGO
@@ -299,18 +302,13 @@ app.post("/webhook/mercado-pago", async (req, res) => {
 
         }
 
-        // Mercado Pago precisa receber 200
-        res.sendStatus(200);
-
     } catch (erro) {
 
-        console.error(
-            "❌ Erro ao processar Webhook:",
-            erro
-        );
-
-        res.sendStatus(500);
-    }
+    console.error(
+        "❌ Erro ao processar Webhook:",
+        erro
+    );
+}
 
 });
 
