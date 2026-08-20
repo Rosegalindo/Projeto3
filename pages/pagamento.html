@@ -16,9 +16,6 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
           rel="stylesheet">
 
-    <!-- Mercado Pago -->
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
-
 </head>
 
 <body>
@@ -35,10 +32,11 @@
 
 </header>
 
+
 <main class="container">
 
     <!-- ========================= -->
-    <!-- RESUMO -->
+    <!-- RESUMO DO PEDIDO -->
     <!-- ========================= -->
 
     <section class="card">
@@ -51,142 +49,116 @@
 
         </h2>
 
+
         <div class="linha-total">
 
             <span>Total</span>
 
             <strong id="valor-total">
+
                 R$ 0,00
+
+            </strong>
+
+        </div>
+
+
+        <div class="linha-pedido">
+
+            <span>Pedido</span>
+
+            <strong id="numero-pedido">
+
+                -
+
             </strong>
 
         </div>
 
     </section>
 
+
     <!-- ========================= -->
-    <!-- MÉTODOS -->
+    <!-- PAGAMENTO MERCADO PAGO -->
     <!-- ========================= -->
 
-    <section class="card">
+    <section class="card pagamento-card">
 
-        <h2>
+        <div class="icone-pagamento">
 
             <i class='bx bx-wallet'></i>
 
-            Escolha a Forma de Pagamento
+        </div>
+
+
+        <h2>
+
+            Pagamento seguro
 
         </h2>
 
-        <div class="radio">
 
-            <label>
+        <p>
 
-                <input
-                    type="radio"
-                    name="pagamento"
-                    value="pix"
-                    checked>
+            Você será direcionado ao Mercado Pago
 
-                PIX
+            para escolher a forma de pagamento.
 
-            </label>
+        </p>
 
-            <label>
 
-                <input
-                    type="radio"
-                    name="pagamento"
-                    value="cartao">
+        <p class="metodos">
 
-                Cartão de Crédito
+            <i class='bx bx-credit-card'></i>
 
-            </label>
+            Cartão de Crédito
 
-        </div>
+            <span>•</span>
+
+            <i class='bx bx-qr'></i>
+
+            PIX
+
+        </p>
+
+
+        <button
+            id="btn-pagar"
+            class="btn-pagar">
+
+            <i class='bx bx-lock-alt'></i>
+
+            Pagar com Mercado Pago
+
+        </button>
+
+
+        <p class="seguranca">
+
+            <i class='bx bx-shield-quarter'></i>
+
+            Pagamento processado com segurança pelo Mercado Pago.
+
+        </p>
 
     </section>
 
+
     <!-- ========================= -->
-    <!-- PIX -->
+    <!-- STATUS -->
     <!-- ========================= -->
 
     <section
         class="card"
-        id="pix-area">
+        id="status-area"
+        style="display:none;">
 
-        <h2>
-
-            <i class='bx bx-qr'></i>
-
-            Pagamento via PIX
-
-        </h2>
-
-        <div class="pix-box">
-
-    <img
-        id="qrcode"
-        src="../assets/qrcode/QRcode.jpeg"
-        alt="QR Code PIX">
-
-    <h3>Chave PIX</h3>
-
-    <p id="pix-chave"></p>
-
-    <h3>Favorecido</h3>
-
-    <p id="pix-favorecido"></p>
-
-    <button id="btn-copiar">
-
-        <i class="bx bx-copy"></i>
-
-        Copiar Chave
-
-    </button>
-
-</div>
-
-    </section>
-
-<!-- ========================= -->
-<!-- CARTÃO -->
-<!-- ========================= -->
-
-<section
-    class="card"
-    id="cartao-area"
-    style="display:none;">
-
-    <h2>
-
-        <i class='bx bx-credit-card'></i>
-
-        Cartão de Crédito
-
-    </h2>
-
-    <div id="cardPaymentBrick_container"></div>
-
-</section>
-
-<!-- ========================= -->
-<!-- FINALIZAR -->
-<!-- ========================= -->
-
-    <section class="card">
-
-        <button id="btn-ja-paguei">
-
-            <i class='bx bx-check-circle'></i>
-
-            Confirmar Pagamento
-
-        </button>
+        <div id="status-mensagem"></div>
 
     </section>
 
 </main>
+
 
 <script src="../js/config.js"></script>
 
@@ -199,6 +171,7 @@
 <script src="../js/modules/mensagem.js"></script>
 
 <script src="../js/pagamento.js"></script>
+
 
 </body>
 

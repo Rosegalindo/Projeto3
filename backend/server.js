@@ -120,6 +120,141 @@ app.get("/criar-pagamento-teste", async (req, res) => {
 });
 
 // ====================================
+// CRIAR PREFERENCE - CHECKOUT PRO
+// ====================================
+
+app.post("/criar-preferencia", async (req, res) => {
+
+    try {
+
+        console.log("");
+        console.log("====================================");
+        console.log("🛒 CRIANDO PREFERENCE CHECKOUT PRO");
+        console.log("====================================");
+
+        const {
+            numero,
+            produtos,
+            valores
+        } = req.body;
+
+        console.log("Pedido:", numero);
+        console.log("Produtos:", produtos);
+        console.log("Valores:", valores);
+
+        // ====================================
+        // VALIDAR PEDIDO
+        // ====================================
+
+        if (!numero) {
+
+            return res.status(400).json({
+
+                sucesso: false,
+
+                erro: "Número do pedido não informado."
+
+            });
+
+        }
+
+        if (
+            !Array.isArray(produtos) ||
+            produtos.length === 0
+        ) {
+
+            return res.status(400).json({
+
+                sucesso: false,
+
+                erro: "Nenhum produto informado."
+
+            });
+
+        }
+
+        // ====================================
+        // TRANSFORMAR PRODUTOS
+        // ====================================
+
+        const items = produtos.map(produto => ({
+
+            title: produto.nome,
+
+            quantity: Number(produto.quantidade),
+
+            unit_price: Number(produto.preco),
+
+            currency_id: "BRL"
+
+        }));
+
+        // ====================================
+        // CRIAR PREFERENCE
+        // ====================================
+
+        const preference = new Preference(mp);
+
+        const resultado = await preference.create({
+
+            body: {
+
+                items,
+
+                external_reference: numero,
+
+                notification_url:
+                    process.env.MP_WEBHOOK_URL
+
+            }
+
+        });
+
+        console.log("");
+        console.log("====== PREFERENCE CRIADA ======");
+        console.log("ID:", resultado.id);
+        console.log("Checkout:", resultado.init_point);
+        console.log(
+            "External Reference:",
+            numero
+        );
+
+        // ====================================
+        // RESPONDER FRONTEND
+        // ====================================
+
+        res.json({
+
+            sucesso: true,
+
+            id: resultado.id,
+
+            checkout: resultado.init_point,
+
+            external_reference: numero
+
+        });
+
+    } catch (erro) {
+
+        console.error(
+            "❌ Erro ao criar Preference:",
+            erro
+        );
+
+        res.status(500).json({
+
+            sucesso: false,
+
+            erro: erro.message
+
+        });
+
+    }
+
+});
+
+// ====================================
 // PROCESSAR PAGAMENTO COM CARTÃO
 // ====================================
 
