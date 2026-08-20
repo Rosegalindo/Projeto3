@@ -204,11 +204,26 @@ app.post("/criar-preferencia", async (req, res) => {
                 external_reference: numero,
 
                 notification_url:
-                    process.env.MP_WEBHOOK_URL
+                    process.env.MP_WEBHOOK_URL,
 
-            }
+           back_urls: {
 
-        });
+            success:
+                process.env.MP_SUCCESS_URL,
+
+            failure:
+                process.env.MP_FAILURE_URL,
+
+            pending:
+                process.env.MP_PENDING_URL
+
+        },
+
+        auto_return: "approved"
+
+    }
+
+});
 
         console.log("");
         console.log("====== PREFERENCE CRIADA ======");
@@ -444,6 +459,74 @@ app.post("/webhook/mercado-pago", async (req, res) => {
         erro
     );
 }
+
+});
+
+// ====================================
+// RETORNOS DO CHECKOUT PRO
+// ====================================
+
+// PAGAMENTO APROVADO
+app.get("/pagamento-aprovado", (req, res) => {
+
+    console.log("");
+    console.log("====================================");
+    console.log("✅ RETORNO: PAGAMENTO APROVADO");
+    console.log("====================================");
+
+    console.log("Payment ID:", req.query.payment_id);
+    console.log("Status:", req.query.status);
+    console.log(
+        "External Reference:",
+        req.query.external_reference
+    );
+
+    res.send(`
+        <h1>Pagamento aprovado!</h1>
+        <p>Seu pagamento foi aprovado pelo Mercado Pago.</p>
+        <p>Pedido: ${req.query.external_reference || "-"}</p>
+        <p>Pagamento: ${req.query.payment_id || "-"}</p>
+    `);
+
+});
+
+
+// PAGAMENTO FALHOU
+app.get("/pagamento-falhou", (req, res) => {
+
+    console.log("");
+    console.log("====================================");
+    console.log("❌ RETORNO: PAGAMENTO FALHOU");
+    console.log("====================================");
+
+    console.log("Payment ID:", req.query.payment_id);
+    console.log("Status:", req.query.status);
+
+    res.send(`
+        <h1>Pagamento não aprovado</h1>
+        <p>Não foi possível concluir o pagamento.</p>
+        <p>Você pode tentar novamente.</p>
+    `);
+
+});
+
+
+// PAGAMENTO PENDENTE
+app.get("/pagamento-pendente", (req, res) => {
+
+    console.log("");
+    console.log("====================================");
+    console.log("⏳ RETORNO: PAGAMENTO PENDENTE");
+    console.log("====================================");
+
+    console.log("Payment ID:", req.query.payment_id);
+    console.log("Status:", req.query.status);
+
+    res.send(`
+        <h1>Pagamento pendente</h1>
+        <p>Seu pagamento ainda está sendo processado.</p>
+        <p>Aguarde a confirmação do Mercado Pago.</p>
+    `);
 
 });
 
