@@ -1,28 +1,19 @@
 // ======================================================
 // SOLVER STORE
-// PAGAMENTO
+// PAGAMENTO - CHECKOUT PRO MERCADO PAGO
 // ======================================================
 
 // ====================================
 // 01. VARIÁVEIS
 // ====================================
 
-let valorTotal;
-
-let radioPix;
-let radioCartao;
-
-let areaPix;
-let areaCartao;
-
 let campoTotal;
-let campoChave;
-let campoFavorecido;
+let campoNumeroPedido;
 
-let btnCopiar;
-let btnJaPaguei;
+let btnPagar;
 
-let cardPaymentBrickController;
+let statusArea;
+let statusMensagem;
 
 
 // ====================================
@@ -39,197 +30,178 @@ function iniciarPagamento(){
 
     console.log("💳 Pagamento iniciado");
 
-    // Campos
+    // ====================================
+    // CAMPOS
+    // ====================================
+
     campoTotal =
         document.getElementById("valor-total");
 
-    campoChave =
-        document.getElementById("pix-chave");
-
-    campoFavorecido =
-        document.getElementById("pix-favorecido");
+    campoNumeroPedido =
+        document.getElementById("numero-pedido");
 
 
-    // Áreas
-    areaPix =
-        document.getElementById("pix-area");
+    // ====================================
+    // BOTÃO
+    // ====================================
 
-    areaCartao =
-        document.getElementById("cartao-area");
+    btnPagar =
+        document.getElementById("btn-pagar");
 
 
-    // Radios
-    radioPix =
-        document.querySelector(
-            "input[value='pix']"
+    // ====================================
+    // STATUS
+    // ====================================
+
+    statusArea =
+        document.getElementById("status-area");
+
+    statusMensagem =
+        document.getElementById("status-mensagem");
+
+
+    // ====================================
+    // VERIFICAR CAMPOS
+    // ====================================
+
+    if(
+        !campoTotal ||
+        !campoNumeroPedido ||
+        !btnPagar
+    ){
+
+        console.error(
+            "❌ Elementos do pagamento não encontrados."
         );
 
-    radioCartao =
-        document.querySelector(
-            "input[value='cartao']"
-        );
+        return;
+
+    }
 
 
-    // Botões
-    btnCopiar =
-        document.getElementById("btn-copiar");
-
-    btnJaPaguei =
-        document.getElementById("btn-ja-paguei");
-
+    // ====================================
+    // CARREGAR PEDIDO
+    // ====================================
 
     carregarDados();
 
-    registrarEventos();
+
+    // ====================================
+    // EVENTO
+    // ====================================
+
+    btnPagar.addEventListener(
+        "click",
+        iniciarCheckout
+    );
 
 }
 
 
 // ====================================
-// 03. CARREGAR DADOS
+// 03. CARREGAR PEDIDO
 // ====================================
 
 function carregarDados(){
 
-    console.log("===== CONFIG =====");
-    console.log(CONFIG);
-
-    console.log("===== PAGAMENTO =====");
-    console.log(CONFIG.pagamento);
-
-    console.log("===== PIX =====");
-    console.log(CONFIG.pagamento.pix);
-
-    console.log("===== CHAVE =====");
-    console.log(
-        CONFIG.pagamento.pix.chave
-    );
-
-    console.log("===== FAVORECIDO =====");
-    console.log(
-        CONFIG.pagamento.pix.favorecido
-    );
-
-    console.log("===== TOTAL PEDIDO =====");
-    console.log(
-        localStorage.getItem("totalPedido")
-    );
-
-
-    // Total
-    valorTotal =
-        carregar(STORAGE.TOTAL_PEDIDO) || 0;
+    const pedido =
+        carregarPedido();
 
 
     console.log(
-        "valorTotal:",
-        valorTotal
-    );
-
-
-    console.log(
-        "campoTotal:",
-        campoTotal
+        "====== PEDIDO PARA PAGAMENTO ======"
     );
 
     console.log(
-        "campoChave:",
-        campoChave
-    );
-
-    console.log(
-        "campoFavorecido:",
-        campoFavorecido
+        pedido
     );
 
 
-    // Total na tela
-    campoTotal.textContent =
-        formatarMoeda(valorTotal);
+    // ====================================
+    // VERIFICAR PEDIDO
+    // ====================================
 
+    if(!pedido){
 
-    // PIX
-    campoChave.textContent =
-        CONFIG.pagamento.pix.chave;
+        console.error(
+            "❌ Pedido não encontrado."
+        );
 
-    campoFavorecido.textContent =
-        CONFIG.pagamento.pix.favorecido;
+        mostrarStatus(
+            "Não foi possível localizar seu pedido.",
+            "erro"
+        );
 
-}
+        btnPagar.disabled = true;
 
-
-// ====================================
-// 04. EVENTOS
-// ====================================
-
-function registrarEventos(){
-
-    radioPix.addEventListener(
-        "change",
-        trocarPagamento
-    );
-
-
-    radioCartao.addEventListener(
-        "change",
-        trocarPagamento
-    );
-
-
-    btnCopiar.addEventListener(
-        "click",
-        copiarChave
-    );
-
-
-    btnJaPaguei.addEventListener(
-        "click",
-        finalizarPagamento
-    );
-
-}
-
-
-// ====================================
-// 05. TROCAR PAGAMENTO
-// ====================================
-
-function trocarPagamento(){
-
-    if(radioPix.checked){
-
-        areaPix.style.display = "block";
-
-        areaCartao.style.display = "none";
-
-        console.log("💠 Pagamento PIX");
-
-    }else{
-
-        areaPix.style.display = "none";
-
-        areaCartao.style.display = "block";
-
-        console.log("💳 Pagamento com cartão");
-
-        iniciarCardPayment();
+        return;
 
     }
 
+
+    // ====================================
+    // TOTAL
+    // ====================================
+
+    const total =
+        Number(
+            pedido.valores?.total
+        ) || 0;
+
+
+    // ====================================
+    // NÚMERO DO PEDIDO
+    // ====================================
+
+    campoNumeroPedido.textContent =
+        pedido.numero || "-";
+
+
+    // ====================================
+    // VALOR NA TELA
+    // ====================================
+
+    campoTotal.textContent =
+        formatarMoeda(total);
+
+
+    console.log(
+        "Número do pedido:",
+        pedido.numero
+    );
+
+    console.log(
+        "Total:",
+        total
+    );
+
 }
 
 
 // ====================================
-// 06. CARD PAYMENT BRICK
+// 04. INICIAR CHECKOUT
 // ====================================
 
-async function iniciarCardPayment(){
+async function iniciarCheckout(){
 
-    // Evita criar o Brick várias vezes
-    if(cardPaymentBrickController){
+    console.log(
+        "🚀 Iniciando Checkout Pro..."
+    );
 
-        console.log(
-            "Card Payment Brick já iniciado."
+
+    // ====================================
+    // CARREGAR PEDIDO
+    // ====================================
+
+    const pedido =
+        carregarPedido();
+
+
+    if(!pedido){
+
+        mostrarStatus(
+            "Não foi possível localizar o pedido.",
+            "erro"
         );
 
         return;
@@ -237,204 +209,222 @@ async function iniciarCardPayment(){
     }
 
 
-    console.log(
-        "🚀 Iniciando Card Payment Brick..."
-    );
+    // ====================================
+    // VERIFICAR PRODUTOS
+    // ====================================
+
+    if(
+        !Array.isArray(pedido.produtos) ||
+        pedido.produtos.length === 0
+    ){
+
+        console.error(
+            "❌ Pedido sem produtos.",
+            pedido
+        );
+
+        mostrarStatus(
+            "O pedido não possui produtos.",
+            "erro"
+        );
+
+        return;
+
+    }
 
 
-    // Public Key de TESTE
-    const publicKey =
-        "TEST-c85d3f5b-5c70-40d6-9ae0-a62fb891e527";
+    // ====================================
+    // VERIFICAR VALOR
+    // ====================================
+
+    const total =
+        Number(
+            pedido.valores?.total
+        ) || 0;
+
+
+    if(total <= 0){
+
+        console.error(
+            "❌ Valor do pedido inválido:",
+            total
+        );
+
+        mostrarStatus(
+            "O valor do pedido é inválido.",
+            "erro"
+        );
+
+        return;
+
+    }
+
+
+    // ====================================
+    // EVITAR DUPLO CLIQUE
+    // ====================================
+
+    btnPagar.disabled = true;
+
+    btnPagar.innerHTML =
+        "<i class='bx bx-loader-alt bx-spin'></i> " +
+        "Preparando pagamento...";
 
 
     try{
 
-        const mp =
-            new MercadoPago(publicKey);
-
-
-        const bricksBuilder =
-            mp.bricks();
-
-
-        const settings = {
-
-            initialization: {
-
-                amount: Number(valorTotal)
-
-            },
-
-
-            callbacks: {
-
-                onReady: () => {
-
-                    console.log(
-                        "✅ Card Payment Brick carregado!"
-                    );
-
-                },
-
-onSubmit: async (formData) => {
-
-    console.log("💳 Enviando pagamento para o backend...");
-    console.log("Dados recebidos pelo Brick:", formData);
-
-    try {
-
-        const resposta = await fetch(
-            "http://localhost:3000/processar-pagamento",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    transaction_amount: Number(valorTotal),
-
-                    token: formData.token,
-
-                    description: "Pedido Solver Store",
-
-                    installments: Number(
-                        formData.installments
-                    ),
-
-                    payment_method_id:
-                        formData.payment_method_id,
-
-                    issuer_id:
-                        formData.issuer_id,
-
-                    payer: {
-
-                        email:
-                            formData.payer.email,
-
-                        identification:
-                            formData.payer.identification
-
-                    }
-
-                })
-            }
+        console.log(
+            "📦 Enviando pedido para o backend..."
         );
+
+
+        // ====================================
+        // CRIAR PREFERENCE
+        // ====================================
+
+        const resposta =
+            await fetch(
+                "http://localhost:3000/criar-preferencia",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        numero:
+                            pedido.numero,
+
+                        produtos:
+                            pedido.produtos,
+
+                        valores:
+                            pedido.valores
+
+                    })
+
+                }
+            );
+
+
+        // ====================================
+        // LER RESPOSTA
+        // ====================================
 
         const resultado =
             await resposta.json();
 
+
         console.log(
-            "💰 Resultado do pagamento:",
+            "💰 Resposta do backend:"
+        );
+
+        console.log(
             resultado
         );
 
-        if (!resposta.ok || !resultado.sucesso) {
+
+        // ====================================
+        // VERIFICAR ERRO
+        // ====================================
+
+        if(
+            !resposta.ok ||
+            !resultado.sucesso
+        ){
 
             throw new Error(
                 resultado.erro ||
-                "Não foi possível processar o pagamento."
+                "Não foi possível criar o pagamento."
             );
 
         }
 
+
         // ====================================
-        // PAGAMENTO APROVADO
+        // SALVAR ID DA PREFERENCE
         // ====================================
 
-        if (resultado.status === "approved") {
+        if(resultado.id){
 
-            console.log(
-                "✅ PAGAMENTO APROVADO!"
-            );
+            pedido.pagamento =
+                pedido.pagamento || {};
 
-            const pedido = carregarPedido();
+            pedido.pagamento.preferenceId =
+                resultado.id;
 
-        if (pedido) {
-
-            // Define o método de pagamento
-            pedido.pagamento.metodo =
-                "cartão de crédito";
-
-            // Atualiza o status do pedido
-            pedido.status =
-                STATUS_PEDIDO.PAGO;
-
-            // Salva o pedido atualizado
             salvarPedido(pedido);
 
-            console.log(
-                "📦 Pedido atualizado:",
-                pedido
+        }
+
+
+        console.log(
+            "✅ Preference criada!"
+        );
+
+        console.log(
+            "ID:",
+            resultado.id
+        );
+
+        console.log(
+            "Checkout:",
+            resultado.checkout
+        );
+
+
+        // ====================================
+        // REDIRECIONAR
+        // ====================================
+
+        if(!resultado.checkout){
+
+            throw new Error(
+                "O Mercado Pago não retornou o link do Checkout."
             );
 
         }
 
-            window.location.href =
-                "confirmacao.html";
 
-        } else {
+        console.log(
+            "➡️ Redirecionando para o Mercado Pago..."
+        );
 
-            alert(
-                "O pagamento não foi aprovado.\n\n" +
-                "Status: " +
-                resultado.status
-            );
 
-        }
+        window.location.href =
+            resultado.checkout;
 
-    } catch (erro) {
+
+    }catch(erro){
 
         console.error(
-            "❌ Erro ao processar pagamento:",
+            "❌ Erro ao iniciar Checkout Pro:",
             erro
         );
 
-        alert(
-            "Não foi possível processar o pagamento.\n\n" +
-            "Tente novamente."
+
+        mostrarStatus(
+            "Não foi possível iniciar o pagamento. " +
+            "Tente novamente.",
+            "erro"
         );
 
-    }
 
-},
+        // ====================================
+        // RESTAURAR BOTÃO
+        // ====================================
 
+        btnPagar.disabled = false;
 
-                onError: (error) => {
-
-                    console.error(
-                        "❌ Erro no Card Payment Brick:",
-                        error
-                    );
-
-                }
-
-            }
-
-        };
-
-
-        cardPaymentBrickController =
-            await bricksBuilder.create(
-
-                "cardPayment",
-
-                "cardPaymentBrick_container",
-
-                settings
-
-            );
-
-
-    }catch(error){
-
-        console.error(
-            "❌ Erro ao iniciar Mercado Pago:",
-            error
-        );
+        btnPagar.innerHTML =
+            "<i class='bx bx-lock-alt'></i> " +
+            "Pagar com Mercado Pago";
 
     }
 
@@ -442,63 +432,38 @@ onSubmit: async (formData) => {
 
 
 // ====================================
-// 07. COPIAR CHAVE PIX
+// 05. MOSTRAR STATUS
 // ====================================
 
-function copiarChave(){
+function mostrarStatus(
+    mensagem,
+    tipo = "info"
+){
 
-    navigator.clipboard.writeText(
-        CONFIG.pagamento.pix.chave
-    );
+    if(!statusArea || !statusMensagem){
 
-    alert(
-        "Chave PIX copiada!"
-    );
-
-}
-
-
-// ======================================
-// 08. FINALIZAR
-// ======================================
-
-function finalizarPagamento(){
-
-    console.log(">>> Pagamento confirmado <<<");
-
-    const pedido = carregarPedido();
-
-    if(!pedido){
-
-        console.error("Pedido não encontrado.");
-
-        alert(
-            "Não foi possível localizar o pedido."
-        );
+        alert(mensagem);
 
         return;
-    }
-
-    // Define o método de pagamento
-    if (radioCartao.checked) {
-
-        pedido.pagamento.metodo = "cartão de crédito";
-
-    } else {
-
-        pedido.pagamento.metodo = "pix";
 
     }
 
-    // Atualiza o status do pedido
-    pedido.status = STATUS_PEDIDO.PAGO;
 
-    // Salva novamente o pedido
-    salvarPedido(pedido);
+    statusArea.style.display =
+        "block";
 
-    console.log("====== PEDIDO ATUALIZADO ======");
-    console.log(pedido);
 
-    // Vai para confirmação
-    window.location.href = "confirmacao.html";
+    statusMensagem.textContent =
+        mensagem;
+
+
+    statusMensagem.className =
+        tipo;
+
+
+    console.log(
+        "Status:",
+        mensagem
+    );
+
 }
