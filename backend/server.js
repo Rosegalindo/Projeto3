@@ -26,6 +26,12 @@ const payment = new Payment(mp);
 const PORT = 3000;
 
 // ====================================
+// PEDIDOS EM MEMÓRIA
+// ====================================
+
+const pedidos = new Map();
+
+// ====================================
 // MIDDLEWARES
 // ====================================
 
@@ -174,6 +180,37 @@ app.post("/criar-preferencia", async (req, res) => {
         }
 
         // ====================================
+        // REGISTRAR PEDIDO NO BACKEND
+        // ====================================
+
+            const pedido = {
+
+                numero,
+
+                produtos,
+
+                valores,
+
+                status: "AGUARDANDO_PAGAMENTO",
+
+                criadoEm: new Date().toISOString()
+
+            };
+
+            pedidos.set(
+                numero,
+                pedido
+            );
+
+            console.log("");
+            console.log("====================================");
+            console.log("📦 PEDIDO REGISTRADO NO BACKEND");
+            console.log("====================================");
+
+            console.log("Número:", numero);
+            console.log("Status:", pedido.status);
+
+        // ====================================
         // TRANSFORMAR PRODUTOS
         // ====================================
 
@@ -232,6 +269,23 @@ app.post("/criar-preferencia", async (req, res) => {
         console.log(
             "External Reference:",
             numero
+        );
+
+        // ====================================
+        // SALVAR ID DA PREFERENCE NO PEDIDO
+        // ====================================
+
+        pedido.preferenceId =
+            resultado.id;
+
+        pedidos.set(
+            numero,
+            pedido
+        );
+
+        console.log(
+            "Preference ID salvo:",
+            pedido.preferenceId
         );
 
         // ====================================
@@ -363,6 +417,83 @@ app.post("/processar-pagamento", async (req, res) => {
 });
 
 // ====================================
+// CONSULTAR STATUS DO PEDIDO
+// ====================================
+
+app.get("/pedido/:numero/status", (req, res) => {
+
+    const numero =
+        req.params.numero;
+
+    console.log("");
+    console.log("====================================");
+    console.log("📦 CONSULTANDO STATUS DO PEDIDO");
+    console.log("====================================");
+
+    console.log(
+        "Pedido:",
+        numero
+    );
+
+    const pedido =
+        pedidos.get(numero);
+
+    // ====================================
+    // PEDIDO NÃO ENCONTRADO
+    // ====================================
+
+    if (!pedido) {
+
+        console.log(
+            "⚠️ Pedido não encontrado."
+        );
+
+        return res.status(404).json({
+
+            sucesso: false,
+
+            erro: "Pedido não encontrado."
+
+        });
+
+    }
+
+    // ====================================
+    // RETORNAR STATUS
+    // ====================================
+
+    console.log(
+        "Status:",
+        pedido.status
+    );
+
+    console.log(
+        "Pagamento:",
+        pedido.pagamentoId || null
+    );
+
+    res.json({
+
+        sucesso: true,
+
+        numero: pedido.numero,
+
+        status: pedido.status,
+
+        pagamentoId:
+            pedido.pagamentoId || null,
+
+        statusPagamento:
+            pedido.statusPagamento || null,
+
+        statusDetalhe:
+            pedido.statusDetalhe || null
+
+    });
+
+});
+
+// ====================================
 // WEBHOOK MERCADO PAGO
 // ====================================
 
@@ -376,27 +507,74 @@ app.post("/webhook/mercado-pago", async (req, res) => {
     console.log("Body recebido:");
     console.log(req.body);
 
-    // Responde imediatamente ao Mercado Pago
-        res.sendStatus(200);
+    // ====================================
+    // RESPONDER IMEDIATAMENTE
+    // ====================================
+
+    res.sendStatus(200);
 
     try {
 
-        // ID do pagamento enviado pelo Mercado Pago
+        // ====================================
+        // IDENTIFICAR TIPO DE NOTIFICAÇÃO
+        // ====================================
+
+        const tipoEvento =
+            req.body?.type ||
+            req.query?.type ||
+            req.body?.topic ||
+            req.query?.topic;
+
+        const action =
+            req.body?.action;
+
+        console.log("Tipo de evento:", tipoEvento);
+        console.log("Action:", action);
+
+        // ====================================
+        // PEGAR ID DO PAGAMENTO
+        // ====================================
+
         const paymentId =
             req.body?.data?.id ||
-            req.query["data.id"];
+            req.query?.["data.id"] ||
+            (
+                tipoEvento === "payment"
+                    ? req.body?.resource
+                    : null
+            );
 
         console.log("💰 ID do pagamento:", paymentId);
 
-        // Se não veio ID, não temos o que consultar
+        // ====================================
+        // IGNORAR EVENTOS QUE NÃO SÃO PAGAMENTO
+        // ====================================
+
+        if (
+            tipoEvento !== "payment" &&
+            action !== "payment.created" &&
+            action !== "payment.updated"
+        ) {
+
+            console.log(
+                "ℹ️ Evento ignorado. Não é uma notificação de pagamento."
+            );
+
+            return;
+        }
+
+        // ====================================
+        // SE NÃO TEM ID, ENCERRAR
+        // ====================================
+
         if (!paymentId) {
 
-        console.log(
-            "⚠️ Webhook recebido sem ID de pagamento."
-        );
+            console.log(
+                "⚠️ Notificação de pagamento sem ID."
+            );
 
-        return;
-    }
+            return;
+        }
 
         // ====================================
         // CONSULTAR PAGAMENTO NO MERCADO PAGO
@@ -420,8 +598,41 @@ app.post("/webhook/mercado-pago", async (req, res) => {
             pagamento.transaction_amount
         );
 
+        console.log(
+            "External Reference:",
+            pagamento.external_reference
+        );
+
         // ====================================
-        // VERIFICAR STATUS
+        // LOCALIZAR PEDIDO
+        // ====================================
+
+        const numeroPedido =
+            pagamento.external_reference;
+
+        const pedido =
+            pedidos.get(numeroPedido);
+
+        console.log(
+            "📦 Pedido localizado:",
+            numeroPedido
+        );
+
+        // ====================================
+        // VERIFICAR SE O PEDIDO EXISTE
+        // ====================================
+
+        if (!pedido) {
+
+            console.log(
+                "⚠️ Pedido não encontrado no backend."
+            );
+
+            return;
+        }
+
+        // ====================================
+        // PAGAMENTO APROVADO
         // ====================================
 
         if (pagamento.status === "approved") {
@@ -431,12 +642,69 @@ app.post("/webhook/mercado-pago", async (req, res) => {
             console.log("✅ PAGAMENTO APROVADO PELO MERCADO PAGO");
             console.log("====================================");
 
-            // Aqui será feita a atualização
-            // definitiva do pedido para PAGO.
+            pedido.status = "PAGO";
+
+            pedido.pagamentoId =
+                pagamento.id;
+
+            pedido.statusPagamento =
+                pagamento.status;
+
+            pedido.statusDetalhe =
+                pagamento.status_detail;
+
+            pedido.valorPago =
+                pagamento.transaction_amount;
+
+            pedido.dataPagamento =
+                new Date().toISOString();
+
+            pedidos.set(
+                numeroPedido,
+                pedido
+            );
+
+            console.log("");
+            console.log("====================================");
+            console.log("🎉 PEDIDO ATUALIZADO PARA PAGO");
+            console.log("====================================");
+
+            console.log(
+                "Pedido:",
+                numeroPedido
+            );
+
+            console.log(
+                "Status:",
+                pedido.status
+            );
+
+            console.log(
+                "Pagamento:",
+                pedido.pagamentoId
+            );
 
         }
 
-        if (pagamento.status === "rejected") {
+        // ====================================
+        // PAGAMENTO REJEITADO
+        // ====================================
+
+        else if (pagamento.status === "rejected") {
+
+            pedido.status =
+                "PAGAMENTO_REJEITADO";
+
+            pedido.pagamentoId =
+                pagamento.id;
+
+            pedido.statusPagamento =
+                pagamento.status;
+
+            pedidos.set(
+                numeroPedido,
+                pedido
+            );
 
             console.log(
                 "❌ Pagamento rejeitado."
@@ -444,7 +712,25 @@ app.post("/webhook/mercado-pago", async (req, res) => {
 
         }
 
-        if (pagamento.status === "pending") {
+        // ====================================
+        // PAGAMENTO PENDENTE
+        // ====================================
+
+        else if (pagamento.status === "pending") {
+
+            pedido.status =
+                "PAGAMENTO_PENDENTE";
+
+            pedido.pagamentoId =
+                pagamento.id;
+
+            pedido.statusPagamento =
+                pagamento.status;
+
+            pedidos.set(
+                numeroPedido,
+                pedido
+            );
 
             console.log(
                 "⏳ Pagamento pendente."
@@ -452,13 +738,27 @@ app.post("/webhook/mercado-pago", async (req, res) => {
 
         }
 
+        // ====================================
+        // OUTROS STATUS
+        // ====================================
+
+        else {
+
+            console.log(
+                "ℹ️ Status recebido:",
+                pagamento.status
+            );
+
+        }
+
     } catch (erro) {
 
-    console.error(
-        "❌ Erro ao processar Webhook:",
-        erro
-    );
-}
+        console.error(
+            "❌ Erro ao processar Webhook:",
+            erro
+        );
+
+    }
 
 });
 
