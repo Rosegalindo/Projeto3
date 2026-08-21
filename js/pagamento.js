@@ -467,3 +467,66 @@ function mostrarStatus(
     );
 
 }
+
+// ====================================
+// 06. CONSULTAR STATUS DO PEDIDO
+// ====================================
+
+async function consultarStatusPedido(numeroPedido){
+
+    console.log("");
+    console.log("====================================");
+    console.log("🔎 CONSULTANDO STATUS DO PEDIDO");
+    console.log("====================================");
+
+    console.log(
+        "Pedido:",
+        numeroPedido
+    );
+
+    try{
+
+        const resposta =
+            await fetch(
+                `http://localhost:3000/pedido/${encodeURIComponent(numeroPedido)}/status`
+            );
+
+
+        const resultado =
+            await resposta.json();
+
+
+        console.log(
+            "📦 Status recebido do backend:"
+        );
+
+        console.log(
+            resultado
+        );
+
+
+        if(!resposta.ok){
+
+            console.error(
+                "❌ Não foi possível consultar o pedido."
+            );
+
+            return null;
+
+        }
+
+
+        return resultado;
+
+    }catch(erro){
+
+        console.error(
+            "❌ Erro ao consultar status:",
+            erro
+        );
+
+        return null;
+
+    }
+
+}

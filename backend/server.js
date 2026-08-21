@@ -766,7 +766,10 @@ app.post("/webhook/mercado-pago", async (req, res) => {
 // RETORNOS DO CHECKOUT PRO
 // ====================================
 
+// ====================================
 // PAGAMENTO APROVADO
+// ====================================
+
 app.get("/pagamento-aprovado", (req, res) => {
 
     console.log("");
@@ -774,18 +777,90 @@ app.get("/pagamento-aprovado", (req, res) => {
     console.log("✅ RETORNO: PAGAMENTO APROVADO");
     console.log("====================================");
 
-    console.log("Payment ID:", req.query.payment_id);
-    console.log("Status:", req.query.status);
+    console.log(
+        "Payment ID:",
+        req.query.payment_id
+    );
+
+    console.log(
+        "Status:",
+        req.query.status
+    );
+
     console.log(
         "External Reference:",
         req.query.external_reference
     );
 
+    const pedido =
+        req.query.external_reference || "";
+
+    const pagamento =
+        req.query.payment_id || "";
+
     res.send(`
-        <h1>Pagamento aprovado!</h1>
-        <p>Seu pagamento foi aprovado pelo Mercado Pago.</p>
-        <p>Pedido: ${req.query.external_reference || "-"}</p>
-        <p>Pagamento: ${req.query.payment_id || "-"}</p>
+
+        <!DOCTYPE html>
+
+        <html lang="pt-BR">
+
+        <head>
+
+            <meta charset="UTF-8">
+
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+            >
+
+            <title>Pagamento aprovado</title>
+
+        </head>
+
+        <body>
+
+            <h1>
+                Pagamento aprovado!
+            </h1>
+
+            <p>
+                Seu pagamento foi aprovado pelo Mercado Pago.
+            </p>
+
+            <p>
+                Pedido:
+                <strong>
+                    ${pedido || "-"}
+                </strong>
+            </p>
+
+            <p>
+                Pagamento:
+                <strong>
+                    ${pagamento || "-"}
+                </strong>
+            </p>
+
+            <p>
+                Confirmando seu pedido...
+            </p>
+
+            <script>
+
+                const numeroPedido =
+                    ${JSON.stringify(pedido)};
+
+                console.log(
+                    "Pedido recebido:",
+                    numeroPedido
+                );
+
+            </script>
+
+        </body>
+
+        </html>
+
     `);
 
 });
