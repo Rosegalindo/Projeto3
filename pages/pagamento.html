@@ -5,173 +5,205 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Pagamento | Solver Store</title>
 
-    <link rel="stylesheet"
-          href="../css/pagamento.css">
+    <!-- CSS DA PÁGINA -->
+    <link
+        rel="stylesheet"
+        href="../css/pagamento.css"
+    >
 
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-          rel="stylesheet">
+    <!-- BOXICONS -->
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+    >
 
 </head>
 
 <body>
 
-<header>
+    <!-- ========================================= -->
+    <!-- CABEÇALHO -->
+    <!-- ========================================= -->
 
-    <h1>
+    <header>
 
-        <i class='bx bx-credit-card'></i>
+        <h1>
 
-        Pagamento
+            <i class="bx bx-credit-card"></i>
 
-    </h1>
+            Pagamento
 
-</header>
+        </h1>
 
+    </header>
 
-<main class="container">
 
-    <!-- ========================= -->
-    <!-- RESUMO DO PEDIDO -->
-    <!-- ========================= -->
+    <!-- ========================================= -->
+    <!-- CONTEÚDO PRINCIPAL -->
+    <!-- ========================================= -->
 
-    <section class="card">
+    <main class="container">
 
-        <h2>
 
-            <i class='bx bx-receipt'></i>
+        <!-- ===================================== -->
+        <!-- RESUMO DO PEDIDO -->
+        <!-- ===================================== -->
 
-            Resumo do Pedido
+        <section class="card">
 
-        </h2>
+            <h2>
 
+                <i class="bx bx-receipt"></i>
 
-        <div class="linha-total">
+                Resumo do Pedido
 
-            <span>Total</span>
+            </h2>
 
-            <strong id="valor-total">
 
-                R$ 0,00
+            <div class="linha-total">
 
-            </strong>
+                <span>Total</span>
 
-        </div>
+                <strong id="valor-total">
 
+                    R$ 0,00
 
-        <div class="linha-pedido">
+                </strong>
 
-            <span>Pedido</span>
+            </div>
 
-            <strong id="numero-pedido">
 
-                -
+            <div class="linha-pedido">
 
-            </strong>
+                <span>Pedido</span>
 
-        </div>
+                <strong id="numero-pedido">
 
-    </section>
+                    -
 
+                </strong>
 
-    <!-- ========================= -->
-    <!-- PAGAMENTO MERCADO PAGO -->
-    <!-- ========================= -->
+            </div>
 
-    <section class="card pagamento-card">
+        </section>
 
-        <div class="icone-pagamento">
 
-            <i class='bx bx-wallet'></i>
 
-        </div>
+        <!-- ===================================== -->
+        <!-- PAGAMENTO -->
+        <!-- ===================================== -->
 
+        <section class="card pagamento-card">
 
-        <h2>
 
-            Pagamento seguro
+            <div class="icone-pagamento">
 
-        </h2>
+                <i class="bx bx-wallet"></i>
 
+            </div>
 
-        <p>
 
-            Você será direcionado ao Mercado Pago
+            <h2>
 
-            para escolher a forma de pagamento.
+                Pagamento seguro
 
-        </p>
+            </h2>
 
 
-        <p class="metodos">
+            <p>
 
-            <i class='bx bx-credit-card'></i>
+                Você será direcionado ao Mercado Pago
+                para escolher a forma de pagamento.
 
-            Cartão de Crédito
+            </p>
 
-            <span>•</span>
 
-            <i class='bx bx-qr'></i>
+            <p class="metodos">
 
-            PIX
+                <i class="bx bx-credit-card"></i>
 
-        </p>
+                Cartão de Crédito
 
+                <span>•</span>
 
-        <button
-            type="button"
-            id="btn-pagar"
-            class="btn-pagar">
+                <i class="bx bx-qr"></i>
 
-            <i class="bx bx-lock-alt"></i>
+                PIX
 
-            Pagar com Mercado Pago
+            </p>
 
-        </button>
 
+            <!-- ================================= -->
+            <!-- BOTÃO PAGAR -->
+            <!-- ================================= -->
 
-        <p class="seguranca">
+            <button
+                type="button"
+                id="btn-pagar"
+                class="btn-pagar"
+            >
 
-            <i class='bx bx-shield-quarter'></i>
+                <i class="bx bx-lock-alt"></i>
 
-            Pagamento processado com segurança pelo Mercado Pago.
+                <span id="texto-btn-pagar">
 
-        </p>
+                    Pagar com Mercado Pago
 
-    </section>
+                </span>
 
+            </button>
 
-    <!-- ========================= -->
-    <!-- STATUS -->
-    <!-- ========================= -->
 
-    <section
-        class="card"
-        id="status-area"
-        style="display:none;">
+            <p class="seguranca">
 
-        <div id="status-mensagem"></div>
+                <i class="bx bx-shield-quarter"></i>
 
-    </section>
+                Pagamento processado com segurança pelo Mercado Pago.
 
-</main>
+            </p>
 
+        </section>
 
-<script src="../js/config.js"></script>
 
-<script src="../js/modules/utils.js"></script>
 
-<script src="../js/modules/armazenamento.js"></script>
+        <!-- ===================================== -->
+        <!-- ÁREA DE STATUS -->
+        <!-- ===================================== -->
 
-<script src="../js/modules/pedido.js"></script>
+        <section
+            class="card"
+            id="status-area"
+            style="display: none;"
+        >
 
-<script src="../js/modules/mensagem.js"></script>
+            <div id="status-mensagem"></div>
 
-<script src="../js/pagamento.js"></script>
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ========================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ========================================= -->
+
+    <script src="../js/config.js"></script>
+
+    <script src="../js/modules/utils.js"></script>
+
+    <script src="../js/modules/armazenamento.js"></script>
+
+    <script src="../js/modules/pedido.js"></script>
+
+    <script src="../js/modules/mensagem.js"></script>
+
+    <script src="../js/pagamento.js"></script>
 
 
 </body>
