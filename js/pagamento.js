@@ -48,6 +48,14 @@ function iniciarPagamento(){
     btnPagar =
         document.getElementById("btn-pagar");
 
+        console.log("🟢 Botão Pagar encontrado:", btnPagar);
+
+    btnPagar.addEventListener("click", () => {
+
+    console.log("🚨 CLIQUEI NO BOTÃO PAGAR!");
+
+});
+
 
     // ====================================
     // STATUS

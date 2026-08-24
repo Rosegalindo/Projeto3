@@ -37,7 +37,28 @@
         "total": 43.9
       },
       "status": "AGUARDANDO_PAGAMENTO",
-      "criadoEm": "2026-08-24T16:03:09.298Z"
+      "criadoEm": "2026-08-24T16:03:09.298Z",
+      "preferenceId": "3614156117-c419b550-413e-4f90-96d4-3e117f859b54"
+    }
+  ],
+  [
+    "PED-20260824-021",
+    {
+      "numero": "PED-20260824-021",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-24T16:04:28.232Z"
     }
   ]
 ]
