@@ -47,32 +47,242 @@ function iniciarConfirmacao(){
 // CARREGAR RESUMO
 // =====================================================
 
-function carregarResumo(){
+async function carregarResumo(){
 
-    const pedido =
-        carregar(STORAGE.PEDIDO);
+    console.log("");
+    console.log("====================================");
+    console.log("📦 CARREGANDO CONFIRMAÇÃO DO PEDIDO");
+    console.log("====================================");
 
-    if(!pedido){
 
-        alert("Pedido não encontrado.");
+    // ====================================
+    // PEGAR NÚMERO DO PEDIDO DA URL
+    // ====================================
 
-        window.location.href="checkout.html";
+    const parametros =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const numeroPedido =
+        parametros.get("pedido");
+
+    const paymentId =
+        parametros.get("payment_id");
+
+
+    console.log(
+        "Pedido recebido pela URL:",
+        numeroPedido
+    );
+
+    console.log(
+        "Payment ID recebido pela URL:",
+        paymentId
+    );
+
+
+    // ====================================
+    // VERIFICAR PEDIDO
+    // ====================================
+
+    if(!numeroPedido){
+
+        console.error(
+            "❌ Número do pedido não encontrado na URL."
+        );
+
+        alert(
+            "Não foi possível identificar o pedido."
+        );
 
         return;
 
     }
 
-    campoTotal.textContent =
-        formatarMoeda(
-            pedido.valores.total
+
+    // ====================================
+    // CONSULTAR BACKEND
+    // ====================================
+
+    try{
+
+        console.log(
+            "🔎 Consultando status do pedido no backend..."
         );
 
-    campoPagamento.textContent =
-        pedido.pagamento.metodo.toUpperCase();
+
+        const resposta =
+            await fetch(
+                `http://localhost:3000/pedido/${encodeURIComponent(numeroPedido)}/status`
+            );
+
+
+        const resultado =
+            await resposta.json();
+
+
+        console.log(
+            "📦 Resposta do backend:"
+        );
+
+        console.log(
+            resultado
+        );
+
+
+        // ====================================
+        // VERIFICAR RESPOSTA
+        // ====================================
+
+        if(!resposta.ok || !resultado.sucesso){
+
+            console.error(
+                "❌ Não foi possível consultar o pedido."
+            );
+
+            alert(
+                "Não foi possível confirmar o pedido."
+            );
+
+            return;
+
+        }
+
+
+        // ====================================
+        // VERIFICAR STATUS
+        // ====================================
+
+        console.log(
+            "Status do pedido:",
+            resultado.status
+        );
+
+
+        if(resultado.status !== "PAGO"){
+
+            console.warn(
+                "⚠️ Pedido ainda não está como PAGO."
+            );
+
+            alert(
+                "O pagamento ainda não foi confirmado."
+            );
+
+            return;
+
+        }
+
+
+        // ====================================
+        // CARREGAR PEDIDO LOCAL
+        // ====================================
+
+        const pedido =
+            carregar(STORAGE.PEDIDO);
+
+
+        if(!pedido){
+
+            console.error(
+                "❌ Pedido não encontrado no armazenamento local."
+            );
+
+            alert(
+                "Não foi possível carregar os dados do pedido."
+            );
+
+            return;
+
+        }
+
+
+        // ====================================
+        // GARANTIR QUE É O MESMO PEDIDO
+        // ====================================
+
+        if(
+            pedido.numero &&
+            pedido.numero !== numeroPedido
+        ){
+
+            console.error(
+                "❌ O pedido local não corresponde ao pedido confirmado."
+            );
+
+            alert(
+                "O pedido confirmado não corresponde ao pedido atual."
+            );
+
+            return;
+
+        }
+
+
+        // ====================================
+        // MOSTRAR TOTAL
+        // ====================================
+
+        campoTotal.textContent =
+            formatarMoeda(
+                pedido.valores?.total || 0
+            );
+
+
+        // ====================================
+        // MOSTRAR FORMA DE PAGAMENTO
+        // ====================================
+
+        campoPagamento.textContent =
+            pedido.pagamento?.metodo
+                ? pedido.pagamento.metodo.toUpperCase()
+                : "MERCADO PAGO";
+
+
+        // ====================================
+        // CONFIRMAÇÃO
+        // ====================================
+
+        console.log("");
+        console.log("====================================");
+        console.log("✅ PEDIDO CONFIRMADO");
+        console.log("====================================");
+
+        console.log(
+            "Pedido:",
+            numeroPedido
+        );
+
+        console.log(
+            "Status:",
+            resultado.status
+        );
+
+        console.log(
+            "Pagamento:",
+            resultado.pagamentoId
+        );
+
+        console.log(
+            "Total:",
+            pedido.valores?.total
+        );
+
+    }catch(erro){
+
+        console.error(
+            "❌ Erro ao consultar confirmação:",
+            erro
+        );
+
+        alert(
+            "Não foi possível confirmar o pedido."
+        );
+
+    }
 
 }
-
-
 
 // =====================================================
 // EVENTOS

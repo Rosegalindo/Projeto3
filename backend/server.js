@@ -7,6 +7,9 @@ const express = require("express");
 const cors = require("cors");
 const crypto = require("crypto");
 
+const fs = require("fs");
+const path = require("path");
+
 require("dotenv").config();
 
 const app = express();
@@ -26,10 +29,77 @@ const payment = new Payment(mp);
 const PORT = 3000;
 
 // ====================================
-// PEDIDOS EM MEMÓRIA
+// PEDIDOS
 // ====================================
 
-const pedidos = new Map();
+const arquivoPedidos = path.join(__dirname, "pedidos.json");
+
+
+// ====================================
+// CARREGAR PEDIDOS SALVOS
+// ====================================
+
+let pedidos = new Map();
+
+if (fs.existsSync(arquivoPedidos)) {
+
+    try {
+
+        const dados = fs.readFileSync(
+            arquivoPedidos,
+            "utf8"
+        );
+
+        const pedidosSalvos = JSON.parse(dados);
+
+        pedidos = new Map(pedidosSalvos);
+
+        console.log(
+            `📂 ${pedidos.size} pedido(s) carregado(s) do arquivo.`
+        );
+
+    } catch (erro) {
+
+        console.error(
+            "❌ Erro ao carregar pedidos:",
+            erro
+        );
+
+    }
+
+}
+
+
+// ====================================
+// SALVAR PEDIDOS
+// ====================================
+
+function salvarPedidos() {
+
+    try {
+
+        const dados = Array.from(
+            pedidos.entries()
+        );
+
+        fs.writeFileSync(
+            arquivoPedidos,
+            JSON.stringify(dados, null, 2),
+            "utf8"
+        );
+
+        console.log("💾 Pedidos salvos.");
+
+    } catch (erro) {
+
+        console.error(
+            "❌ Erro ao salvar pedidos:",
+            erro
+        );
+
+    }
+
+}
 
 // ====================================
 // MIDDLEWARES
@@ -202,7 +272,10 @@ app.post("/criar-preferencia", async (req, res) => {
                 pedido
             );
 
+            salvarPedidos();
+
             console.log("");
+
             console.log("====================================");
             console.log("📦 PEDIDO REGISTRADO NO BACKEND");
             console.log("====================================");
@@ -643,9 +716,9 @@ app.post("/webhook/mercado-pago", async (req, res) => {
             console.log("====================================");
 
             pedido.status = "PAGO";
+            pedido.pagamentoId = pagamento.id;
 
-            pedido.pagamentoId =
-                pagamento.id;
+            salvarPedidos();
 
             pedido.statusPagamento =
                 pagamento.status;
@@ -769,7 +842,6 @@ app.post("/webhook/mercado-pago", async (req, res) => {
 // ====================================
 // PAGAMENTO APROVADO
 // ====================================
-
 app.get("/pagamento-aprovado", (req, res) => {
 
     console.log("");
@@ -794,16 +866,45 @@ app.get("/pagamento-aprovado", (req, res) => {
 
 
     // ====================================
-    // REDIRECIONAR PARA CONFIRMAÇÃO
+    // PEGAR DADOS DO PAGAMENTO
     // ====================================
 
-    console.log(
-        "➡️ Redirecionando para página de confirmação..."
-    );
+    const pedido =
+        req.query.external_reference || "";
 
-    return res.redirect(
-        "http://localhost:5500/pages/confirmacao.html"
-    );
+    const pagamento =
+        req.query.payment_id || "";
+
+
+    // ====================================
+    // CRIAR URL DE CONFIRMAÇÃO
+    // ====================================
+
+    const urlConfirmacao =
+        "http://localhost:5500/pages/confirmacao.html" +
+        "?pedido=" + encodeURIComponent(pedido) +
+        "&payment_id=" + encodeURIComponent(pagamento);
+
+
+    // ====================================
+    // MOSTRAR URL NO TERMINAL
+    // ====================================
+
+    console.log("");
+    console.log("====================================");
+    console.log("➡ REDIRECIONAMENTO");
+    console.log("====================================");
+
+    console.log("Pedido:", pedido);
+    console.log("Pagamento:", pagamento);
+    console.log("URL final:", urlConfirmacao);
+
+
+    // ====================================
+    // REDIRECIONAR
+    // ====================================
+
+    return res.redirect(urlConfirmacao);
 
 });
 
