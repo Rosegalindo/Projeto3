@@ -30,9 +30,9 @@ function iniciarPagamento(){
 
     console.log("💳 Pagamento iniciado");
 
-    // ====================================
-    // CAMPOS
-    // ====================================
+// ====================================
+// CAMPOS
+// ====================================
 
     campoTotal =
         document.getElementById("valor-total");
@@ -41,89 +41,67 @@ function iniciarPagamento(){
         document.getElementById("numero-pedido");
 
 
-    // ====================================
-    // BOTÃO
-    // ====================================
+// ====================================
+// BOTÃO
+// ====================================
 
-    btnPagar =
-        document.getElementById("btn-pagar");
+btnPagar =
+    document.getElementById("btn-pagar");
 
-        console.log("🟢 Botão Pagar encontrado:", btnPagar);
-
-    btnPagar.addEventListener("click", () => {
-
-    console.log("🚨 CLIQUEI NO BOTÃO PAGAR!");
-
-});
-
-
-    // ====================================
-    // STATUS
-    // ====================================
-
-    statusArea =
-        document.getElementById("status-area");
-
-    statusMensagem =
-        document.getElementById("status-mensagem");
-
-
-    // ====================================
-    // VERIFICAR CAMPOS
-    // ====================================
-
-    if(
-        !campoTotal ||
-        !campoNumeroPedido ||
-        !btnPagar
-    ){
-
-        console.error(
-            "❌ Elementos do pagamento não encontrados."
-        );
-
-        return;
-
-    }
-
-
-    // ====================================
-    // CARREGAR PEDIDO
-    // ====================================
-
-    carregarDados();
-
-
-    // ====================================
-    // EVENTO
-    // ====================================
-
-    console.log(
+console.log(
     "🟢 Botão Pagar encontrado:",
     btnPagar
+);
+
+
+// ====================================
+// STATUS
+// ====================================
+
+statusArea =
+    document.getElementById("status-area");
+
+statusMensagem =
+    document.getElementById("status-mensagem");
+
+
+// ====================================
+// VERIFICAR CAMPOS
+// ====================================
+
+if (
+    !campoTotal ||
+    !campoNumeroPedido ||
+    !btnPagar
+){
+
+    console.error(
+        "❌ Elementos do pagamento não encontrados."
     );
 
-    btnPagar.addEventListener("click", async () => {
-
-    console.log("🟢🟢 CLIQUE NO BOTÃO PAGAR DETECTADO!");
-
-    });
-
-    btnPagar.addEventListener(
-    "click",
-    function(){
-
-        console.log(
-            "🖱️ CLIQUE NO BOTÃO PAGAR DETECTADO!"
-        );
-
-        iniciarCheckout();
-
-    }
-);
+    return;
 
 }
 
+
+// ====================================
+// CARREGAR PEDIDO
+// ====================================
+
+carregarDados();
+
+
+// ====================================
+// EVENTO DO BOTÃO
+// ====================================
+
+btnPagar.addEventListener(
+    "click",
+    iniciarCheckout
+    
+    );
+
+}
 
 // ====================================
 // 03. CARREGAR PEDIDO
