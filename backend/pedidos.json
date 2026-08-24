@@ -123,5 +123,27 @@
       "preferenceId": "3614156117-09a64c9a-d834-4bc2-bd9d-80b6b3cd84f5",
       "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-09a64c9a-d834-4bc2-bd9d-80b6b3cd84f5"
     }
+  ],
+  [
+    "PED-20260824-025",
+    {
+      "numero": "PED-20260824-025",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-24T21:22:29.297Z",
+      "preferenceId": "3614156117-db76b97b-2a47-4b98-a107-39c8765ffde4",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-db76b97b-2a47-4b98-a107-39c8765ffde4"
+    }
   ]
 ]

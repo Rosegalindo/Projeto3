@@ -736,7 +736,26 @@ async function iniciarCheckout() {
 
         }
 
+        // ====================================
+        // REDIRECIONAR PARA CHECKOUT PRO
+        // ====================================
 
+            console.log(
+                "✅ URL DO CHECKOUT RECEBIDA:"
+            );
+
+            console.log(
+                checkoutUrl
+            );
+
+            console.log(
+                "🚀 REDIRECIONANDO PARA MERCADO PAGO..."
+            );
+
+            window.location.assign(
+                checkoutUrl
+            );        
+            
         // ==================================================
         // MOSTRAR URL NO CONSOLE
         // ==================================================
