@@ -792,76 +792,18 @@ app.get("/pagamento-aprovado", (req, res) => {
         req.query.external_reference
     );
 
-    const pedido =
-        req.query.external_reference || "";
 
-    const pagamento =
-        req.query.payment_id || "";
+    // ====================================
+    // REDIRECIONAR PARA CONFIRMAÇÃO
+    // ====================================
 
-    res.send(`
+    console.log(
+        "➡️ Redirecionando para página de confirmação..."
+    );
 
-        <!DOCTYPE html>
-
-        <html lang="pt-BR">
-
-        <head>
-
-            <meta charset="UTF-8">
-
-            <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1.0"
-            >
-
-            <title>Pagamento aprovado</title>
-
-        </head>
-
-        <body>
-
-            <h1>
-                Pagamento aprovado!
-            </h1>
-
-            <p>
-                Seu pagamento foi aprovado pelo Mercado Pago.
-            </p>
-
-            <p>
-                Pedido:
-                <strong>
-                    ${pedido || "-"}
-                </strong>
-            </p>
-
-            <p>
-                Pagamento:
-                <strong>
-                    ${pagamento || "-"}
-                </strong>
-            </p>
-
-            <p>
-                Confirmando seu pedido...
-            </p>
-
-            <script>
-
-                const numeroPedido =
-                    ${JSON.stringify(pedido)};
-
-                console.log(
-                    "Pedido recebido:",
-                    numeroPedido
-                );
-
-            </script>
-
-        </body>
-
-        </html>
-
-    `);
+    return res.redirect(
+        "http://localhost:5500/pages/confirmacao.html"
+    );
 
 });
 
