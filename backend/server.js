@@ -716,9 +716,9 @@ app.post("/webhook/mercado-pago", async (req, res) => {
             console.log("====================================");
 
             pedido.status = "PAGO";
-            pedido.pagamentoId = pagamento.id;
 
-            salvarPedidos();
+            pedido.pagamentoId = 
+                pagamento.id;
 
             pedido.statusPagamento =
                 pagamento.status;
@@ -736,6 +736,8 @@ app.post("/webhook/mercado-pago", async (req, res) => {
                 numeroPedido,
                 pedido
             );
+
+            salvarPedidos();
 
             console.log("");
             console.log("====================================");

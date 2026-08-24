@@ -1,0 +1,22 @@
+[
+  [
+    "PED-20260824-020",
+    {
+      "numero": "PED-20260824-020",
+      "produtos": [
+        {
+          "nome": "Fortune Lucky",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-24T15:35:30.893Z"
+    }
+  ]
+]

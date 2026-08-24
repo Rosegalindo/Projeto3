@@ -353,16 +353,18 @@ async function iniciarCheckout(){
 
         if(resultado.id){
 
-            pedido.pagamento =
-                pedido.pagamento || {};
+        pedido.pagamento =
+            pedido.pagamento || {};
 
-            pedido.pagamento.preferenceId =
-                resultado.id;
+        pedido.pagamento.preferenceId =
+            resultado.id;
 
-            salvarPedido(pedido);
+        console.log(
+            "💾 Preference ID salvo no pedido:",
+            resultado.id
+        );
 
         }
-
 
         console.log(
             "✅ Preference criada!"
