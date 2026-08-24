@@ -90,10 +90,29 @@ function iniciarPagamento(){
     // EVENTO
     // ====================================
 
-    btnPagar.addEventListener(
-        "click",
-        iniciarCheckout
+    console.log(
+    "🟢 Botão Pagar encontrado:",
+    btnPagar
     );
+
+    btnPagar.addEventListener("click", async () => {
+
+    console.log("🟢🟢 CLIQUE NO BOTÃO PAGAR DETECTADO!");
+
+    });
+
+    btnPagar.addEventListener(
+    "click",
+    function(){
+
+        console.log(
+            "🖱️ CLIQUE NO BOTÃO PAGAR DETECTADO!"
+        );
+
+        iniciarCheckout();
+
+    }
+);
 
 }
 
