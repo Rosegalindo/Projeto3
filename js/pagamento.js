@@ -4,20 +4,18 @@
 // ======================================================
 
 // ====================================
-// 01. VARIÁVEIS
+// VARIÁVEIS
 // ====================================
 
 let campoTotal;
 let campoNumeroPedido;
-
 let btnPagar;
-
 let statusArea;
 let statusMensagem;
 
 
 // ====================================
-// 02. INICIALIZAÇÃO
+// INICIALIZAÇÃO
 // ====================================
 
 document.addEventListener(
@@ -26,13 +24,13 @@ document.addEventListener(
 );
 
 
-function iniciarPagamento(){
+function iniciarPagamento() {
 
     console.log("💳 Pagamento iniciado");
 
-// ====================================
-// CAMPOS
-// ====================================
+    // ====================================
+    // ELEMENTOS
+    // ====================================
 
     campoTotal =
         document.getElementById("valor-total");
@@ -40,46 +38,57 @@ function iniciarPagamento(){
     campoNumeroPedido =
         document.getElementById("numero-pedido");
 
+    btnPagar =
+        document.getElementById("btn-pagar");
 
-// ====================================
-// BOTÃO
-// ====================================
+    statusArea =
+        document.getElementById("status-area");
 
-btnPagar =
-    document.getElementById("btn-pagar");
-
-console.log(
-    "🟢 Botão Pagar encontrado:",
-    btnPagar
-);
+    statusMensagem =
+        document.getElementById("status-mensagem");
 
 
-// ====================================
-// STATUS
-// ====================================
+    // ====================================
+    // VERIFICAR BOTÃO
+    // ====================================
 
-statusArea =
-    document.getElementById("status-area");
-
-statusMensagem =
-    document.getElementById("status-mensagem");
-
-
-// ====================================
-// VERIFICAR CAMPOS
-// ====================================
-
-if (
-    !campoTotal ||
-    !campoNumeroPedido ||
-    !btnPagar
-){
-
-    console.error(
-        "❌ Elementos do pagamento não encontrados."
+    console.log(
+        "🟢 Botão Pagar encontrado:",
+        btnPagar
     );
 
-    return;
+
+    if (!btnPagar) {
+
+        console.error(
+            "❌ Botão #btn-pagar não encontrado."
+        );
+
+        return;
+
+    }
+
+
+    // ====================================
+    // CARREGAR PEDIDO
+    // ====================================
+
+    carregarDados();
+
+
+    // ====================================
+    // EVENTO DO BOTÃO
+    // ====================================
+
+    btnPagar.addEventListener(
+        "click",
+        iniciarCheckout
+    );
+
+
+    console.log(
+        "✅ Evento de clique configurado."
+    );
 
 }
 
@@ -88,26 +97,7 @@ if (
 // CARREGAR PEDIDO
 // ====================================
 
-carregarDados();
-
-
-// ====================================
-// EVENTO DO BOTÃO
-// ====================================
-
-btnPagar.addEventListener(
-    "click",
-    iniciarCheckout
-    
-    );
-
-}
-
-// ====================================
-// 03. CARREGAR PEDIDO
-// ====================================
-
-function carregarDados(){
+function carregarDados() {
 
     const pedido =
         carregarPedido();
@@ -123,10 +113,10 @@ function carregarDados(){
 
 
     // ====================================
-    // VERIFICAR PEDIDO
+    // PEDIDO NÃO ENCONTRADO
     // ====================================
 
-    if(!pedido){
+    if (!pedido) {
 
         console.error(
             "❌ Pedido não encontrado."
@@ -137,7 +127,11 @@ function carregarDados(){
             "erro"
         );
 
-        btnPagar.disabled = true;
+        if (btnPagar) {
+
+            btnPagar.disabled = true;
+
+        }
 
         return;
 
@@ -155,19 +149,27 @@ function carregarDados(){
 
 
     // ====================================
-    // NÚMERO DO PEDIDO
+    // NÚMERO
     // ====================================
 
-    campoNumeroPedido.textContent =
-        pedido.numero || "-";
+    if (campoNumeroPedido) {
+
+        campoNumeroPedido.textContent =
+            pedido.numero || "-";
+
+    }
 
 
     // ====================================
-    // VALOR NA TELA
+    // VALOR
     // ====================================
 
-    campoTotal.textContent =
-        formatarMoeda(total);
+    if (campoTotal) {
+
+        campoTotal.textContent =
+            formatarMoeda(total);
+
+    }
 
 
     console.log(
@@ -184,25 +186,40 @@ function carregarDados(){
 
 
 // ====================================
-// 04. INICIAR CHECKOUT
+// INICIAR CHECKOUT
 // ====================================
 
-async function iniciarCheckout(){
+async function iniciarCheckout() {
+
+    console.log("");
+    console.log(
+        "===================================="
+    );
 
     console.log(
-        "🚀 Iniciando Checkout Pro..."
+        "🚀 INICIANDO CHECKOUT PRO"
+    );
+
+    console.log(
+        "===================================="
     );
 
 
     // ====================================
-    // CARREGAR PEDIDO
+    // PEDIDO
     // ====================================
 
     const pedido =
         carregarPedido();
 
 
-    if(!pedido){
+    console.log(
+        "📦 Pedido carregado:",
+        pedido
+    );
+
+
+    if (!pedido) {
 
         mostrarStatus(
             "Não foi possível localizar o pedido.",
@@ -215,16 +232,16 @@ async function iniciarCheckout(){
 
 
     // ====================================
-    // VERIFICAR PRODUTOS
+    // PRODUTOS
     // ====================================
 
-    if(
+    if (
         !Array.isArray(pedido.produtos) ||
         pedido.produtos.length === 0
-    ){
+    ) {
 
         console.error(
-            "❌ Pedido sem produtos.",
+            "❌ Pedido sem produtos:",
             pedido
         );
 
@@ -239,7 +256,7 @@ async function iniciarCheckout(){
 
 
     // ====================================
-    // VERIFICAR VALOR
+    // TOTAL
     // ====================================
 
     const total =
@@ -248,10 +265,10 @@ async function iniciarCheckout(){
         ) || 0;
 
 
-    if(total <= 0){
+    if (total <= 0) {
 
         console.error(
-            "❌ Valor do pedido inválido:",
+            "❌ Valor inválido:",
             total
         );
 
@@ -266,25 +283,29 @@ async function iniciarCheckout(){
 
 
     // ====================================
-    // EVITAR DUPLO CLIQUE
+    // BLOQUEAR BOTÃO
     // ====================================
 
-    btnPagar.disabled = true;
+    if (btnPagar) {
 
-    btnPagar.innerHTML =
-        "<i class='bx bx-loader-alt bx-spin'></i> " +
-        "Preparando pagamento...";
+        btnPagar.disabled = true;
+
+        btnPagar.innerHTML =
+            "<i class='bx bx-loader-alt bx-spin'></i> " +
+            "Preparando pagamento...";
+
+    }
 
 
-    try{
+    try {
 
         console.log(
-            "📦 Enviando pedido para o backend..."
+            "📡 Enviando pedido para o backend..."
         );
 
 
         // ====================================
-        // CRIAR PREFERENCE
+        // CHAMAR BACKEND
         // ====================================
 
         const resposta =
@@ -318,6 +339,12 @@ async function iniciarCheckout(){
             );
 
 
+        console.log(
+            "📡 Status HTTP:",
+            resposta.status
+        );
+
+
         // ====================================
         // LER RESPOSTA
         // ====================================
@@ -327,7 +354,7 @@ async function iniciarCheckout(){
 
 
         console.log(
-            "💰 Resposta do backend:"
+            "💰 RESPOSTA DO BACKEND:"
         );
 
         console.log(
@@ -336,13 +363,13 @@ async function iniciarCheckout(){
 
 
         // ====================================
-        // VERIFICAR ERRO
+        // VERIFICAR RESPOSTA
         // ====================================
 
-        if(
+        if (
             !resposta.ok ||
             !resultado.sucesso
-        ){
+        ) {
 
             throw new Error(
                 resultado.erro ||
@@ -353,30 +380,30 @@ async function iniciarCheckout(){
 
 
         // ====================================
-        // SALVAR ID DA PREFERENCE
+        // VERIFICAR CHECKOUT
         // ====================================
 
-        if(resultado.id){
+        if (
+            !resultado.checkout
+        ) {
 
-        pedido.pagamento =
-            pedido.pagamento || {};
-
-        pedido.pagamento.preferenceId =
-            resultado.id;
-
-        console.log(
-            "💾 Preference ID salvo no pedido:",
-            resultado.id
-        );
+            throw new Error(
+                "O Mercado Pago não retornou o link do Checkout Pro."
+            );
 
         }
 
+
         console.log(
-            "✅ Preference criada!"
+            "===================================="
         );
 
         console.log(
-            "ID:",
+            "✅ CHECKOUT PRO CRIADO"
+        );
+
+        console.log(
+            "Preference ID:",
             resultado.id
         );
 
@@ -385,33 +412,72 @@ async function iniciarCheckout(){
             resultado.checkout
         );
 
+        console.log(
+            "===================================="
+        );
+
+
+        // ====================================
+        // SALVAR DADOS DO PAGAMENTO
+        // ====================================
+
+        pedido.pagamento =
+            pedido.pagamento || {};
+
+
+        pedido.pagamento.preferenceId =
+            resultado.id;
+
+
+        pedido.pagamento.checkout =
+            resultado.checkout;
+
+
+        // ====================================
+        // SALVAR PEDIDO LOCALMENTE
+        // ====================================
+
+        if (
+            typeof salvarPedido === "function"
+        ) {
+
+            salvarPedido(pedido);
+
+        }
+
 
         // ====================================
         // REDIRECIONAR
         // ====================================
 
-        if(!resultado.checkout){
-
-            throw new Error(
-                "O Mercado Pago não retornou o link do Checkout."
-            );
-
-        }
-
-
         console.log(
-            "➡️ Redirecionando para o Mercado Pago..."
+            "➡️ REDIRECIONANDO PARA MERCADO PAGO..."
         );
 
 
-        window.location.href =
-            resultado.checkout;
+        // Pequeno atraso apenas para
+        // garantir que o navegador processe
+        // os logs antes da navegação.
+
+        setTimeout(
+            function () {
+
+                window.location.assign(
+                    resultado.checkout
+                );
+
+            },
+            200
+        );
 
 
-    }catch(erro){
+    } catch (erro) {
 
         console.error(
-            "❌ Erro ao iniciar Checkout Pro:",
+            "❌ ERRO AO INICIAR CHECKOUT PRO:"
+        );
+
+        console.error(
             erro
         );
 
@@ -427,11 +493,15 @@ async function iniciarCheckout(){
         // RESTAURAR BOTÃO
         // ====================================
 
-        btnPagar.disabled = false;
+        if (btnPagar) {
 
-        btnPagar.innerHTML =
-            "<i class='bx bx-lock-alt'></i> " +
-            "Pagar com Mercado Pago";
+            btnPagar.disabled = false;
+
+            btnPagar.innerHTML =
+                "<i class='bx bx-lock-alt'></i> " +
+                "Pagar com Mercado Pago";
+
+        }
 
     }
 
@@ -439,15 +509,18 @@ async function iniciarCheckout(){
 
 
 // ====================================
-// 05. MOSTRAR STATUS
+// MOSTRAR STATUS
 // ====================================
 
 function mostrarStatus(
     mensagem,
     tipo = "info"
-){
+) {
 
-    if(!statusArea || !statusMensagem){
+    if (
+        !statusArea ||
+        !statusMensagem
+    ) {
 
         alert(mensagem);
 
@@ -475,27 +548,28 @@ function mostrarStatus(
 
 }
 
+
 // ====================================
-// 06. CONSULTAR STATUS DO PEDIDO
+// CONSULTAR STATUS
 // ====================================
 
-async function consultarStatusPedido(numeroPedido){
-
-    console.log("");
-    console.log("====================================");
-    console.log("🔎 CONSULTANDO STATUS DO PEDIDO");
-    console.log("====================================");
+async function consultarStatusPedido(
+    numeroPedido
+) {
 
     console.log(
-        "Pedido:",
+        "🔎 Consultando status:",
         numeroPedido
     );
 
-    try{
+
+    try {
 
         const resposta =
             await fetch(
-                `http://localhost:3000/pedido/${encodeURIComponent(numeroPedido)}/status`
+                "http://localhost:3000/pedido/" +
+                encodeURIComponent(numeroPedido) +
+                "/status"
             );
 
 
@@ -504,28 +578,15 @@ async function consultarStatusPedido(numeroPedido){
 
 
         console.log(
-            "📦 Status recebido do backend:"
-        );
-
-        console.log(
+            "📦 Status recebido:",
             resultado
         );
 
 
-        if(!resposta.ok){
-
-            console.error(
-                "❌ Não foi possível consultar o pedido."
-            );
-
-            return null;
-
-        }
-
-
         return resultado;
 
-    }catch(erro){
+
+    } catch (erro) {
 
         console.error(
             "❌ Erro ao consultar status:",

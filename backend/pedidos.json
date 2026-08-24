@@ -58,7 +58,70 @@
         "total": 43.9
       },
       "status": "AGUARDANDO_PAGAMENTO",
-      "criadoEm": "2026-08-24T19:45:56.151Z"
+      "criadoEm": "2026-08-24T19:45:56.151Z",
+      "preferenceId": "3614156117-515be11d-4bd4-4cd3-8b30-7f50ad828e51"
+    }
+  ],
+  [
+    "PED-20260824-022",
+    {
+      "numero": "PED-20260824-022",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-24T19:57:20.110Z"
+    }
+  ],
+  [
+    "PED-20260824-023",
+    {
+      "numero": "PED-20260824-023",
+      "produtos": [
+        {
+          "nome": "D",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-24T20:04:24.349Z"
+    }
+  ],
+  [
+    "PED-20260824-024",
+    {
+      "numero": "PED-20260824-024",
+      "produtos": [
+        {
+          "nome": "Provoque",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-24T20:11:17.132Z",
+      "preferenceId": "3614156117-6e5f4661-c65c-4717-9eb2-db82097bdeea",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-6e5f4661-c65c-4717-9eb2-db82097bdeea"
     }
   ]
 ]

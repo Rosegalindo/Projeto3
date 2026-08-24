@@ -1,12 +1,11 @@
 // ====================================
 // AMAKHA PARIS
-// BACKEND
+// BACKEND - CHECKOUT PRO MERCADO PAGO
 // ====================================
 
 const express = require("express");
 const cors = require("cors");
 const crypto = require("crypto");
-
 const fs = require("fs");
 const path = require("path");
 
@@ -20,42 +19,63 @@ const {
     Payment
 } = require("mercadopago");
 
+// ====================================
+// MERCADO PAGO
+// ====================================
+
+if (!process.env.MP_ACCESS_TOKEN) {
+
+    console.error(
+        "❌ ERRO: MP_ACCESS_TOKEN não foi encontrado no .env"
+    );
+
+    process.exit(1);
+
+}
+
 const mp = new MercadoPagoConfig({
+
     accessToken: process.env.MP_ACCESS_TOKEN
+
 });
 
 const payment = new Payment(mp);
 
 const PORT = 3000;
 
+
 // ====================================
 // PEDIDOS
 // ====================================
 
-const arquivoPedidos = path.join(__dirname, "pedidos.json");
-
-
-// ====================================
-// CARREGAR PEDIDOS SALVOS
-// ====================================
+const arquivoPedidos =
+    path.join(__dirname, "pedidos.json");
 
 let pedidos = new Map();
+
+
+// ====================================
+// CARREGAR PEDIDOS
+// ====================================
 
 if (fs.existsSync(arquivoPedidos)) {
 
     try {
 
-        const dados = fs.readFileSync(
-            arquivoPedidos,
-            "utf8"
-        );
+        const dados =
+            fs.readFileSync(
+                arquivoPedidos,
+                "utf8"
+            );
 
-        const pedidosSalvos = JSON.parse(dados);
+        const pedidosSalvos =
+            JSON.parse(dados);
 
-        pedidos = new Map(pedidosSalvos);
+        pedidos =
+            new Map(pedidosSalvos);
 
         console.log(
-            `📂 ${pedidos.size} pedido(s) carregado(s) do arquivo.`
+            `📂 ${pedidos.size} pedido(s) carregado(s).`
         );
 
     } catch (erro) {
@@ -78,14 +98,23 @@ function salvarPedidos() {
 
     try {
 
-        const dados = Array.from(
-            pedidos.entries()
-        );
+        const dados =
+            Array.from(
+                pedidos.entries()
+            );
 
         fs.writeFileSync(
+
             arquivoPedidos,
-            JSON.stringify(dados, null, 2),
+
+            JSON.stringify(
+                dados,
+                null,
+                2
+            ),
+
             "utf8"
+
         );
 
         console.log("💾 Pedidos salvos.");
@@ -101,157 +130,176 @@ function salvarPedidos() {
 
 }
 
+
 // ====================================
 // MIDDLEWARES
 // ====================================
 
 app.use(cors());
 
-app.use(express.json());
+app.use(
+    express.json()
+);
+
 
 // ====================================
-// ROTA DE TESTE
+// ROTA PRINCIPAL
 // ====================================
 
 app.get("/", (req, res) => {
 
     res.json({
+
         sucesso: true,
-        mensagem: "Backend Amakha Paris funcionando!"
+
+        mensagem:
+            "Backend Amakha Paris funcionando!"
+
     });
 
 });
+
 
 // ====================================
 // TESTE MERCADO PAGO
 // ====================================
 
-app.get("/teste-mercado-pago", (req, res) => {
-
-    res.json({
-        sucesso: true,
-        mensagem: "Mercado Pago configurado no backend!"
-    });
-
-});
-
-// ====================================
-// TESTE CHECKOUT PRO
-// ====================================
-
-app.get("/criar-pagamento-teste", async (req, res) => {
-
-    try {
-
-        const preference = new Preference(mp);
-
-        const resultado = await preference.create({
-
-            body: {
-
-                items: [
-
-                    {
-                        title: "Produto Teste Amakha Paris",
-                        quantity: 1,
-                        unit_price: 10
-                    }
-
-                ]
-
-            }
-
-        });
-
-        console.log("Preference criada:");
-        console.log(resultado);
+app.get(
+    "/teste-mercado-pago",
+    (req, res) => {
 
         res.json({
 
             sucesso: true,
 
-            id: resultado.id,
-
-            checkout: resultado.init_point
-
-        });
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao criar pagamento:",
-            erro
-        );
-
-        res.status(500).json({
-
-            sucesso: false,
-
-            erro: erro.message
+            mensagem:
+                "Mercado Pago configurado!"
 
         });
 
     }
+);
 
-});
 
 // ====================================
-// CRIAR PREFERENCE - CHECKOUT PRO
+// CRIAR PREFERENCE
 // ====================================
 
-app.post("/criar-preferencia", async (req, res) => {
+app.post(
+    "/criar-preferencia",
+    async (req, res) => {
 
-    try {
+        try {
 
-        console.log("");
-        console.log("====================================");
-        console.log("🛒 CRIANDO PREFERENCE CHECKOUT PRO");
-        console.log("====================================");
+            console.log("");
+            console.log(
+                "===================================="
+            );
+            console.log(
+                "🛒 CRIANDO CHECKOUT PRO"
+            );
+            console.log(
+                "===================================="
+            );
 
-        const {
-            numero,
-            produtos,
-            valores
-        } = req.body;
 
-        console.log("Pedido:", numero);
-        console.log("Produtos:", produtos);
-        console.log("Valores:", valores);
+            const {
 
-        // ====================================
-        // VALIDAR PEDIDO
-        // ====================================
+                numero,
+                produtos,
+                valores
 
-        if (!numero) {
+            } = req.body;
 
-            return res.status(400).json({
 
-                sucesso: false,
+            console.log(
+                "Pedido:",
+                numero
+            );
 
-                erro: "Número do pedido não informado."
+            console.log(
+                "Produtos:",
+                produtos
+            );
 
-            });
+            console.log(
+                "Valores:",
+                valores
+            );
 
-        }
 
-        if (
-            !Array.isArray(produtos) ||
-            produtos.length === 0
-        ) {
+            // ====================================
+            // VALIDAR PEDIDO
+            // ====================================
 
-            return res.status(400).json({
+            if (!numero) {
 
-                sucesso: false,
+                return res.status(400).json({
 
-                erro: "Nenhum produto informado."
+                    sucesso: false,
 
-            });
+                    erro:
+                        "Número do pedido não informado."
 
-        }
+                });
 
-        // ====================================
-        // REGISTRAR PEDIDO NO BACKEND
-        // ====================================
+            }
+
+
+            if (
+                !Array.isArray(produtos) ||
+                produtos.length === 0
+            ) {
+
+                return res.status(400).json({
+
+                    sucesso: false,
+
+                    erro:
+                        "Nenhum produto informado."
+
+                });
+
+            }
+
+
+            // ====================================
+            // TRANSFORMAR PRODUTOS
+            // ====================================
+
+            const items =
+                produtos.map(produto => ({
+
+                    title:
+                        produto.nome,
+
+                    quantity:
+                        Number(
+                            produto.quantidade
+                        ),
+
+                    unit_price:
+                        Number(
+                            produto.preco
+                        ),
+
+                    currency_id:
+                        "BRL"
+
+                }));
+
+
+            console.log("");
+            console.log(
+                "Itens enviados ao Mercado Pago:"
+            );
+
+            console.log(items);
+
+
+            // ====================================
+            // REGISTRAR PEDIDO
+            // ====================================
 
             const pedido = {
 
@@ -261,11 +309,14 @@ app.post("/criar-preferencia", async (req, res) => {
 
                 valores,
 
-                status: "AGUARDANDO_PAGAMENTO",
+                status:
+                    "AGUARDANDO_PAGAMENTO",
 
-                criadoEm: new Date().toISOString()
+                criadoEm:
+                    new Date().toISOString()
 
             };
+
 
             pedidos.set(
                 numero,
@@ -274,690 +325,885 @@ app.post("/criar-preferencia", async (req, res) => {
 
             salvarPedidos();
 
-            console.log("");
 
-            console.log("====================================");
-            console.log("📦 PEDIDO REGISTRADO NO BACKEND");
-            console.log("====================================");
+            // ====================================
+            // CRIAR PREFERENCE
+            // ====================================
 
-            console.log("Número:", numero);
-            console.log("Status:", pedido.status);
+            const preference =
+                new Preference(mp);
 
-        // ====================================
-        // TRANSFORMAR PRODUTOS
-        // ====================================
 
-        const items = produtos.map(produto => ({
+            const resultado =
+                await preference.create({
 
-            title: produto.nome,
+                    body: {
 
-            quantity: Number(produto.quantidade),
+                        items,
 
-            unit_price: Number(produto.preco),
+                        external_reference:
+                            numero,
 
-            currency_id: "BRL"
+                        notification_url:
+                            process.env.MP_WEBHOOK_URL,
 
-        }));
+                        back_urls: {
 
-        // ====================================
-        // CRIAR PREFERENCE
-        // ====================================
+                            success:
+                                process.env.MP_SUCCESS_URL,
 
-        const preference = new Preference(mp);
+                            failure:
+                                process.env.MP_FAILURE_URL,
 
-        const resultado = await preference.create({
+                            pending:
+                                process.env.MP_PENDING_URL
 
-            body: {
+                        },
 
-                items,
+                        auto_return:
+                            "approved"
 
-                external_reference: numero,
+                    }
 
-                notification_url:
-                    process.env.MP_WEBHOOK_URL,
+                });
 
-           back_urls: {
 
-            success:
-                process.env.MP_SUCCESS_URL,
-
-            failure:
-                process.env.MP_FAILURE_URL,
-
-            pending:
-                process.env.MP_PENDING_URL
-
-        },
-
-        auto_return: "approved"
-
-    }
-
-});
-
-        console.log("");
-        console.log("====== PREFERENCE CRIADA ======");
-        console.log("ID:", resultado.id);
-        console.log("Checkout:", resultado.init_point);
-        console.log(
-            "External Reference:",
-            numero
-        );
-
-        // ====================================
-        // SALVAR ID DA PREFERENCE NO PEDIDO
-        // ====================================
-
-        pedido.preferenceId =
-            resultado.id;
-
-        pedidos.set(
-            numero,
-            pedido
-        );
-
-        console.log(
-            "Preference ID salvo:",
-            pedido.preferenceId
-        );
-
-        // ====================================
-        // RESPONDER FRONTEND
-        // ====================================
-
-        res.json({
-
-            sucesso: true,
-
-            id: resultado.id,
-
-            checkout: resultado.init_point,
-
-            external_reference: numero
-
-        });
-
-    } catch (erro) {
-
-        console.error(
-            "❌ Erro ao criar Preference:",
-            erro
-        );
-
-        res.status(500).json({
-
-            sucesso: false,
-
-            erro: erro.message
-
-        });
-
-    }
-
-});
-
-// ====================================
-// PROCESSAR PAGAMENTO COM CARTÃO
-// ====================================
-
-app.post("/processar-pagamento", async (req, res) => {
-
-    try {
-
-        console.log("💳 Recebendo pagamento...");
-
-        const {
-            transaction_amount,
-            token,
-            description,
-            installments,
-            payment_method_id,
-            issuer_id,
-            payer
-        } = req.body;
-
-        console.log("Valor:", transaction_amount);
-        console.log("Parcelas:", installments);
-        console.log("Método:", payment_method_id);
-
-        const resultado = await payment.create({
-
-            body: {
-
-                transaction_amount: Number(transaction_amount),
-
-                token,
-
-                description,
-
-                installments: Number(installments),
-
-                payment_method_id,
-
-                issuer_id,
-
-                payer: {
-
-                    email: payer.email,
-
-                    identification: payer.identification
-
-                }
-
-            },
-
-            requestOptions: {
-
-                idempotencyKey:
-                    crypto.randomUUID()
-
-            }
-
-        });
-
-        console.log("====== PAGAMENTO MERCADO PAGO ======");
-        console.log(resultado);
-
-        res.json({
-
-            sucesso: true,
-
-            id: resultado.id,
-
-            status: resultado.status,
-
-            status_detail: resultado.status_detail
-
-        });
-
-    } catch (erro) {
-
-        console.error(
-            "❌ Erro ao processar pagamento:",
-            erro
-        );
-
-        res.status(500).json({
-
-            sucesso: false,
-
-            erro: erro.message
-
-        });
-
-    }
-
-});
-
-// ====================================
-// CONSULTAR STATUS DO PEDIDO
-// ====================================
-
-app.get("/pedido/:numero/status", (req, res) => {
-
-    const numero =
-        req.params.numero;
-
-    console.log("");
-    console.log("====================================");
-    console.log("📦 CONSULTANDO STATUS DO PEDIDO");
-    console.log("====================================");
-
-    console.log(
-        "Pedido:",
-        numero
-    );
-
-    const pedido =
-        pedidos.get(numero);
-
-    // ====================================
-    // PEDIDO NÃO ENCONTRADO
-    // ====================================
-
-    if (!pedido) {
-
-        console.log(
-            "⚠️ Pedido não encontrado."
-        );
-
-        return res.status(404).json({
-
-            sucesso: false,
-
-            erro: "Pedido não encontrado."
-
-        });
-
-    }
-
-    // ====================================
-    // RETORNAR STATUS
-    // ====================================
-
-    console.log(
-        "Status:",
-        pedido.status
-    );
-
-    console.log(
-        "Pagamento:",
-        pedido.pagamentoId || null
-    );
-
-    res.json({
-
-        sucesso: true,
-
-        numero: pedido.numero,
-
-        status: pedido.status,
-
-        pagamentoId:
-            pedido.pagamentoId || null,
-
-        statusPagamento:
-            pedido.statusPagamento || null,
-
-        statusDetalhe:
-            pedido.statusDetalhe || null
-
-    });
-
-});
-
-// ====================================
-// WEBHOOK MERCADO PAGO
-// ====================================
-
-app.post("/webhook/mercado-pago", async (req, res) => {
-
-    console.log("");
-    console.log("====================================");
-    console.log("🔔 WEBHOOK MERCADO PAGO RECEBIDO");
-    console.log("====================================");
-
-    console.log("Body recebido:");
-    console.log(req.body);
-
-    // ====================================
-    // RESPONDER IMEDIATAMENTE
-    // ====================================
-
-    res.sendStatus(200);
-
-    try {
-
-        // ====================================
-        // IDENTIFICAR TIPO DE NOTIFICAÇÃO
-        // ====================================
-
-        const tipoEvento =
-            req.body?.type ||
-            req.query?.type ||
-            req.body?.topic ||
-            req.query?.topic;
-
-        const action =
-            req.body?.action;
-
-        console.log("Tipo de evento:", tipoEvento);
-        console.log("Action:", action);
-
-        // ====================================
-        // PEGAR ID DO PAGAMENTO
-        // ====================================
-
-        const paymentId =
-            req.body?.data?.id ||
-            req.query?.["data.id"] ||
-            (
-                tipoEvento === "payment"
-                    ? req.body?.resource
-                    : null
-            );
-
-        console.log("💰 ID do pagamento:", paymentId);
-
-        // ====================================
-        // IGNORAR EVENTOS QUE NÃO SÃO PAGAMENTO
-        // ====================================
-
-        if (
-            tipoEvento !== "payment" &&
-            action !== "payment.created" &&
-            action !== "payment.updated"
-        ) {
-
-            console.log(
-                "ℹ️ Evento ignorado. Não é uma notificação de pagamento."
-            );
-
-            return;
-        }
-
-        // ====================================
-        // SE NÃO TEM ID, ENCERRAR
-        // ====================================
-
-        if (!paymentId) {
-
-            console.log(
-                "⚠️ Notificação de pagamento sem ID."
-            );
-
-            return;
-        }
-
-        // ====================================
-        // CONSULTAR PAGAMENTO NO MERCADO PAGO
-        // ====================================
-
-        const pagamento =
-            await payment.get({
-                id: paymentId
-            });
-
-        console.log("");
-        console.log("====== PAGAMENTO CONSULTADO ======");
-        console.log("ID:", pagamento.id);
-        console.log("Status:", pagamento.status);
-        console.log(
-            "Status detalhe:",
-            pagamento.status_detail
-        );
-        console.log(
-            "Valor:",
-            pagamento.transaction_amount
-        );
-
-        console.log(
-            "External Reference:",
-            pagamento.external_reference
-        );
-
-        // ====================================
-        // LOCALIZAR PEDIDO
-        // ====================================
-
-        const numeroPedido =
-            pagamento.external_reference;
-
-        const pedido =
-            pedidos.get(numeroPedido);
-
-        console.log(
-            "📦 Pedido localizado:",
-            numeroPedido
-        );
-
-        // ====================================
-        // VERIFICAR SE O PEDIDO EXISTE
-        // ====================================
-
-        if (!pedido) {
-
-            console.log(
-                "⚠️ Pedido não encontrado no backend."
-            );
-
-            return;
-        }
-
-        // ====================================
-        // PAGAMENTO APROVADO
-        // ====================================
-
-        if (pagamento.status === "approved") {
+            // ====================================
+            // VERIFICAR CHECKOUT
+            // ====================================
 
             console.log("");
-            console.log("====================================");
-            console.log("✅ PAGAMENTO APROVADO PELO MERCADO PAGO");
-            console.log("====================================");
+            console.log(
+                "===================================="
+            );
 
-            pedido.status = "PAGO";
+            console.log(
+                "✅ PREFERENCE CRIADA"
+            );
 
-            pedido.pagamentoId = 
-                pagamento.id;
+            console.log(
+                "===================================="
+            );
 
-            pedido.statusPagamento =
-                pagamento.status;
+            console.log(
+                "ID:",
+                resultado.id
+            );
 
-            pedido.statusDetalhe =
-                pagamento.status_detail;
+            console.log(
+                "Checkout:",
+                resultado.init_point
+            );
 
-            pedido.valorPago =
-                pagamento.transaction_amount;
 
-            pedido.dataPagamento =
-                new Date().toISOString();
+            // ====================================
+            // SALVAR PREFERENCE
+            // ====================================
+
+            pedido.preferenceId =
+                resultado.id;
+
+            pedido.checkout =
+                resultado.init_point;
+
 
             pedidos.set(
-                numeroPedido,
+                numero,
                 pedido
             );
 
             salvarPedidos();
 
-            console.log("");
-            console.log("====================================");
-            console.log("🎉 PEDIDO ATUALIZADO PARA PAGO");
-            console.log("====================================");
+
+            // ====================================
+            // RESPONDER FRONTEND
+            // ====================================
+
+            return res.json({
+
+                sucesso: true,
+
+                numero:
+
+                    numero,
+
+                id:
+
+                    resultado.id,
+
+                checkout:
+
+                    resultado.init_point,
+
+                sandbox_checkout:
+
+                    resultado.sandbox_init_point || null,
+
+                external_reference:
+
+                    numero
+
+            });
+
+
+        } catch (erro) {
+
+            console.error("");
+            console.error(
+                "❌ ERRO AO CRIAR CHECKOUT"
+            );
+
+            console.error(erro);
+
+
+            return res.status(500).json({
+
+                sucesso: false,
+
+                erro:
+                    erro.message ||
+                    "Erro ao criar Checkout Pro."
+
+            });
+
+        }
+
+    }
+);
+
+
+// ====================================
+// ⭐ NOVA ROTA
+// REDIRECIONAR PARA CHECKOUT PRO
+// ====================================
+
+app.get(
+    "/checkout/:numero",
+    (req, res) => {
+
+        const numero =
+            req.params.numero;
+
+
+        console.log("");
+        console.log(
+            "===================================="
+        );
+
+        console.log(
+            "🚀 REDIRECIONANDO PARA CHECKOUT"
+        );
+
+        console.log(
+            "Pedido:",
+            numero
+        );
+
+
+        const pedido =
+            pedidos.get(numero);
+
+
+        // ====================================
+        // PEDIDO NÃO ENCONTRADO
+        // ====================================
+
+        if (!pedido) {
 
             console.log(
-                "Pedido:",
-                numeroPedido
+                "❌ Pedido não encontrado."
+            );
+
+            return res.status(404).send(`
+                
+                <h1>Pedido não encontrado</h1>
+
+                <p>
+                    Não encontramos o pedido
+                    <strong>${numero}</strong>.
+                </p>
+
+            `);
+
+        }
+
+
+        // ====================================
+        // CHECKOUT NÃO ENCONTRADO
+        // ====================================
+
+        if (!pedido.checkout) {
+
+            console.log(
+                "❌ Checkout não encontrado."
+            );
+
+            return res.status(400).send(`
+                
+                <h1>Checkout indisponível</h1>
+
+                <p>
+                    O Checkout Pro ainda não foi criado
+                    para este pedido.
+                </p>
+
+            `);
+
+        }
+
+
+        console.log(
+            "Checkout:",
+            pedido.checkout
+        );
+
+        console.log(
+            "➡ Redirecionando..."
+        );
+
+
+        // ====================================
+        // REDIRECIONAMENTO
+        // ====================================
+
+        return res.redirect(
+            pedido.checkout
+        );
+
+    }
+);
+
+
+// ====================================
+// CONSULTAR STATUS DO PEDIDO
+// ====================================
+
+app.get(
+    "/pedido/:numero/status",
+    (req, res) => {
+
+        const numero =
+            req.params.numero;
+
+
+        console.log("");
+        console.log(
+            "===================================="
+        );
+
+        console.log(
+            "📦 CONSULTANDO STATUS DO PEDIDO"
+        );
+
+        console.log(
+            "Pedido:",
+            numero
+        );
+
+
+        const pedido =
+            pedidos.get(numero);
+
+
+        if (!pedido) {
+
+            console.log(
+                "⚠️ Pedido não encontrado."
+            );
+
+            return res.status(404).json({
+
+                sucesso: false,
+
+                erro:
+                    "Pedido não encontrado."
+
+            });
+
+        }
+
+
+        return res.json({
+
+            sucesso: true,
+
+            numero:
+                pedido.numero,
+
+            status:
+                pedido.status,
+
+            pagamentoId:
+                pedido.pagamentoId || null,
+
+            statusPagamento:
+                pedido.statusPagamento || null,
+
+            statusDetalhe:
+                pedido.statusDetalhe || null,
+
+            valorPago:
+                pedido.valorPago || null,
+
+            dataPagamento:
+                pedido.dataPagamento || null
+
+        });
+
+    }
+);
+
+
+// ====================================
+// PROCESSAR PAGAMENTO COM CARTÃO
+// ====================================
+
+app.post(
+    "/processar-pagamento",
+    async (req, res) => {
+
+        try {
+
+            const {
+
+                transaction_amount,
+                token,
+                description,
+                installments,
+                payment_method_id,
+                issuer_id,
+                payer
+
+            } = req.body;
+
+
+            const resultado =
+                await payment.create({
+
+                    body: {
+
+                        transaction_amount:
+                            Number(
+                                transaction_amount
+                            ),
+
+                        token,
+
+                        description,
+
+                        installments:
+                            Number(
+                                installments
+                            ),
+
+                        payment_method_id,
+
+                        issuer_id,
+
+                        payer: {
+
+                            email:
+                                payer.email,
+
+                            identification:
+                                payer.identification
+
+                        }
+
+                    },
+
+                    requestOptions: {
+
+                        idempotencyKey:
+                            crypto.randomUUID()
+
+                    }
+
+                });
+
+
+            console.log(
+                "💳 Pagamento:",
+                resultado
+            );
+
+
+            return res.json({
+
+                sucesso: true,
+
+                id:
+                    resultado.id,
+
+                status:
+                    resultado.status,
+
+                status_detail:
+                    resultado.status_detail
+
+            });
+
+
+        } catch (erro) {
+
+            console.error(
+                "❌ Erro no pagamento:",
+                erro
+            );
+
+
+            return res.status(500).json({
+
+                sucesso: false,
+
+                erro:
+                    erro.message
+
+            });
+
+        }
+
+    }
+);
+
+
+// ====================================
+// WEBHOOK MERCADO PAGO
+// ====================================
+
+app.post(
+    "/webhook/mercado-pago",
+    async (req, res) => {
+
+        console.log("");
+        console.log(
+            "🔔 WEBHOOK MERCADO PAGO"
+        );
+
+        console.log(
+            req.body
+        );
+
+
+        // Responder imediatamente
+        res.sendStatus(200);
+
+
+        try {
+
+            const tipoEvento =
+                req.body?.type ||
+                req.query?.type ||
+                req.body?.topic ||
+                req.query?.topic;
+
+
+            const action =
+                req.body?.action;
+
+
+            const paymentId =
+                req.body?.data?.id ||
+                req.query?.["data.id"] ||
+                (
+                    tipoEvento === "payment"
+                        ? req.body?.resource
+                        : null
+                );
+
+
+            console.log(
+                "Tipo:",
+                tipoEvento
+            );
+
+            console.log(
+                "Payment ID:",
+                paymentId
+            );
+
+
+            if (
+                tipoEvento !== "payment" &&
+                action !== "payment.created" &&
+                action !== "payment.updated"
+            ) {
+
+                console.log(
+                    "ℹ️ Evento ignorado."
+                );
+
+                return;
+
+            }
+
+
+            if (!paymentId) {
+
+                console.log(
+                    "⚠️ Payment ID não informado."
+                );
+
+                return;
+
+            }
+
+
+            // ====================================
+            // CONSULTAR PAGAMENTO
+            // ====================================
+
+            const pagamento =
+                await payment.get({
+
+                    id:
+                        paymentId
+
+                });
+
+
+            console.log("");
+            console.log(
+                "====== PAGAMENTO ======"
+            );
+
+            console.log(
+                "ID:",
+                pagamento.id
             );
 
             console.log(
                 "Status:",
-                pedido.status
-            );
-
-            console.log(
-                "Pagamento:",
-                pedido.pagamentoId
-            );
-
-        }
-
-        // ====================================
-        // PAGAMENTO REJEITADO
-        // ====================================
-
-        else if (pagamento.status === "rejected") {
-
-            pedido.status =
-                "PAGAMENTO_REJEITADO";
-
-            pedido.pagamentoId =
-                pagamento.id;
-
-            pedido.statusPagamento =
-                pagamento.status;
-
-            pedidos.set(
-                numeroPedido,
-                pedido
-            );
-
-            console.log(
-                "❌ Pagamento rejeitado."
-            );
-
-        }
-
-        // ====================================
-        // PAGAMENTO PENDENTE
-        // ====================================
-
-        else if (pagamento.status === "pending") {
-
-            pedido.status =
-                "PAGAMENTO_PENDENTE";
-
-            pedido.pagamentoId =
-                pagamento.id;
-
-            pedido.statusPagamento =
-                pagamento.status;
-
-            pedidos.set(
-                numeroPedido,
-                pedido
-            );
-
-            console.log(
-                "⏳ Pagamento pendente."
-            );
-
-        }
-
-        // ====================================
-        // OUTROS STATUS
-        // ====================================
-
-        else {
-
-            console.log(
-                "ℹ️ Status recebido:",
                 pagamento.status
             );
 
+            console.log(
+                "Detalhe:",
+                pagamento.status_detail
+            );
+
+            console.log(
+                "External Reference:",
+                pagamento.external_reference
+            );
+
+
+            // ====================================
+            // LOCALIZAR PEDIDO
+            // ====================================
+
+            const numeroPedido =
+                pagamento.external_reference;
+
+
+            const pedido =
+                pedidos.get(
+                    numeroPedido
+                );
+
+
+            if (!pedido) {
+
+                console.log(
+                    "⚠️ Pedido não encontrado."
+                );
+
+                return;
+
+            }
+
+
+            // ====================================
+            // APROVADO
+            // ====================================
+
+            if (
+                pagamento.status ===
+                "approved"
+            ) {
+
+                pedido.status =
+                    "PAGO";
+
+                pedido.pagamentoId =
+                    pagamento.id;
+
+                pedido.statusPagamento =
+                    pagamento.status;
+
+                pedido.statusDetalhe =
+                    pagamento.status_detail;
+
+                pedido.valorPago =
+                    pagamento.transaction_amount;
+
+                pedido.dataPagamento =
+                    new Date().toISOString();
+
+
+                pedidos.set(
+                    numeroPedido,
+                    pedido
+                );
+
+
+                salvarPedidos();
+
+
+                console.log("");
+                console.log(
+                    "===================================="
+                );
+
+                console.log(
+                    "🎉 PAGAMENTO APROVADO"
+                );
+
+                console.log(
+                    "Pedido:",
+                    numeroPedido
+                );
+
+                console.log(
+                    "Status:",
+                    pedido.status
+                );
+
+                console.log(
+                    "===================================="
+                );
+
+            }
+
+
+            // ====================================
+            // REJEITADO
+            // ====================================
+
+            else if (
+                pagamento.status ===
+                "rejected"
+            ) {
+
+                pedido.status =
+                    "PAGAMENTO_REJEITADO";
+
+                pedido.pagamentoId =
+                    pagamento.id;
+
+                pedido.statusPagamento =
+                    pagamento.status;
+
+                pedido.statusDetalhe =
+                    pagamento.status_detail;
+
+
+                pedidos.set(
+                    numeroPedido,
+                    pedido
+                );
+
+
+                salvarPedidos();
+
+
+                console.log(
+                    "❌ Pagamento rejeitado."
+                );
+
+            }
+
+
+            // ====================================
+            // PENDENTE
+            // ====================================
+
+            else if (
+                pagamento.status ===
+                "pending"
+            ) {
+
+                pedido.status =
+                    "PAGAMENTO_PENDENTE";
+
+                pedido.pagamentoId =
+                    pagamento.id;
+
+                pedido.statusPagamento =
+                    pagamento.status;
+
+                pedido.statusDetalhe =
+                    pagamento.status_detail;
+
+
+                pedidos.set(
+                    numeroPedido,
+                    pedido
+                );
+
+
+                salvarPedidos();
+
+
+                console.log(
+                    "⏳ Pagamento pendente."
+                );
+
+            }
+
+        } catch (erro) {
+
+            console.error(
+                "❌ Erro no Webhook:",
+                erro
+            );
+
         }
 
-    } catch (erro) {
+    }
+);
 
-        console.error(
-            "❌ Erro ao processar Webhook:",
-            erro
+
+// ====================================
+// RETORNO PAGAMENTO APROVADO
+// ====================================
+
+app.get(
+    "/pagamento-aprovado",
+    (req, res) => {
+
+        const pedido =
+            req.query.external_reference || "";
+
+        const pagamento =
+            req.query.payment_id || "";
+
+
+        console.log("");
+        console.log(
+            "===================================="
+        );
+
+        console.log(
+            "✅ PAGAMENTO APROVADO"
+        );
+
+        console.log(
+            "Pedido:",
+            pedido
+        );
+
+        console.log(
+            "Payment ID:",
+            pagamento
+        );
+
+
+        const urlConfirmacao =
+
+            "http://localhost:5500/pages/confirmacao.html" +
+
+            "?pedido=" +
+            encodeURIComponent(
+                pedido
+            ) +
+
+            "&payment_id=" +
+            encodeURIComponent(
+                pagamento
+            );
+
+
+        console.log(
+            "➡ Confirmacao:",
+            urlConfirmacao
+        );
+
+
+        return res.redirect(
+            urlConfirmacao
         );
 
     }
+);
 
-});
 
 // ====================================
-// RETORNOS DO CHECKOUT PRO
+// RETORNO PAGAMENTO FALHOU
 // ====================================
 
+app.get(
+    "/pagamento-falhou",
+    (req, res) => {
+
+        res.send(`
+
+            <h1>Pagamento não aprovado</h1>
+
+            <p>
+                Não foi possível concluir o pagamento.
+            </p>
+
+            <p>
+                Você pode tentar novamente.
+            </p>
+
+        `);
+
+    }
+);
+
+
 // ====================================
-// PAGAMENTO APROVADO
+// RETORNO PAGAMENTO PENDENTE
 // ====================================
-app.get("/pagamento-aprovado", (req, res) => {
 
-    console.log("");
-    console.log("====================================");
-    console.log("✅ RETORNO: PAGAMENTO APROVADO");
-    console.log("====================================");
+app.get(
+    "/pagamento-pendente",
+    (req, res) => {
 
-    console.log(
-        "Payment ID:",
-        req.query.payment_id
-    );
+        res.send(`
 
-    console.log(
-        "Status:",
-        req.query.status
-    );
+            <h1>Pagamento pendente</h1>
 
-    console.log(
-        "External Reference:",
-        req.query.external_reference
-    );
+            <p>
+                Seu pagamento ainda está sendo processado.
+            </p>
 
+            <p>
+                Aguarde a confirmação do Mercado Pago.
+            </p>
 
-    // ====================================
-    // PEGAR DADOS DO PAGAMENTO
-    // ====================================
+        `);
 
-    const pedido =
-        req.query.external_reference || "";
+    }
+);
 
-    const pagamento =
-        req.query.payment_id || "";
-
-
-    // ====================================
-    // CRIAR URL DE CONFIRMAÇÃO
-    // ====================================
-
-    const urlConfirmacao =
-        "http://localhost:5500/pages/confirmacao.html" +
-        "?pedido=" + encodeURIComponent(pedido) +
-        "&payment_id=" + encodeURIComponent(pagamento);
-
-
-    // ====================================
-    // MOSTRAR URL NO TERMINAL
-    // ====================================
-
-    console.log("");
-    console.log("====================================");
-    console.log("➡ REDIRECIONAMENTO");
-    console.log("====================================");
-
-    console.log("Pedido:", pedido);
-    console.log("Pagamento:", pagamento);
-    console.log("URL final:", urlConfirmacao);
-
-
-    // ====================================
-    // REDIRECIONAR
-    // ====================================
-
-    return res.redirect(urlConfirmacao);
-
-});
-
-
-// PAGAMENTO FALHOU
-app.get("/pagamento-falhou", (req, res) => {
-
-    console.log("");
-    console.log("====================================");
-    console.log("❌ RETORNO: PAGAMENTO FALHOU");
-    console.log("====================================");
-
-    console.log("Payment ID:", req.query.payment_id);
-    console.log("Status:", req.query.status);
-
-    res.send(`
-        <h1>Pagamento não aprovado</h1>
-        <p>Não foi possível concluir o pagamento.</p>
-        <p>Você pode tentar novamente.</p>
-    `);
-
-});
-
-
-// PAGAMENTO PENDENTE
-app.get("/pagamento-pendente", (req, res) => {
-
-    console.log("");
-    console.log("====================================");
-    console.log("⏳ RETORNO: PAGAMENTO PENDENTE");
-    console.log("====================================");
-
-    console.log("Payment ID:", req.query.payment_id);
-    console.log("Status:", req.query.status);
-
-    res.send(`
-        <h1>Pagamento pendente</h1>
-        <p>Seu pagamento ainda está sendo processado.</p>
-        <p>Aguarde a confirmação do Mercado Pago.</p>
-    `);
-
-});
 
 // ====================================
 // INICIAR SERVIDOR
 // ====================================
 
-app.listen(PORT, () => {
+app.listen(
+    PORT,
+    () => {
 
-    console.log(
-        `🚀 Backend iniciado em http://localhost:${PORT}`
-    );
+        console.log("");
+        console.log(
+            "===================================="
+        );
 
-});
+        console.log(
+            "🚀 BACKEND AMAKHA PARIS"
+        );
+
+        console.log(
+            `🌐 http://localhost:${PORT}`
+        );
+
+        console.log(
+            "===================================="
+        );
+
+    }
+);
