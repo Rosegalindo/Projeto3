@@ -141,9 +141,9 @@
         "total": 43.9
       },
       "status": "AGUARDANDO_PAGAMENTO",
-      "criadoEm": "2026-08-24T21:22:29.297Z",
-      "preferenceId": "3614156117-db76b97b-2a47-4b98-a107-39c8765ffde4",
-      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-db76b97b-2a47-4b98-a107-39c8765ffde4"
+      "criadoEm": "2026-08-24T21:34:34.617Z",
+      "preferenceId": "3614156117-48ad560b-39af-4870-a080-b28679fb1ceb",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-48ad560b-39af-4870-a080-b28679fb1ceb"
     }
   ]
 ]
