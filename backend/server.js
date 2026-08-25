@@ -41,9 +41,6 @@ const mp = new MercadoPagoConfig({
 
 const payment = new Payment(mp);
 
-const PORT = 3000;
-
-
 // ====================================
 // PEDIDOS
 // ====================================
@@ -1160,3 +1157,18 @@ app.get(
 
     }
 );
+
+// =====================================================
+// INICIAR SERVIDOR
+// =====================================================
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log("");
+    console.log("========================================");
+    console.log("🚀 BACKEND AMAKHA PARIS INICIADO");
+    console.log(`🌐 http://localhost:${PORT}`);
+    console.log("========================================");
+    console.log("");
+});
