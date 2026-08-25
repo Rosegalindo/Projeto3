@@ -754,7 +754,14 @@ async function iniciarCheckout() {
 
             window.location.assign(
                 checkoutUrl
-            );        
+            ); 
+            
+            console.log("🚀 CHEGOU NO REDIRECIONAMENTO!");
+            console.log("🔗 URL:", checkoutUrl);
+
+            window.location.assign(
+                checkoutUrl
+            );
             
         // ==================================================
         // MOSTRAR URL NO CONSOLE

@@ -1064,40 +1064,63 @@ app.post(
 );
 
 
-// ====================================
+// ==========================================================
 // RETORNO PAGAMENTO APROVADO
-// ====================================
+// ==========================================================
 
 app.get(
     "/pagamento-aprovado",
     (req, res) => {
 
-        const pedido =
-            req.query.external_reference || "";
+        console.log("");
+        console.log("====================================");
+        console.log("🎉 RETORNO DO MERCADO PAGO");
+        console.log("====================================");
+
+        console.log(
+            "Query recebida:",
+            req.query
+        );
+
+
+        // --------------------------------------------------
+        // PEGAR DADOS ENVIADOS PELO MERCADO PAGO
+        // --------------------------------------------------
 
         const pagamento =
-            req.query.payment_id || "";
+            req.query.payment_id ||
+            req.query.collection_id ||
+            "";
 
+        const status =
+            req.query.status ||
+            req.query.collection_status ||
+            "";
 
-        console.log("");
-        console.log(
-            "===================================="
-        );
+        const externalReference =
+            req.query.external_reference ||
+            "";
 
-        console.log(
-            "✅ PAGAMENTO APROVADO"
-        );
-
-        console.log(
-            "Pedido:",
-            pedido
-        );
 
         console.log(
             "Payment ID:",
             pagamento
         );
 
+        console.log(
+            "Status:",
+            status
+        );
+
+        console.log(
+            "External Reference:",
+            externalReference
+        );
+
+
+        // --------------------------------------------------
+        // MONTAR URL DA CONFIRMAÇÃO
+        // --------------------------------------------------
 
         const urlConfirmacao =
 
@@ -1105,104 +1128,34 @@ app.get(
 
             "?pedido=" +
             encodeURIComponent(
-                pedido
+                externalReference
             ) +
 
             "&payment_id=" +
             encodeURIComponent(
                 pagamento
+            ) +
+
+            "&status=" +
+            encodeURIComponent(
+                status
             );
 
 
+        console.log("");
+        console.log("➡ REDIRECIONAMENTO");
         console.log(
-            "➡ Confirmacao:",
+            "URL:",
             urlConfirmacao
         );
 
+
+        // --------------------------------------------------
+        // REDIRECIONAR
+        // --------------------------------------------------
 
         return res.redirect(
             urlConfirmacao
-        );
-
-    }
-);
-
-
-// ====================================
-// RETORNO PAGAMENTO FALHOU
-// ====================================
-
-app.get(
-    "/pagamento-falhou",
-    (req, res) => {
-
-        res.send(`
-
-            <h1>Pagamento não aprovado</h1>
-
-            <p>
-                Não foi possível concluir o pagamento.
-            </p>
-
-            <p>
-                Você pode tentar novamente.
-            </p>
-
-        `);
-
-    }
-);
-
-
-// ====================================
-// RETORNO PAGAMENTO PENDENTE
-// ====================================
-
-app.get(
-    "/pagamento-pendente",
-    (req, res) => {
-
-        res.send(`
-
-            <h1>Pagamento pendente</h1>
-
-            <p>
-                Seu pagamento ainda está sendo processado.
-            </p>
-
-            <p>
-                Aguarde a confirmação do Mercado Pago.
-            </p>
-
-        `);
-
-    }
-);
-
-
-// ====================================
-// INICIAR SERVIDOR
-// ====================================
-
-app.listen(
-    PORT,
-    () => {
-
-        console.log("");
-        console.log(
-            "===================================="
-        );
-
-        console.log(
-            "🚀 BACKEND AMAKHA PARIS"
-        );
-
-        console.log(
-            `🌐 http://localhost:${PORT}`
-        );
-
-        console.log(
-            "===================================="
         );
 
     }

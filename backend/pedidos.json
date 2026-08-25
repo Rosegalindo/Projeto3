@@ -37,8 +37,9 @@
         "total": 43.9
       },
       "status": "AGUARDANDO_PAGAMENTO",
-      "criadoEm": "2026-08-24T16:03:09.298Z",
-      "preferenceId": "3614156117-c419b550-413e-4f90-96d4-3e117f859b54"
+      "criadoEm": "2026-08-25T18:01:48.624Z",
+      "preferenceId": "3614156117-5939c1a1-3f2b-441a-ace0-673219b66465",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-5939c1a1-3f2b-441a-ace0-673219b66465"
     }
   ],
   [
@@ -144,6 +145,160 @@
       "criadoEm": "2026-08-24T21:34:34.617Z",
       "preferenceId": "3614156117-48ad560b-39af-4870-a080-b28679fb1ceb",
       "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-48ad560b-39af-4870-a080-b28679fb1ceb"
+    }
+  ],
+  [
+    "PED-TESTE-001",
+    {
+      "numero": "PED-TESTE-001",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-25T14:34:56.348Z",
+      "preferenceId": "3614156117-263760c1-dec7-4cb7-9b4b-0e3918b8c0e8",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-263760c1-dec7-4cb7-9b4b-0e3918b8c0e8"
+    }
+  ],
+  [
+    "PED-TESTE-BROWSER",
+    {
+      "numero": "PED-TESTE-BROWSER",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-25T14:36:59.198Z",
+      "preferenceId": "3614156117-9ca713db-95a0-43de-be7d-4699d9983b9a",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-9ca713db-95a0-43de-be7d-4699d9983b9a"
+    }
+  ],
+  [
+    "PED-TESTE-RETORNO",
+    {
+      "numero": "PED-TESTE-RETORNO",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-25T14:42:01.949Z",
+      "preferenceId": "3614156117-2baf8633-a41a-4ba2-87b1-43b0f1df7850",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-2baf8633-a41a-4ba2-87b1-43b0f1df7850"
+    }
+  ],
+  [
+    "PED-TESTE-SEM-RELOAD",
+    {
+      "numero": "PED-TESTE-SEM-RELOAD",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-25T14:50:16.581Z",
+      "preferenceId": "3614156117-2f7a8320-651c-4b7f-848f-977784f83790",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-2f7a8320-651c-4b7f-848f-977784f83790"
+    }
+  ],
+  [
+    "PED-TESTE-SIMPLES",
+    {
+      "numero": "PED-TESTE-SIMPLES",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-25T14:47:41.281Z",
+      "preferenceId": "3614156117-58a5db8b-e13b-48ec-8d1a-90f919199acc",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-58a5db8b-e13b-48ec-8d1a-90f919199acc"
+    }
+  ],
+  [
+    "PED-20260825-010",
+    {
+      "numero": "PED-20260825-010",
+      "produtos": [
+        {
+          "nome": "Provoque",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-25T18:08:02.513Z",
+      "preferenceId": "3614156117-020a908a-a4b2-4477-9cb7-2a8cf3b00efb",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-020a908a-a4b2-4477-9cb7-2a8cf3b00efb"
+    }
+  ],
+  [
+    "PED-20260825-001",
+    {
+      "numero": "PED-20260825-001",
+      "produtos": [
+        {
+          "nome": "Famous for Her",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-25T19:20:02.501Z",
+      "preferenceId": "3614156117-2ecd0f34-7262-4708-a265-cf4f4857598b",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-2ecd0f34-7262-4708-a265-cf4f4857598b"
     }
   ]
 ]
