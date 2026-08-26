@@ -326,43 +326,79 @@ app.post(
             // ====================================
             // CRIAR PREFERENCE
             // ====================================
+        app.post("/criar-preferencia", async (req, res) => {
+        try {
+            console.log("\n====================================");
+            console.log("🛒 CRIANDO CHECKOUT PRO");
+            console.log("====================================");
 
-            const preference =
-                new Preference(mp);
+            const { numero, produtos, valores } = req.body;
 
+            if (!numero) {
+            return res.status(400).json({ sucesso: false, erro: "Número do pedido não informado." });
+            }
 
-            const resultado =
-                await preference.create({
+            if (!Array.isArray(produtos) || produtos.length === 0) {
+            return res.status(400).json({ sucesso: false, erro: "Nenhum produto informado." });
+            }
 
-                    body: {
+            const items = produtos.map(produto => ({
+            title: produto.nome,
+            quantity: Number(produto.quantidade),
+            unit_price: Number(produto.preco),
+            currency_id: "BRL"
+            }));
 
-                        items,
+            // Registra pedido inicial
+            const pedido = {
+            numero,
+            produtos,
+            valores,
+            status: "AGUARDANDO_PAGAMENTO",
+            criadoEm: new Date().toISOString()
+            };
 
-                        external_reference:
-                            numero,
+            const preference = new Preference(mp);
 
-                        notification_url:
-                            process.env.MP_WEBHOOK_URL,
+            const resultado = await preference.create({
+            body: {
+                items,
+                external_reference: String(numero),
+                notification_url: process.env.MP_WEBHOOK_URL,
+                back_urls: {
+                success: process.env.MP_SUCCESS_URL,
+                failure: process.env.MP_FAILURE_URL,
+                pending: process.env.MP_PENDING_URL
+                },
+                auto_return: "approved"
+            }
+            });
 
-                        back_urls: {
+            // Salva IDs no Map de pedidos
+            pedido.preferenceId = resultado.id;
+            pedido.checkout = resultado.init_point;
+            pedidos.set(numero, pedido);
+            salvarPedidos();
 
-                            success:
-                                process.env.MP_SUCCESS_URL,
+            console.log("✅ PREFERENCE CRIADA:", resultado.id);
 
-                            failure:
-                                process.env.MP_FAILURE_URL,
+            return res.json({
+            sucesso: true,
+            numero: numero,
+            id: resultado.id,
+            checkout: resultado.init_point,
+            sandbox_checkout: resultado.sandbox_init_point || null,
+            external_reference: numero
+            });
 
-                            pending:
-                                process.env.MP_PENDING_URL
-
-                        },
-
-                        auto_return:
-                            "approved"
-
-                    }
-
-                });
+        } catch (erro) {
+            console.error("❌ ERRO AO CRIAR CHECKOUT:", erro);
+            return res.status(500).json({
+            sucesso: false,
+            erro: erro.message || "Erro ao criar Checkout Pro."
+            });
+        }
+        });
 
 
             // ====================================

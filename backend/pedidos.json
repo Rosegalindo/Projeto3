@@ -322,5 +322,27 @@
       "preferenceId": "3614156117-ee87a6ad-274e-4464-bfa6-7175537e59de",
       "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-ee87a6ad-274e-4464-bfa6-7175537e59de"
     }
+  ],
+  [
+    "PED-20260826-003",
+    {
+      "numero": "PED-20260826-003",
+      "produtos": [
+        {
+          "nome": "Mystère",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-26T19:55:22.023Z",
+      "preferenceId": "3614156117-851d79a4-bab7-436e-848e-c8e46afd6732",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-851d79a4-bab7-436e-848e-c8e46afd6732"
+    }
   ]
 ]
