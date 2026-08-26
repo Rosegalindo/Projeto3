@@ -344,5 +344,71 @@
       "preferenceId": "3614156117-11d79823-4f56-4412-ae58-6667c40ab4ee",
       "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-11d79823-4f56-4412-ae58-6667c40ab4ee"
     }
+  ],
+  [
+    "PED-20260826-004",
+    {
+      "numero": "PED-20260826-004",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-26T20:07:31.767Z",
+      "preferenceId": "3614156117-04c27b5b-7456-48c3-899c-e4a5e5de9df8",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-04c27b5b-7456-48c3-899c-e4a5e5de9df8"
+    }
+  ],
+  [
+    "PED-20260826-005",
+    {
+      "numero": "PED-20260826-005",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-26T20:10:15.663Z",
+      "preferenceId": "3614156117-90d3f25a-2d7f-40a2-a61e-ccb5d60ec0a6",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-90d3f25a-2d7f-40a2-a61e-ccb5d60ec0a6"
+    }
+  ],
+  [
+    "PED-20260826-007",
+    {
+      "numero": "PED-20260826-007",
+      "produtos": [
+        {
+          "nome": "Zaya",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "AGUARDANDO_PAGAMENTO",
+      "criadoEm": "2026-08-26T20:15:26.913Z",
+      "preferenceId": "3614156117-16eca17a-f594-4d0a-ae01-c4ff33a5880e",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-16eca17a-f594-4d0a-ae01-c4ff33a5880e"
+    }
   ]
 ]
