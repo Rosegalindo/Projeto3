@@ -410,5 +410,32 @@
       "preferenceId": "3614156117-16eca17a-f594-4d0a-ae01-c4ff33a5880e",
       "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-16eca17a-f594-4d0a-ae01-c4ff33a5880e"
     }
+  ],
+  [
+    "PED-20260826-008",
+    {
+      "numero": "PED-20260826-008",
+      "produtos": [
+        {
+          "nome": "Provoque",
+          "quantidade": 1,
+          "preco": 43.9
+        }
+      ],
+      "valores": {
+        "subtotal": 43.9,
+        "frete": 0,
+        "total": 43.9
+      },
+      "status": "PAGO",
+      "criadoEm": "2026-08-26T20:46:08.794Z",
+      "preferenceId": "3614156117-edd0e299-6710-4457-8c39-2fefdbd57977",
+      "checkout": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=3614156117-edd0e299-6710-4457-8c39-2fefdbd57977",
+      "pagamentoId": 175769035852,
+      "statusPagamento": "approved",
+      "statusDetalhe": "accredited",
+      "valorPago": 43.9,
+      "dataPagamento": "2026-08-26T20:51:26.625Z"
+    }
   ]
 ]

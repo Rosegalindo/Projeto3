@@ -5,10 +5,8 @@
 
 const express = require("express");
 const cors = require("cors");
-const crypto = require("crypto");
-const fs = require("fs");
 const path = require("path");
-
+const fs = require("fs");
 require("dotenv").config();
 
 const app = express();
@@ -18,6 +16,7 @@ const {
     Preference,
     Payment
 } = require("mercadopago");
+
 
 // ====================================
 // MERCADO PAGO
@@ -40,6 +39,7 @@ const mp = new MercadoPagoConfig({
 });
 
 const payment = new Payment(mp);
+
 
 // ====================================
 // PEDIDOS
@@ -200,6 +200,10 @@ app.post(
             );
 
 
+            // ====================================
+            // RECEBER DADOS
+            // ====================================
+
             const {
 
                 numero,
@@ -288,121 +292,56 @@ app.post(
 
             console.log("");
             console.log(
-                "Itens enviados ao Mercado Pago:"
+                "🛒 ITENS ENVIADOS AO MERCADO PAGO:"
             );
 
             console.log(items);
 
 
             // ====================================
-            // REGISTRAR PEDIDO
-            // ====================================
-
-            const pedido = {
-
-                numero,
-
-                produtos,
-
-                valores,
-
-                status:
-                    "AGUARDANDO_PAGAMENTO",
-
-                criadoEm:
-                    new Date().toISOString()
-
-            };
-
-
-            pedidos.set(
-                numero,
-                pedido
-            );
-
-            salvarPedidos();
-
-
-            // ====================================
             // CRIAR PREFERENCE
             // ====================================
-        app.post("/criar-preferencia", async (req, res) => {
-        try {
-            console.log("\n====================================");
-            console.log("🛒 CRIANDO CHECKOUT PRO");
-            console.log("====================================");
 
-            const { numero, produtos, valores } = req.body;
+            const preference =
+                new Preference(mp);
 
-            if (!numero) {
-            return res.status(400).json({ sucesso: false, erro: "Número do pedido não informado." });
-            }
 
-            if (!Array.isArray(produtos) || produtos.length === 0) {
-            return res.status(400).json({ sucesso: false, erro: "Nenhum produto informado." });
-            }
+            const resultado =
+                await preference.create({
 
-            const items = produtos.map(produto => ({
-            title: produto.nome,
-            quantity: Number(produto.quantidade),
-            unit_price: Number(produto.preco),
-            currency_id: "BRL"
-            }));
+                    body: {
 
-            // Registra pedido inicial
-            const pedido = {
-            numero,
-            produtos,
-            valores,
-            status: "AGUARDANDO_PAGAMENTO",
-            criadoEm: new Date().toISOString()
-            };
+                        items,
 
-            const preference = new Preference(mp);
+                        external_reference:
+                            String(numero),
 
-            const resultado = await preference.create({
-            body: {
-                items,
-                external_reference: String(numero),
-                notification_url: process.env.MP_WEBHOOK_URL,
-                back_urls: {
-                success: process.env.MP_SUCCESS_URL,
-                failure: process.env.MP_FAILURE_URL,
-                pending: process.env.MP_PENDING_URL
-                },
-                auto_return: "approved"
-            }
-            });
+                        notification_url:
+                            process.env.MP_WEBHOOK_URL,
 
-            // Salva IDs no Map de pedidos
-            pedido.preferenceId = resultado.id;
-            pedido.checkout = resultado.init_point;
-            pedidos.set(numero, pedido);
-            salvarPedidos();
+                        back_urls: {
 
-            console.log("✅ PREFERENCE CRIADA:", resultado.id);
+                            success:
+                                process.env.MP_SUCCESS_URL,
 
-            return res.json({
-            sucesso: true,
-            numero: numero,
-            id: resultado.id,
-            checkout: resultado.init_point,
-            sandbox_checkout: resultado.sandbox_init_point || null,
-            external_reference: numero
-            });
+                            failure:
+                                process.env.MP_FAILURE_URL,
 
-        } catch (erro) {
-            console.error("❌ ERRO AO CRIAR CHECKOUT:", erro);
-            return res.status(500).json({
-            sucesso: false,
-            erro: erro.message || "Erro ao criar Checkout Pro."
-            });
-        }
-        });
+                            pending:
+                                process.env.MP_PENDING_URL
+
+                        },
+
+                        auto_return:
+                            "approved"
+
+                    }
+
+                });
 
 
             // ====================================
-            // VERIFICAR CHECKOUT
+            // VERIFICAR RETORNO DO MERCADO PAGO
             // ====================================
 
             console.log("");
@@ -428,21 +367,71 @@ app.post(
                 resultado.init_point
             );
 
+            console.log(
+                "Sandbox:",
+                resultado.sandbox_init_point
+            );
+
 
             // ====================================
-            // SALVAR PREFERENCE
+            // VERIFICAR CHECKOUT
             // ====================================
 
-            pedido.preferenceId =
-                resultado.id;
+            if (!resultado.init_point) {
 
-            pedido.checkout =
-                resultado.init_point;
+                console.error(
+                    "❌ Mercado Pago não retornou init_point."
+                );
 
+                return res.status(500).json({
+
+                    sucesso: false,
+
+                    erro:
+                        "Checkout do Mercado Pago não foi retornado."
+
+                });
+
+            }
+
+
+            // ====================================
+            // REGISTRAR PEDIDO
+            // ====================================
+
+            const pedido = {
+
+                numero,
+
+                produtos,
+
+                valores,
+
+                status:
+                    "AGUARDANDO_PAGAMENTO",
+
+                criadoEm:
+                    new Date().toISOString(),
+
+                preferenceId:
+                    resultado.id,
+
+                checkout:
+                    resultado.init_point
+
+            };
+
+
+            // ====================================
+            // SALVAR PEDIDO
+            // ====================================
 
             pedidos.set(
+
                 numero,
+
                 pedido
+
             );
 
             salvarPedidos();
@@ -452,28 +441,34 @@ app.post(
             // RESPONDER FRONTEND
             // ====================================
 
+            console.log("");
+            console.log(
+                "📤 ENVIANDO CHECKOUT PARA FRONTEND"
+            );
+
+            console.log(
+                "URL:",
+                resultado.init_point
+            );
+
+
             return res.json({
 
                 sucesso: true,
 
                 numero:
-
                     numero,
 
                 id:
-
                     resultado.id,
 
                 checkout:
-
                     resultado.init_point,
 
                 sandbox_checkout:
-
                     resultado.sandbox_init_point || null,
 
                 external_reference:
-
                     numero
 
             });
@@ -483,7 +478,15 @@ app.post(
 
             console.error("");
             console.error(
+                "===================================="
+            );
+
+            console.error(
                 "❌ ERRO AO CRIAR CHECKOUT"
+            );
+
+            console.error(
+                "===================================="
             );
 
             console.error(erro);
@@ -506,7 +509,6 @@ app.post(
 
 
 // ====================================
-// ⭐ NOVA ROTA
 // REDIRECIONAR PARA CHECKOUT PRO
 // ====================================
 
@@ -548,7 +550,7 @@ app.get(
             );
 
             return res.status(404).send(`
-                
+
                 <h1>Pedido não encontrado</h1>
 
                 <p>
@@ -572,7 +574,7 @@ app.get(
             );
 
             return res.status(400).send(`
-                
+
                 <h1>Checkout indisponível</h1>
 
                 <p>
@@ -818,7 +820,10 @@ app.post(
         );
 
 
-        // Responder imediatamente
+        // ====================================
+        // RESPONDER IMEDIATAMENTE
+        // ====================================
+
         res.sendStatus(200);
 
 
@@ -856,6 +861,10 @@ app.post(
             );
 
 
+            // ====================================
+            // VERIFICAR EVENTO
+            // ====================================
+
             if (
                 tipoEvento !== "payment" &&
                 action !== "payment.created" &&
@@ -870,6 +879,10 @@ app.post(
 
             }
 
+
+            // ====================================
+            // VERIFICAR PAYMENT ID
+            // ====================================
 
             if (!paymentId) {
 
@@ -947,7 +960,7 @@ app.post(
 
 
             // ====================================
-            // APROVADO
+            // PAGAMENTO APROVADO
             // ====================================
 
             if (
@@ -1010,7 +1023,7 @@ app.post(
 
 
             // ====================================
-            // REJEITADO
+            // PAGAMENTO REJEITADO
             // ====================================
 
             else if (
@@ -1048,7 +1061,7 @@ app.post(
 
 
             // ====================================
-            // PENDENTE
+            // PAGAMENTO PENDENTE
             // ====================================
 
             else if (
@@ -1106,9 +1119,18 @@ app.get(
     (req, res) => {
 
         console.log("");
-        console.log("====================================");
-        console.log("🎉 RETORNO DO MERCADO PAGO");
-        console.log("====================================");
+        console.log(
+            "===================================="
+        );
+
+        console.log(
+            "🎉 RETORNO DO MERCADO PAGO"
+        );
+
+        console.log(
+            "===================================="
+        );
+
 
         console.log(
             "Query recebida:",
@@ -1116,19 +1138,21 @@ app.get(
         );
 
 
-        // --------------------------------------------------
-        // PEGAR DADOS ENVIADOS PELO MERCADO PAGO
-        // --------------------------------------------------
+        // ====================================
+        // PEGAR DADOS DO MERCADO PAGO
+        // ====================================
 
         const pagamento =
             req.query.payment_id ||
             req.query.collection_id ||
             "";
 
+
         const status =
             req.query.status ||
             req.query.collection_status ||
             "";
+
 
         const externalReference =
             req.query.external_reference ||
@@ -1151,24 +1175,20 @@ app.get(
         );
 
 
-        // --------------------------------------------------
+        // ====================================
         // MONTAR URL DA CONFIRMAÇÃO
-        // --------------------------------------------------
+        // ====================================
 
         const urlConfirmacao =
-
-            "http://localhost:5500/pages/confirmacao.html" +
-
+            process.env.MP_SUCCESS_URL +
             "?pedido=" +
             encodeURIComponent(
                 externalReference
             ) +
-
             "&payment_id=" +
             encodeURIComponent(
                 pagamento
             ) +
-
             "&status=" +
             encodeURIComponent(
                 status
@@ -1176,16 +1196,19 @@ app.get(
 
 
         console.log("");
-        console.log("➡ REDIRECIONAMENTO");
+        console.log(
+            "➡ REDIRECIONAMENTO"
+        );
+
         console.log(
             "URL:",
             urlConfirmacao
         );
 
 
-        // --------------------------------------------------
+        // ====================================
         // REDIRECIONAR
-        // --------------------------------------------------
+        // ====================================
 
         return res.redirect(
             urlConfirmacao
@@ -1194,17 +1217,38 @@ app.get(
     }
 );
 
+
 // =====================================================
 // INICIAR SERVIDOR
 // =====================================================
 
-const PORT = process.env.PORT || 3000;
+const PORT =
+    process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log("");
-    console.log("========================================");
-    console.log("🚀 BACKEND AMAKHA PARIS INICIADO");
-    console.log(`🌐 http://localhost:${PORT}`);
-    console.log("========================================");
-    console.log("");
-});
+
+app.listen(
+    PORT,
+    () => {
+
+        console.log("");
+
+        console.log(
+            "========================================"
+        );
+
+        console.log(
+            "🚀 BACKEND AMAKHA PARIS INICIADO"
+        );
+
+        console.log(
+            `🌐 http://localhost:${PORT}`
+        );
+
+        console.log(
+            "========================================"
+        );
+
+        console.log("");
+
+    }
+);
