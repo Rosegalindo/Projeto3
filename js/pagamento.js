@@ -1,714 +1,335 @@
-// ==========================================================
+// ============================================================
 // PAGAMENTO.JS
-// SOLVER STORE
-// MERCADO PAGO - CHECKOUT PRO
-// ==========================================================
+// Fluxo simples de pagamento com Mercado Pago
+// ============================================================
 
-console.log("💳 Pagamento iniciado");
+console.log("========================================");
+console.log("💳 PAGAMENTO INICIADO");
+console.log("========================================");
 
 
-// ==========================================================
-// CONFIGURAÇÕES
-// ==========================================================
+// ============================================================
+// CONFIGURAÇÃO
+// ============================================================
 
-// Backend local
 const API_URL = "http://localhost:3000";
 
 
-// ==========================================================
+// ============================================================
 // ELEMENTOS DA PÁGINA
-// ==========================================================
+// ============================================================
 
-const btnPagar = document.getElementById("btn-pagar");
-
-const valorTotal = document.getElementById("valor-total");
-
-const numeroPedido = document.getElementById("numero-pedido");
-
-const statusArea = document.getElementById("status-area");
-
-const statusMensagem =
-    document.getElementById("status-mensagem");
-
-const textoBtnPagar =
-    document.getElementById("texto-btn-pagar");
+const botaoPagar = document.getElementById("btn-pagar");
+const textoBotao = document.getElementById("texto-btn-pagar");
 
 
-// ==========================================================
+// ============================================================
 // VERIFICAR BOTÃO
-// ==========================================================
+// ============================================================
 
-if (btnPagar) {
+if (!botaoPagar) {
 
-    console.log(
-        "🟢 Botão Pagar encontrado:",
-        btnPagar
-    );
+    console.error("❌ Botão #btn-pagar não encontrado!");
 
 } else {
 
-    console.error(
-        "🔴 ERRO: botão #btn-pagar não encontrado."
-    );
+    console.log("🟢 Botão #btn-pagar encontrado:", botaoPagar);
 
 }
 
 
-// ==========================================================
-// FUNÇÃO FORMATAR VALOR
-// ==========================================================
-
-function formatarMoeda(valor) {
-
-    const numero = Number(valor);
-
-    if (Number.isNaN(numero)) {
-
-        return "R$ 0,00";
-
-    }
-
-    return numero.toLocaleString(
-        "pt-BR",
-        {
-            style: "currency",
-            currency: "BRL"
-        }
-    );
-
-}
-
-
-// ==========================================================
-// RECUPERAR PEDIDO DO LOCALSTORAGE
-// ==========================================================
+// ============================================================
+// CARREGAR PEDIDO
+// ============================================================
 
 function carregarPedido() {
 
-    console.log(
-        "📦 Procurando pedido no localStorage..."
-    );
+    console.log("🔎 Procurando pedido no localStorage...");
 
-
-    const pedidoSalvo =
-        localStorage.getItem("pedido");
-
+    const pedidoSalvo = localStorage.getItem("pedido");
 
     if (!pedidoSalvo) {
 
-        console.error(
-            "❌ Nenhum pedido encontrado no localStorage."
-        );
-
-        mostrarStatus(
-            "Não foi possível encontrar o pedido.",
-            "erro"
-        );
+        console.error("❌ Nenhum pedido encontrado no localStorage.");
 
         return null;
-
     }
-
 
     try {
 
-        const pedido =
-            JSON.parse(pedidoSalvo);
+        const pedido = JSON.parse(pedidoSalvo);
 
-
-        console.log(
-            "📦 Pedido encontrado no localStorage: pedido"
-        );
-
-
-        console.log(
-            "===================================="
-        );
-
-        console.log(
-            "🛒 PEDIDO PARA PAGAMENTO"
-        );
-
-        console.log(
-            "===================================="
-        );
-
-
-        console.log(
-            pedido
-        );
-
+        console.log("✅ Pedido encontrado:", pedido);
 
         return pedido;
 
-
     } catch (erro) {
 
-        console.error(
-            "❌ Erro ao ler o pedido:",
-            erro
-        );
-
-
-        mostrarStatus(
-            "O pedido armazenado está inválido.",
-            "erro"
-        );
-
+        console.error("❌ Erro ao ler pedido:", erro);
 
         return null;
-
     }
-
 }
 
 
-// ==========================================================
-// OBTER NÚMERO DO PEDIDO
-// ==========================================================
-
-function obterNumeroPedido(pedido) {
-
-    return (
-
-        pedido.numero ||
-
-        pedido.numeroPedido ||
-
-        pedido.id ||
-
-        ""
-
-    );
-
-}
-
-
-// ==========================================================
-// OBTER PRODUTOS
-// ==========================================================
-
-function obterProdutos(pedido) {
-
-    if (
-        Array.isArray(pedido.produtos) &&
-        pedido.produtos.length > 0
-    ) {
-
-        return pedido.produtos;
-
-    }
-
-
-    if (
-        Array.isArray(pedido.itens) &&
-        pedido.itens.length > 0
-    ) {
-
-        return pedido.itens;
-
-    }
-
-
-    if (
-        Array.isArray(pedido.items) &&
-        pedido.items.length > 0
-    ) {
-
-        return pedido.items;
-
-    }
-
-
-    return [];
-
-}
-
-
-// ==========================================================
-// CALCULAR TOTAL DOS PRODUTOS
-// ==========================================================
-
-function calcularTotalProdutos(produtos) {
-
-    let total = 0;
-
-
-    produtos.forEach(produto => {
-
-        const quantidade =
-            Number(
-                produto.quantidade ||
-                produto.qtd ||
-                1
-            );
-
-
-        const preco =
-            Number(
-                produto.preco ||
-                produto.valor ||
-                produto.unit_price ||
-                0
-            );
-
-
-        total +=
-            quantidade * preco;
-
-    });
-
-
-    return total;
-
-}
-
-
-// ==========================================================
-// OBTER TOTAL DO PEDIDO
-// ==========================================================
-
-function obterTotal(pedido, produtos) {
-
-    // ------------------------------------------------------
-    // PRIMEIRA OPÇÃO:
-    // pedido.valores.total
-    // ------------------------------------------------------
-
-    if (
-        pedido.valores &&
-        pedido.valores.total !== undefined
-    ) {
-
-        return Number(
-            pedido.valores.total
-        );
-
-    }
-
-
-    // ------------------------------------------------------
-    // SEGUNDA OPÇÃO:
-    // pedido.total
-    // ------------------------------------------------------
-
-    if (
-        pedido.total !== undefined
-    ) {
-
-        return Number(
-            pedido.total
-        );
-
-    }
-
-
-    // ------------------------------------------------------
-    // TERCEIRA OPÇÃO:
-    // calcular pelos produtos
-    // ------------------------------------------------------
-
-    return calcularTotalProdutos(
-        produtos
-    );
-
-}
-
-
-// ==========================================================
-// MOSTRAR DADOS DO PEDIDO
-// ==========================================================
+// ============================================================
+// MOSTRAR PEDIDO NA TELA
+// ============================================================
 
 function mostrarPedido(pedido) {
 
-    const numero =
-        obterNumeroPedido(pedido);
+    if (!pedido) {
+        return;
+    }
+
+    console.log("📦 Mostrando pedido na tela...");
+
+    console.log("Número:", pedido.numero);
+    console.log("Total:", pedido.valores?.total);
 
 
-    const produtos =
-        obterProdutos(pedido);
+    // --------------------------------------------------------
+    // NÚMERO DO PEDIDO
+    // --------------------------------------------------------
 
+    const numeroPedido = document.getElementById("numero-pedido");
+
+    if (numeroPedido && pedido.numero) {
+
+        numeroPedido.textContent = pedido.numero;
+
+    }
+
+
+    // --------------------------------------------------------
+    // TOTAL
+    // --------------------------------------------------------
+
+    const totalPedido = document.getElementById("total-pedido");
 
     const total =
-        obterTotal(
-            pedido,
-            produtos
-        );
+        pedido.valores?.total ??
+        pedido.total ??
+        0;
 
+    if (totalPedido) {
 
-    console.log(
-        "Número do pedido:",
-        numero
-    );
-
-
-    console.log(
-        "Total:",
-        total
-    );
-
-
-    // ------------------------------------------------------
-    // NÚMERO DO PEDIDO
-    // ------------------------------------------------------
-
-    if (numeroPedido) {
-
-        numeroPedido.textContent =
-            numero || "-";
+        totalPedido.textContent =
+            Number(total).toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+            });
 
     }
-
-
-    // ------------------------------------------------------
-    // TOTAL
-    // ------------------------------------------------------
-
-    if (valorTotal) {
-
-        valorTotal.textContent =
-            formatarMoeda(total);
-
-    }
-
-
-    return {
-
-        numero,
-
-        produtos,
-
-        total
-
-    };
-
 }
 
 
-// ==========================================================
-// MOSTRAR STATUS
-// ==========================================================
-
-function mostrarStatus(
-    mensagem,
-    tipo = "info"
-) {
-
-    console.log(
-        "ℹ️ Status:",
-        mensagem
-    );
-
-
-    if (
-        !statusArea ||
-        !statusMensagem
-    ) {
-
-        return;
-
-    }
-
-
-    statusArea.style.display =
-        "block";
-
-
-    statusMensagem.textContent =
-        mensagem;
-
-
-    statusMensagem.className =
-        tipo;
-
-}
-
-
-// ==========================================================
+// ============================================================
 // ALTERAR ESTADO DO BOTÃO
-// ==========================================================
+// ============================================================
 
-function alterarEstadoBotao(
-    carregando
-) {
+function alterarEstadoBotao(carregando) {
 
-    if (!btnPagar) {
-
+    if (!botaoPagar) {
         return;
-
     }
 
-
-    btnPagar.disabled =
-        carregando;
-
+    botaoPagar.disabled = carregando;
 
     if (carregando) {
 
-        btnPagar.innerHTML =
-            "<i class='bx bx-loader-alt bx-spin'></i>" +
-            "<span>Iniciando pagamento...</span>";
+        if (textoBotao) {
+            textoBotao.textContent = "Iniciando pagamento...";
+        }
 
     } else {
 
-        btnPagar.innerHTML =
-            "<i class='bx bx-lock-alt'></i>" +
-            "<span id='texto-btn-pagar'>" +
-            "Pagar com Mercado Pago" +
-            "</span>";
+        if (textoBotao) {
+            textoBotao.textContent = "Pagar com Mercado Pago";
+        }
 
     }
-
 }
 
 
-// ==========================================================
-// CRIAR CHECKOUT PRO
-// ==========================================================
+// ============================================================
+// CRIAR CHECKOUT
+// ============================================================
 
-async function iniciarCheckout() {
+async function iniciarPagamento() {
 
-    console.log(
-        "===================================="
-    );
-
-    console.log(
-        "🚀 INICIANDO CHECKOUT PRO"
-    );
-
-    console.log(
-        "===================================="
-    );
+    console.log("");
+    console.log("========================================");
+    console.log("🚀 INICIANDO PAGAMENTO");
+    console.log("========================================");
 
 
-    // ------------------------------------------------------
-    // RECUPERAR PEDIDO
-    // ------------------------------------------------------
+    // --------------------------------------------------------
+    // CARREGAR PEDIDO
+    // --------------------------------------------------------
 
-    const pedido =
-        carregarPedido();
-
+    const pedido = carregarPedido();
 
     if (!pedido) {
 
-        return;
+        alert("Não foi possível encontrar o pedido.");
 
+        return;
     }
 
 
-    // ------------------------------------------------------
-    // PREPARAR DADOS
-    // ------------------------------------------------------
+    // --------------------------------------------------------
+    // DADOS DO PEDIDO
+    // --------------------------------------------------------
 
-    const numero =
-        obterNumeroPedido(pedido);
+    const numero = pedido.numero;
 
-
-    const produtos =
-        obterProdutos(pedido);
-
+    const produtos = pedido.produtos || [];
 
     const total =
-        obterTotal(
-            pedido,
-            produtos
+        Number(
+            pedido.valores?.total ??
+            pedido.total ??
+            0
         );
 
 
-    console.log(
-        "Número:",
-        numero
-    );
+    console.log("📋 DADOS DO PEDIDO");
+    console.log("Número:", numero);
+    console.log("Produtos:", produtos);
+    console.log("Total:", total);
 
 
-    console.log(
-        "Produtos:",
-        produtos
-    );
-
-
-    console.log(
-        "Total:",
-        total
-    );
-
-
-    // ------------------------------------------------------
-    // VALIDAR NÚMERO
-    // ------------------------------------------------------
-
-    if (!numero) {
-
-        console.error(
-            "❌ Número do pedido não encontrado."
-        );
-
-
-        mostrarStatus(
-            "Número do pedido não encontrado.",
-            "erro"
-        );
-
-
-        return;
-
-    }
-
-
-    // ------------------------------------------------------
-    // VALIDAR PRODUTOS
-    // ------------------------------------------------------
-
-    if (
-        !Array.isArray(produtos) ||
-        produtos.length === 0
-    ) {
-
-        console.error(
-            "❌ Nenhum produto encontrado."
-        );
-
-
-        mostrarStatus(
-            "Nenhum produto encontrado no pedido.",
-            "erro"
-        );
-
-
-        return;
-
-    }
-
-
-    // ------------------------------------------------------
+    // --------------------------------------------------------
     // VALIDAR TOTAL
-    // ------------------------------------------------------
+    // --------------------------------------------------------
 
-    if (
-        !total ||
-        total <= 0
-    ) {
+    if (!total || total <= 0) {
 
-        console.error(
-            "❌ Valor total inválido:",
-            total
-        );
+        console.error("❌ Total inválido:", total);
 
-
-        mostrarStatus(
-            "O valor do pedido é inválido.",
-            "erro"
-        );
-
+        alert("O valor do pedido é inválido.");
 
         return;
-
     }
 
 
-    // ------------------------------------------------------
+    // --------------------------------------------------------
     // DESABILITAR BOTÃO
-    // ------------------------------------------------------
+    // --------------------------------------------------------
 
     alterarEstadoBotao(true);
 
 
     try {
 
-        console.log(
-            "📡 Enviando pedido para:",
-            API_URL + "/criar-preferencia"
+        // ----------------------------------------------------
+        // ENVIAR PARA BACKEND
+        // ----------------------------------------------------
+
+        const url = API_URL + "/criar-preferencia";
+
+        console.log("");
+        console.log("📤 ENVIANDO PEDIDO PARA O BACKEND");
+        console.log("URL:", url);
+
+
+        const dados = {
+
+            numero: numero,
+
+            produtos: produtos,
+
+            valores: {
+
+                subtotal:
+                    pedido.valores?.subtotal ??
+                    total,
+
+                frete:
+                    pedido.valores?.frete ??
+                    0,
+
+                total: total
+
+            }
+
+        };
+
+
+        console.log("📦 Dados enviados:");
+        console.log(dados);
+
+
+        // ----------------------------------------------------
+        // FETCH
+        // ----------------------------------------------------
+
+        const resposta = await fetch(
+            url,
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(dados)
+
+            }
         );
 
 
-        // ==================================================
-        // CHAMADA PARA O BACKEND
-        // ==================================================
+        // ----------------------------------------------------
+        // STATUS HTTP
+        // ----------------------------------------------------
 
-        const resposta =
-            await fetch(
-                API_URL + "/criar-preferencia",
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body: JSON.stringify({
-
-                        numero: numero,
-
-                        produtos: produtos,
-
-                        valores:
-                            pedido.valores || {
-
-                                subtotal: total,
-
-                                frete: 0,
-
-                                total: total
-
-                            }
-
-                    })
-
-                }
-            );
+        console.log("");
+        console.log("📡 STATUS HTTP:", resposta.status);
 
 
-        console.log(
-            "📡 Status HTTP:",
-            resposta.status
-        );
-
-
-        // ==================================================
-        // VERIFICAR RESPOSTA HTTP
-        // ==================================================
+        // ----------------------------------------------------
+        // VERIFICAR ERRO HTTP
+        // ----------------------------------------------------
 
         if (!resposta.ok) {
 
-            const textoErro =
-                await resposta.text();
-
+            const textoErro = await resposta.text();
 
             console.error(
-                "❌ Erro retornado pelo backend:",
-                textoErro
+                "❌ BACKEND RETORNOU ERRO:"
             );
 
+            console.error(textoErro);
 
             throw new Error(
                 "Erro HTTP " +
-                resposta.status
+                resposta.status +
+                ": " +
+                textoErro
             );
-
         }
 
 
-        // ==================================================
+        // ----------------------------------------------------
         // CONVERTER RESPOSTA
-        // ==================================================
+        // ----------------------------------------------------
 
-        const resultado =
-            await resposta.json();
-
-
-        console.log(
-            "✅ Resposta do backend:",
-            resultado
-        );
+        const resultado = await resposta.json();
 
 
-        // ==================================================
-        // VERIFICAR CHECKOUT
-        // ==================================================
+        console.log("");
+        console.log("========================================");
+        console.log("📦 RESPOSTA DO BACKEND");
+        console.log("========================================");
+
+        console.log(resultado);
+
+
+        // ----------------------------------------------------
+        // PEGAR URL DO CHECKOUT
+        // ----------------------------------------------------
 
         const checkoutUrl =
             resultado.checkout ||
@@ -717,164 +338,106 @@ async function iniciarCheckout() {
             resultado.initPoint;
 
 
+        console.log("");
+        console.log("🔗 URL DO CHECKOUT:");
+        console.log(checkoutUrl);
+
+
+        // ----------------------------------------------------
+        // VALIDAR URL
+        // ----------------------------------------------------
+
         if (!checkoutUrl) {
 
             console.error(
-                "❌ O backend não retornou a URL do Checkout Pro."
+                "❌ Backend não enviou URL de checkout."
             );
-
-
-            console.error(
-                "Resposta recebida:",
-                resultado
-            );
-
 
             throw new Error(
-                "URL do Checkout Pro não recebida."
+                "URL do checkout não recebida."
             );
-
         }
 
-        // ====================================
-        // REDIRECIONAR PARA CHECKOUT PRO
-        // ====================================
 
-            console.log(
-                "✅ URL DO CHECKOUT RECEBIDA:"
-            );
+        // ----------------------------------------------------
+        // REDIRECIONAR
+        // ----------------------------------------------------
 
-            console.log(
-                checkoutUrl
-            );
+        console.log("");
+        console.log("========================================");
+        console.log("🚀 REDIRECIONANDO PARA MERCADO PAGO");
+        console.log("========================================");
 
-            console.log(
-                "🚀 REDIRECIONANDO PARA MERCADO PAGO..."
-            );
-
-            window.location.assign(
-                checkoutUrl
-            ); 
-            
-            console.log("🚀 CHEGOU NO REDIRECIONAMENTO!");
-            console.log("🔗 URL:", checkoutUrl);
-
-            window.location.assign(
-                checkoutUrl
-            );
-            
-        // ==================================================
-        // MOSTRAR URL NO CONSOLE
-        // ==================================================
-
-        console.log(
-            "===================================="
-        );
-
-        console.log(
-            "✅ CHECKOUT PRO RECEBIDO"
-        );
-
-        console.log(
-            "===================================="
-        );
+        console.log(checkoutUrl);
 
 
-        console.log(
-            checkoutUrl
-        );
-
-
-        // ==================================================
-        // REDIRECIONAR PARA MERCADO PAGO
-        // ==================================================
-
-        console.log(
-            "🚀 REDIRECIONANDO PARA MERCADO PAGO..."
-        );
-
-
-        window.location.assign(
-            checkoutUrl
-        );
+        window.location.href = checkoutUrl;
 
 
     } catch (erro) {
 
-        console.error(
-            "❌ ERRO AO INICIAR CHECKOUT:",
-            erro
-        );
+        console.error("");
+        console.error("========================================");
+        console.error("❌ ERRO NO PAGAMENTO");
+        console.error("========================================");
 
+        console.error(erro);
 
-        mostrarStatus(
-            "Não foi possível iniciar o pagamento. Tente novamente.",
-            "erro"
+        alert(
+            "Não foi possível iniciar o pagamento.\n\n" +
+            erro.message
         );
 
 
         alterarEstadoBotao(false);
-
     }
-
 }
 
 
-// ==========================================================
+// ============================================================
 // EVENTO DO BOTÃO
-// ==========================================================
+// ============================================================
 
-if (btnPagar) {
+if (botaoPagar) {
 
-    btnPagar.addEventListener(
+    botaoPagar.addEventListener(
         "click",
-        function () {
+        function (evento) {
 
-            console.log(
-                "🟢 CLIQUE NO BOTÃO PAGAR DETECTADO!"
-            );
+            // IMPORTANTE:
+            // Impede o formulário de recarregar a página.
+            evento.preventDefault();
 
+            console.log("");
+            console.log("🟢 CLIQUE NO BOTÃO PAGAR DETECTADO!");
 
-            iniciarCheckout();
+            iniciarPagamento();
 
         }
     );
 
-
-    console.log(
-        "✅ Evento de clique configurado."
-    );
+    console.log("✅ Evento de clique configurado.");
 
 }
 
 
-// ==========================================================
-// INICIALIZAÇÃO DA PÁGINA
-// ==========================================================
+// ============================================================
+// CARREGAR PÁGINA
+// ============================================================
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-        console.log(
-            "📄 Página de pagamento carregada."
-        );
+        console.log("📄 Página de pagamento carregada.");
 
-
-        const pedido =
-            carregarPedido();
-
+        const pedido = carregarPedido();
 
         if (!pedido) {
-
             return;
-
         }
 
-
-        mostrarPedido(
-            pedido
-        );
+        mostrarPedido(pedido);
 
     }
 );
