@@ -3,6 +3,7 @@
 // CHECKOUT 2.0
 // ======================================================
 
+
 // ====================================
 // 01. VARIÁVEIS
 // ====================================
@@ -20,54 +21,103 @@ let total;
 let endereco;
 let radiosEntrega;
 
+
 // ====================================
 // 02. INICIALIZAÇÃO
 // ====================================
 
 document.addEventListener("DOMContentLoaded", iniciarCheckout);
 
+
 function iniciarCheckout(){
 
     console.log("✅ Checkout iniciado");
 
+
     // Busca os elementos do HTML
-    lista = document.getElementById("lista-checkout");
-    subtotal = document.getElementById("subtotal");
-    frete = document.getElementById("frete");
-    total = document.getElementById("total");
-    endereco = document.getElementById("endereco");
-    radiosEntrega = document.querySelectorAll("input[name='entrega']");
+
+    lista =
+        document.getElementById("lista-checkout");
+
+    subtotal =
+        document.getElementById("subtotal");
+
+    frete =
+        document.getElementById("frete");
+
+    total =
+        document.getElementById("total");
+
+    endereco =
+        document.getElementById("endereco");
+
+    radiosEntrega =
+        document.querySelectorAll(
+            "input[name='entrega']"
+        );
+
 
     if(!lista){
 
-        console.error("Elemento #lista-checkout não encontrado.");
+        console.error(
+            "Elemento #lista-checkout não encontrado."
+        );
 
         return;
 
     }
 
+
+    // Carregar produtos
+
     carregarProdutos();
+
+
+    // Atualizar entrega
 
     atualizarEntrega();
 
-    // Eventos
-        const btnFinalizar = document.getElementById("btn-finalizar");
 
-        console.log("Botão Finalizar encontrado:", btnFinalizar);
+    // ====================================
+    // BOTÃO FINALIZAR
+    // ====================================
 
-        if(btnFinalizar){
+    const btnFinalizar =
+        document.getElementById("btn-finalizar");
 
-            btnFinalizar.addEventListener("click", finalizarPedido);
 
-        }
+    console.log(
+        "Botão Finalizar encontrado:",
+        btnFinalizar
+    );
+
+
+    if(btnFinalizar){
+
+        btnFinalizar.addEventListener(
+            "click",
+            finalizarPedido
+        );
+
+    }
+
+
+    // ====================================
+    // ENTREGA
+    // ====================================
 
     radiosEntrega.forEach(radio => {
 
-        radio.addEventListener("change", atualizarEntrega);
+        radio.addEventListener(
+            "change",
+            atualizarEntrega
+        );
 
     });
 
 }
+
+
 // ====================================
 // 03. PRODUTOS
 // ====================================
@@ -75,69 +125,125 @@ function iniciarCheckout(){
 function carregarProdutos(){
 
     produtosPedido = [];
+
     valorSubtotal = 0;
 
     lista.innerHTML = "";
 
-    const comprarAgora = carregar(STORAGE.COMPRAR_AGORA);
-    console.log("carrinho:", carregar(STORAGE.CARRINHO));
+
+    const comprarAgora =
+        carregar(STORAGE.COMPRAR_AGORA);
+
+
+    console.log(
+        "Carrinho:",
+        carregar(STORAGE.CARRINHO)
+    );
+
+
+    // ====================================
+    // COMPRAR AGORA
+    // ====================================
 
     if(comprarAgora){
 
-        const produto = produtos.find(p => p.id == comprarAgora);
+        const produto =
+            produtos.find(
+                p => p.id == comprarAgora
+            );
+
 
         if(produto){
 
-            mostrarProduto(produto,1);
+            mostrarProduto(
+                produto,
+                1
+            );
 
         }
 
-        localStorage.removeItem("comprarAgora");
+
+        localStorage.removeItem(
+            "comprarAgora"
+        );
+
 
         return;
 
     }
 
-    const carrinho = carregar(STORAGE.CARRINHO) || [];
+
+    // ====================================
+    // CARRINHO
+    // ====================================
+
+    const carrinho =
+        carregar(STORAGE.CARRINHO) || [];
+
 
     carrinho.forEach(produto => {
 
-        mostrarProduto(produto, produto.quantidade);
+        mostrarProduto(
+            produto,
+            produto.quantidade
+        );
 
     });
 
 }
 
-function mostrarProduto(produto, quantidade){
 
-    valorSubtotal += produto.preco * quantidade;
+// ====================================
+// MOSTRAR PRODUTO
+// ====================================
+
+function mostrarProduto(
+    produto,
+    quantidade
+){
+
+    valorSubtotal +=
+        produto.preco * quantidade;
+
 
     produtosPedido.push({
 
-    nome: produto.nome,
+        nome: produto.nome,
 
-    quantidade,
+        quantidade: quantidade,
 
-    preco: produto.preco
+        preco: produto.preco
 
     });
 
-    lista.insertAdjacentHTML("beforeend",`
+
+    lista.insertAdjacentHTML(
+        "beforeend",
+        `
 
         <div class="produto-checkout">
 
-            <img src="${produto.imagem}" alt="${produto.nome}">
+            <img
+                src="${produto.imagem}"
+                alt="${produto.nome}"
+            >
 
             <div>
 
-                <h3>${produto.nome}</h3>
+                <h3>
+                    ${produto.nome}
+                </h3>
 
-                <p>Quantidade: ${quantidade}</p>
+                <p>
+                    Quantidade: ${quantidade}
+                </p>
 
                 <strong>
 
-                    R$ ${(
-                        produto.preco * quantidade
+                    R$
+                    ${(
+                        produto.preco *
+                        quantidade
                     ).toFixed(2)}
 
                 </strong>
@@ -146,11 +252,14 @@ function mostrarProduto(produto, quantidade){
 
         </div>
 
-    `);
+        `
+    );
+
 
     atualizarTotais();
 
 }
+
 
 // ====================================
 // 04. TOTAIS
@@ -159,18 +268,27 @@ function mostrarProduto(produto, quantidade){
 function atualizarTotais(){
 
     subtotal.textContent =
-        "R$ " + valorSubtotal.toFixed(2);
+        "R$ " +
+        valorSubtotal.toFixed(2);
+
 
     frete.textContent =
         valorFrete === 0
-        ? "Grátis"
-        : "R$ " + valorFrete.toFixed(2);
+            ? "Grátis"
+            : "R$ " +
+              valorFrete.toFixed(2);
+
 
     total.textContent =
         "R$ " +
-        (valorSubtotal + valorFrete).toFixed(2);
+        (
+            valorSubtotal +
+            valorFrete
+        ).toFixed(2);
 
-    // SALVA O TOTAL
+
+    // Salva o total
+
     localStorage.setItem(
         "totalPedido",
         valorSubtotal + valorFrete
@@ -178,42 +296,88 @@ function atualizarTotais(){
 
 }
 
+
 // ====================================
 // 05. ENTREGA
 // ====================================
 
 function atualizarEntrega(){
 
-    const radioSelecionado = document.querySelector(
-        "input[name='entrega']:checked"
-    );
+    const radioSelecionado =
+        document.querySelector(
+            "input[name='entrega']:checked"
+        );
 
-    if(!radioSelecionado) return;
 
-    const tipoEntrega = radioSelecionado.value;
+    if(!radioSelecionado){
 
-    if(tipoEntrega === "retirada"){
-
-        endereco.style.display = "none";
-
-        valorFrete = 0;
-
-    }else{
-
-        endereco.style.display = "block";
-
-        const bairro = document.getElementById("bairro").value;
-
-        valorFrete = calcularFrete(bairro);
+        return;
 
     }
 
+
+    const tipoEntrega =
+        radioSelecionado.value;
+
+
+    // ====================================
+    // RETIRADA
+    // ====================================
+
+    if(tipoEntrega === "retirada"){
+
+        endereco.style.display =
+            "none";
+
+        valorFrete = 0;
+
+    }
+
+
+    // ====================================
+    // ENTREGA
+    // ====================================
+
+    else{
+
+        endereco.style.display =
+            "block";
+
+
+        const bairro =
+            document
+                .getElementById("bairro")
+                .value;
+
+
+        valorFrete =
+            calcularFrete(bairro);
+
+    }
+
+
     atualizarTotais();
-    console.log("Subtotal:", valorSubtotal);
-    console.log("Frete:", valorFrete);
-    console.log(carregar(STORAGE.TOTAL_PEDIDO));
+
+
+    console.log(
+        "Subtotal:",
+        valorSubtotal
+    );
+
+
+    console.log(
+        "Frete:",
+        valorFrete
+    );
+
+
+    console.log(
+        "Total:",
+        valorSubtotal + valorFrete
+    );
 
 }
+
 
 // ====================================
 // 06. VALIDAÇÃO
@@ -221,300 +385,315 @@ function atualizarEntrega(){
 
 function validarFormulario(){
 
-    const nome = document.getElementById("nome").value.trim();
+    const nome =
+        document
+            .getElementById("nome")
+            .value
+            .trim();
 
-    const telefone = document.getElementById("telefone").value.trim();
+
+    const telefone =
+        document
+            .getElementById("telefone")
+            .value
+            .trim();
+
 
     if(nome === ""){
 
-        alert("Informe seu nome.");
+        alert(
+            "Informe seu nome."
+        );
 
         return false;
 
     }
+
 
     if(telefone === ""){
 
-        alert("Informe seu WhatsApp.");
+        alert(
+            "Informe seu WhatsApp."
+        );
 
         return false;
 
     }
+
 
     return true;
 
 }
 
+
 // ====================================
-// 07. MENSAGEM
+// 07. MONTAR DADOS DA ENTREGA
 // ====================================
-
-function montarCabecalho(){
-
-    const nome = document.getElementById("nome").value.trim();
-
-    const telefone = document.getElementById("telefone").value.trim();
-
-return `══════════════════════
-*${CONFIG.nomeLoja}*
-══════════════════════
-${nome}
-
-WHATSAPP
-${telefone}
-`;
-}
 
 function montarEntrega(){
 
     const tipoEntrega =
-        document.querySelector("input[name='entrega']:checked").value;
+        document.querySelector(
+            "input[name='entrega']:checked"
+        ).value;
 
-    let mensagem = `══════════════════════
-ENTREGA
-`;
-    if(tipoEntrega === "retirada"){
 
-        mensagem += "Retirar no Local";
+    const enderecoPedido = {
 
-    }else{
+        cep:
+            document
+                .getElementById("cep")
+                ?.value
+                .trim() || "",
 
-        mensagem += "Entrega em Domicílio\n\n";
+        estado:
+            document
+                .getElementById("estado")
+                ?.value
+                .trim() || "",
 
-        mensagem +=
-`CEP: ${document.getElementById("cep").value}
-Estado: ${document.getElementById("estado").value}
-Cidade: ${document.getElementById("cidade").value}
-Bairro: ${document.getElementById("bairro").value}
-Rua: ${document.getElementById("rua").value}
-Número: ${document.getElementById("numero").value}
-Complemento: ${document.getElementById("complemento").value}
-Referência: ${document.getElementById("referencia").value}`;
+        cidade:
+            document
+                .getElementById("cidade")
+                ?.value
+                .trim() || "",
 
-    }
+        bairro:
+            document
+                .getElementById("bairro")
+                ?.value
+                .trim() || "",
 
-    return mensagem;
+        rua:
+            document
+                .getElementById("rua")
+                ?.value
+                .trim() || "",
+
+        numero:
+            document
+                .getElementById("numero")
+                ?.value
+                .trim() || "",
+
+        complemento:
+            document
+                .getElementById("complemento")
+                ?.value
+                .trim() || "",
+
+        referencia:
+            document
+                .getElementById("referencia")
+                ?.value
+                .trim() || ""
+
+    };
+
+
+    return {
+
+        tipo: tipoEntrega,
+
+        retirada:
+            tipoEntrega === "retirada",
+
+        endereco:
+            enderecoPedido
+
+    };
 
 }
 
-function montarPagamento(){
-
-    const pagamento =
-        document.querySelector("input[name='pagamento']:checked").value;
-
-return `
-══════════════════════
-PAGAMENTO
-
-${pagamento === "pix" ? "PIX" : "Cartão de Crédito"}
-`;
-}
-
-function montarProdutos(){
-
-    let mensagem = `
-══════════════════════
-PRODUTOS
-
-`;
-    produtosPedido.forEach(produto => {
-
-mensagem += ` • ${produto.nome}
-
-Quantidade: ${produto.quantidade}
-
-Valor: R$ ${(produto.preco * produto.quantidade).toFixed(2)}
-
-`;
-
-    });
-
-    return mensagem;
-
-}
-
-function montarRodape(){
-
-return `══════════════════════
-RESUMO DO PEDIDO 
-
-Subtotal: ${subtotal.textContent}
-
-Frete: ${frete.textContent}
-
-====================
-
-TOTAL: ${total.textContent}
-
-══════════════════════
-
-Obrigado pela preferência!
-
-${CONFIG.nomeLoja}
-`;
-}
 
 // ====================================
-// 08. ENVIAR WHATSAPP
-// ====================================
-
-function enviarWhatsApp(mensagem){
-
-    console.log("====== MENSAGEM ======");
-    console.log(mensagem);
-
-    const numeroLoja = CONFIG.whatsapp;
-
-    const texto = encodeURIComponent(mensagem);
-
-    console.log("====== URL ======");
-    console.log(texto);
-
-    const url = `https://wa.me/${numeroLoja}?text=${texto}`;
-
-    window.open(url, "_blank");
-
-}
-
-// ====================================
-// 09. FINALIZAR PEDIDO
+// 08. FINALIZAR PEDIDO
 // ====================================
 
 function finalizarPedido(){
 
-    console.log("Botão Finalizar clicado");
+    console.log(
+        "🛒 Botão Finalizar clicado"
+    );
 
-    // Valida o formulário
+
+    // ====================================
+    // VALIDAR FORMULÁRIO
+    // ====================================
+
     if(!validarFormulario()){
+
         return;
+
     }
 
-    // Campos do cliente
-    const campoNome = document.getElementById("nome");
-    const campoTelefone = document.getElementById("telefone");
 
-    // Forma de entrega
-    const campoEntrega = document.querySelector(
-        "input[name='entrega']:checked"
-    );
+    // ====================================
+    // CAMPOS DO CLIENTE
+    // ====================================
 
-    // Forma de pagamento
-    const campoPagamento = document.querySelector(
-        "input[name='pagamento']:checked"
-    );
+    const campoNome =
+        document.getElementById("nome");
 
-    // Segurança
+
+    const campoTelefone =
+        document.getElementById("telefone");
+
+
+    // ====================================
+    // FORMA DE ENTREGA
+    // ====================================
+
+    const campoEntrega =
+        document.querySelector(
+            "input[name='entrega']:checked"
+        );
+
+
+    // ====================================
+    // SEGURANÇA
+    // ====================================
+
     if(
         !campoNome ||
         !campoTelefone ||
-        !campoEntrega ||
-        !campoPagamento
+        !campoEntrega
     ){
 
-        console.error("Erro: campos do checkout não encontrados.");
-
-        alert(
-            "Não foi possível finalizar o pedido. Verifique os campos do checkout."
+        console.error(
+            "Erro: campos do checkout não encontrados."
         );
 
+
+        alert(
+            "Não foi possível finalizar o pedido. " +
+            "Verifique os campos do checkout."
+        );
+
+
         return;
+
     }
 
-// ====================================
-// CRIAR PEDIDO
-// ====================================
 
-const dadosPedido = {
+    // ====================================
+    // CRIAR DADOS DO PEDIDO
+    // ====================================
 
-    cliente: {
+    const dadosPedido = {
 
-        nome: campoNome.value.trim(),
+        cliente: {
 
-        telefone: campoTelefone.value.trim()
+            nome:
+                campoNome.value.trim(),
 
-    },
+            telefone:
+                campoTelefone.value.trim()
 
-    entrega: {
+        },
 
-        tipo: campoEntrega.value,
 
-        retirada: campoEntrega.value === "retirada",
+        entrega:
+            montarEntrega(),
 
-        endereco: {
 
-            cep:
-                document.getElementById("cep")?.value.trim() || "",
+        // O pagamento ainda NÃO foi realizado.
+        // O cliente escolherá PIX ou cartão
+        // diretamente no Mercado Pago.
 
-            estado:
-                document.getElementById("estado")?.value.trim() || "",
+        pagamento: {
 
-            cidade:
-                document.getElementById("cidade")?.value.trim() || "",
+            status:
+                "AGUARDANDO PAGAMENTO"
 
-            bairro:
-                document.getElementById("bairro")?.value.trim() || "",
+        },
 
-            rua:
-                document.getElementById("rua")?.value.trim() || "",
 
-            numero:
-                document.getElementById("numero")?.value.trim() || "",
+        produtos:
+            produtosPedido,
 
-            complemento:
-                document.getElementById("complemento")?.value.trim() || "",
 
-            referencia:
-                document.getElementById("referencia")?.value.trim() || ""
+        valores: {
+
+            subtotal:
+                valorSubtotal,
+
+            frete:
+                valorFrete,
+
+            total:
+                valorSubtotal +
+                valorFrete
 
         }
 
-    },
+    };
 
-    pagamento: {
 
-        metodo: campoPagamento.value
+    // ====================================
+    // GERAR PEDIDO PADRONIZADO
+    // ====================================
 
-    },
+    const pedido =
+        criarPedido(dadosPedido);
 
-    produtos: produtosPedido,
 
-    valores: {
+    // ====================================
+    // LOG
+    // ====================================
 
-        subtotal: valorSubtotal,
+    console.log(
+        "====== PEDIDO ======"
+    );
 
-        frete: valorFrete,
 
-        total: valorSubtotal + valorFrete
+    console.log(
+        pedido
+    );
 
-    }
 
-};
+    console.log(
+        "====== PRODUTOS ======"
+    );
 
-// ====================================
-// GERAR PEDIDO PADRONIZADO
-// ====================================
 
-const pedido = criarPedido(dadosPedido);
+    console.log(
+        produtosPedido
+    );
 
-// ====================================
-// SALVAR PEDIDO
-// ====================================
 
-    console.log("====== PEDIDO ======");
-    console.log(pedido);
+    console.log(
+        "====== VALORES ======"
+    );
 
-    console.log("====== PRODUTOS ======");
-    console.log(produtosPedido);
 
-    console.log("====== VALORES ======");
-    console.log(pedido.valores);
+    console.log(
+        pedido.valores
+    );
+
+
+    // ====================================
+    // SALVAR PEDIDO
+    // ====================================
 
     salvarPedido(pedido);
 
-// ====================================
-// IR PARA PAGAMENTO
-// ====================================
 
-    window.location.href = "pagamento.html";
+    console.log(
+        "✅ Pedido salvo."
+    );
+
+
+    // ====================================
+    // IR PARA PAGAMENTO
+    // ====================================
+
+    console.log(
+        "💳 Abrindo página de pagamento..."
+    );
+
+
+    window.location.href =
+        "pagamento.html";
 
 }

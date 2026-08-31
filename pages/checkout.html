@@ -36,268 +36,264 @@
 
     </header>
 
+
     <!-- ====================================== -->
     <!-- CONTAINER -->
     <!-- ====================================== -->
 
     <main class="checkout-container">
 
-        <!-- Coluna Esquerda -->
+
+        <!-- ====================================== -->
+        <!-- COLUNA ESQUERDA -->
+        <!-- ====================================== -->
 
         <section class="checkout-esquerda">
 
-<section class="checkout-esquerda"></section>
 
-<!-- ====================================== -->
-<!-- DADOS DO CLIENTE -->
-<!-- ====================================== -->
+            <!-- ====================================== -->
+            <!-- DADOS DO CLIENTE -->
+            <!-- ====================================== -->
 
-<div class="card">
+            <div class="card">
 
-    <h2>
+                <h2>
 
-        <i class='bx bx-user'></i>
+                    <i class='bx bx-user'></i>
 
-        Dados do Cliente
+                    Dados do Cliente
 
-    </h2>
+                </h2>
 
-    <div class="grupo-input">
+                <div class="grupo-input">
 
-        <input
-            type="text"
-            id="nome"
-            placeholder="Nome Completo">
+                    <input
+                        type="text"
+                        id="nome"
+                        placeholder="Nome Completo">
 
-    </div>
+                </div>
 
-    <div class="grupo-input">
+                <div class="grupo-input">
 
-        <input
-            type="tel"
-            id="telefone"
-            placeholder="WhatsApp">
+                    <input
+                        type="tel"
+                        id="telefone"
+                        placeholder="WhatsApp">
 
-    </div>
+                </div>
 
-</div>
+            </div>
 
-<!-- ====================================== -->
-<!-- ENTREGA -->
-<!-- ====================================== -->
 
-<div class="card">
+            <!-- ====================================== -->
+            <!-- ENTREGA -->
+            <!-- ====================================== -->
 
-    <h2>
+            <div class="card">
 
-        <i class='bx bx-map'></i>
+                <h2>
 
-        Entrega
+                    <i class='bx bx-map'></i>
 
-    </h2>
+                    Entrega
 
-    <div class="opcoes-radio">
+                </h2>
 
-        <label>
+                <div class="opcoes-radio">
 
-            <input
-                type="radio"
-                name="entrega"
-                value="retirada"
-                checked>
+                    <label>
 
-            Retirar no Local
+                        <input
+                            type="radio"
+                            name="entrega"
+                            value="retirada"
+                            checked>
 
-        </label>
+                        Retirar no Local
 
-        <label>
+                    </label>
 
-            <input
-                type="radio"
-                name="entrega"
-                value="entrega">
+                    <label>
 
-            Entrega em Domicílio
+                        <input
+                            type="radio"
+                            name="entrega"
+                            value="entrega">
 
-        </label>
+                        Entrega em Domicílio
 
-    </div>
+                    </label>
 
-    <div id="endereco" class="endereco" style="display:none;">
+                </div>
 
-        <input
-            type="text"
-            id="cep"
-            placeholder="CEP">
 
-        <input
-            type="text"
-            id="estado"
-            placeholder="Estado">
+                <div id="endereco"
+                     class="endereco"
+                     style="display:none;">
 
-        <input
-            type="text"
-            id="cidade"
-            placeholder="Cidade">
+                    <input
+                        type="text"
+                        id="cep"
+                        placeholder="CEP">
 
-        <input
-            type="text"
-            id="bairro"
-            placeholder="Bairro">
+                    <input
+                        type="text"
+                        id="estado"
+                        placeholder="Estado">
 
-        <input
-            type="text"
-            id="rua"
-            placeholder="Rua">
+                    <input
+                        type="text"
+                        id="cidade"
+                        placeholder="Cidade">
 
-        <input
-            type="text"
-            id="numero"
-            placeholder="Número">
+                    <input
+                        type="text"
+                        id="bairro"
+                        placeholder="Bairro">
 
-        <input
-            type="text"
-            id="complemento"
-            placeholder="Complemento">
+                    <input
+                        type="text"
+                        id="rua"
+                        placeholder="Rua">
 
-        <input
-            type="text"
-            id="referencia"
-            placeholder="Ponto de Referência">
+                    <input
+                        type="text"
+                        id="numero"
+                        placeholder="Número">
 
-    </div>
+                    <input
+                        type="text"
+                        id="complemento"
+                        placeholder="Complemento">
 
-</div>
+                    <input
+                        type="text"
+                        id="referencia"
+                        placeholder="Ponto de Referência">
 
-<!-- ====================================== -->
-<!-- PAGAMENTO -->
-<!-- ====================================== -->
+                </div>
 
-<div class="card">
+            </div>
 
-    <h2>
 
-        <i class='bx bx-credit-card'></i>
+        </section>
 
-        Forma de Pagamento
 
-    </h2>
+        <!-- ====================================== -->
+        <!-- COLUNA DIREITA -->
+        <!-- ====================================== -->
 
-    <div class="opcoes-radio">
+        <aside class="checkout-direita">
 
-        <label>
+            <div class="card">
 
-            <input
-                type="radio"
-                name="pagamento"
-                value="pix"
-                checked>
+                <h2>
 
-            PIX
+                    <i class='bx bx-cart'></i>
 
-        </label>
+                    Resumo do Pedido
 
-        <label>
+                </h2>
 
-            <input
-                type="radio"
-                name="pagamento"
-                value="cartao">
 
-            Cartão de Crédito
+                <!-- Lista de Produtos -->
 
-        </label>
+                <div id="lista-checkout">
 
-    </div>
+                    <!-- Produtos adicionados pelo JavaScript -->
 
-</div>
-<!-- Fecha a coluna esquerda -->
-</section>
+                </div>
 
-<!-- ====================================== -->
-<!-- COLUNA DIREITA -->
-<!-- ====================================== -->
 
-<aside class="checkout-direita">
+                <!-- Subtotal -->
 
-    <div class="card">
+                <div class="linha-total">
 
-        <h2>
+                    <span>Subtotal</span>
 
-            <i class='bx bx-cart'></i>
+                    <strong id="subtotal">
 
-            Resumo do Pedido
+                        R$ 0,00
 
-        </h2>
+                    </strong>
 
-        <!-- Lista de Produtos -->
+                </div>
 
-        <div id="lista-checkout">
 
-            <!-- Produtos adicionados pelo JavaScript -->
+                <!-- Frete -->
 
-        </div>
+                <div class="linha-total">
 
-        <!-- Subtotal -->
+                    <span>Frete</span>
 
-        <div class="linha-total">
+                    <strong id="frete">
 
-            <span>Subtotal</span>
+                        R$ 0,00
 
-            <strong id="subtotal">R$ 0,00</strong>
+                    </strong>
 
-        </div>
+                </div>
 
-        <!-- Frete -->
 
-        <div class="linha-total">
+                <!-- Total -->
 
-            <span>Frete</span>
+                <div class="linha-total total-geral">
 
-            <strong id="frete">R$ 0,00</strong>
+                    <span>Total</span>
 
-        </div>
+                    <strong id="total">
 
-        <!-- Total -->
+                        R$ 0,00
 
-        <div class="linha-total total-geral">
+                    </strong>
 
-            <span>Total</span>
+                </div>
 
-            <strong id="total">R$ 0,00</strong>
 
-        </div>
+                <!-- ====================================== -->
+                <!-- FINALIZAR PEDIDO -->
+                <!-- ====================================== -->
 
-        <button
-            id="btn-finalizar"
-            class="btn-finalizar">
+                <button
+                    id="btn-finalizar"
+                    class="btn-finalizar">
 
-            <i class='bx bxl-whatsapp'></i>
+                    <i class='bx bx-lock-alt'></i>
 
-            Finalizar Pedido
+                    Finalizar Pedido
 
-        </button>
+                </button>
 
-    </div>
+            </div>
 
-</aside>
+        </aside>
 
-</main>
 
-<!-- ====================================== -->
-<!-- JAVASCRIPT -->
-<!-- ====================================== -->
+    </main>
 
-<script src="../js/config.js"></script>
 
-<script src="../js/modules/utils.js"></script>
-<script src="../js/modules/armazenamento.js"></script>
-<script src="../js/modules/pedido.js"></script>
-<script src="../js/modules/mensagem.js"></script>
+    <!-- ====================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ====================================== -->
 
-<script src="../js/produtos.js"></script>
-<script src="../js/frete.js"></script>
-<script src="../js/checkout.js"></script>
+    <script src="../js/config.js"></script>
+
+    <script src="../js/modules/utils.js"></script>
+
+    <script src="../js/modules/armazenamento.js"></script>
+
+    <script src="../js/modules/pedido.js"></script>
+
+    <script src="../js/modules/mensagem.js"></script>
+
+    <script src="../js/produtos.js"></script>
+
+    <script src="../js/frete.js"></script>
+
+    <script src="../js/checkout.js"></script>
+
 
 </body>
+
 </html>
