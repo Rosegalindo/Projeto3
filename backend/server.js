@@ -1,15 +1,22 @@
-// ====================================
-// AMAKHA PARIS
-// BACKEND - CHECKOUT PRO MERCADO PAGO
-// ====================================
+// ======================================================
+// SOLVER STORE
+// BACKEND - MERCADO PAGO CHECKOUT PRO
+// ======================================================
 
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
+const crypto = require("crypto");
 const fs = require("fs");
+const path = require("path");
+
 require("dotenv").config();
 
 const app = express();
+
+
+// ======================================================
+// MERCADO PAGO
+// ======================================================
 
 const {
     MercadoPagoConfig,
@@ -18,44 +25,110 @@ const {
 } = require("mercadopago");
 
 
-// ====================================
-// MERCADO PAGO
-// ====================================
+// ======================================================
+// CONFIGURAÇÕES
+// ======================================================
+
+const PORT =
+    process.env.PORT || 3000;
+
+
+// ======================================================
+// URLs DO MERCADO PAGO
+// ======================================================
+//
+// IMPORTANTE:
+// Substitua somente o endereço do Cloudflare Tunnel.
+//
+// Exemplo:
+//
+// https://abc123.trycloudflare.com
+//
+// Não coloque essas URLs no .env.
+// ======================================================
+
+const MP_BASE_URL =
+    "https://COLOQUE-AQUI-SEU-TUNEL.trycloudflare.com";
+
+
+const MP_WEBHOOK_URL =
+    MP_BASE_URL +
+    "/webhook/mercado-pago";
+
+
+const MP_SUCCESS_URL =
+    MP_BASE_URL +
+    "/pagamento-aprovado";
+
+
+const MP_FAILURE_URL =
+    MP_BASE_URL +
+    "/pagamento-falhou";
+
+
+const MP_PENDING_URL =
+    MP_BASE_URL +
+    "/pagamento-pendente";
+
+
+// ======================================================
+// VALIDAR ACCESS TOKEN
+// ======================================================
 
 if (!process.env.MP_ACCESS_TOKEN) {
 
+    console.error("");
     console.error(
         "❌ ERRO: MP_ACCESS_TOKEN não foi encontrado no .env"
     );
+    console.error("");
 
     process.exit(1);
 
 }
 
-const mp = new MercadoPagoConfig({
 
-    accessToken: process.env.MP_ACCESS_TOKEN
+// ======================================================
+// CONFIGURAR MERCADO PAGO
+// ======================================================
 
-});
+const mp =
+    new MercadoPagoConfig({
 
-const payment = new Payment(mp);
+        accessToken:
+            process.env.MP_ACCESS_TOKEN
+
+    });
 
 
-// ====================================
+const payment =
+    new Payment(mp);
+
+
+// ======================================================
 // PEDIDOS
-// ====================================
+// ======================================================
 
 const arquivoPedidos =
-    path.join(__dirname, "pedidos.json");
+    path.join(
+        __dirname,
+        "pedidos.json"
+    );
 
-let pedidos = new Map();
+
+let pedidos =
+    new Map();
 
 
-// ====================================
+// ======================================================
 // CARREGAR PEDIDOS
-// ====================================
+// ======================================================
 
-if (fs.existsSync(arquivoPedidos)) {
+if (
+    fs.existsSync(
+        arquivoPedidos
+    )
+) {
 
     try {
 
@@ -65,15 +138,23 @@ if (fs.existsSync(arquivoPedidos)) {
                 "utf8"
             );
 
+
         const pedidosSalvos =
-            JSON.parse(dados);
+            JSON.parse(
+                dados
+            );
+
 
         pedidos =
-            new Map(pedidosSalvos);
+            new Map(
+                pedidosSalvos
+            );
+
 
         console.log(
             `📂 ${pedidos.size} pedido(s) carregado(s).`
         );
+
 
     } catch (erro) {
 
@@ -87,9 +168,9 @@ if (fs.existsSync(arquivoPedidos)) {
 }
 
 
-// ====================================
+// ======================================================
 // SALVAR PEDIDOS
-// ====================================
+// ======================================================
 
 function salvarPedidos() {
 
@@ -99,6 +180,7 @@ function salvarPedidos() {
             Array.from(
                 pedidos.entries()
             );
+
 
         fs.writeFileSync(
 
@@ -114,7 +196,11 @@ function salvarPedidos() {
 
         );
 
-        console.log("💾 Pedidos salvos.");
+
+        console.log(
+            "💾 Pedidos salvos."
+        );
+
 
     } catch (erro) {
 
@@ -128,38 +214,44 @@ function salvarPedidos() {
 }
 
 
-// ====================================
+// ======================================================
 // MIDDLEWARES
-// ====================================
+// ======================================================
 
-app.use(cors());
+app.use(
+    cors()
+);
+
 
 app.use(
     express.json()
 );
 
 
-// ====================================
+// ======================================================
 // ROTA PRINCIPAL
-// ====================================
+// ======================================================
 
-app.get("/", (req, res) => {
+app.get(
+    "/",
+    (req, res) => {
 
-    res.json({
+        res.json({
 
-        sucesso: true,
+            sucesso: true,
 
-        mensagem:
-            "Backend Amakha Paris funcionando!"
+            mensagem:
+                "Backend Solver Store funcionando!"
 
-    });
+        });
 
-});
+    }
+);
 
 
-// ====================================
+// ======================================================
 // TESTE MERCADO PAGO
-// ====================================
+// ======================================================
 
 app.get(
     "/teste-mercado-pago",
@@ -170,7 +262,23 @@ app.get(
             sucesso: true,
 
             mensagem:
-                "Mercado Pago configurado!"
+                "Mercado Pago configurado!",
+
+            urls: {
+
+                webhook:
+                    MP_WEBHOOK_URL,
+
+                success:
+                    MP_SUCCESS_URL,
+
+                failure:
+                    MP_FAILURE_URL,
+
+                pending:
+                    MP_PENDING_URL
+
+            }
 
         });
 
@@ -178,9 +286,9 @@ app.get(
 );
 
 
-// ====================================
-// CRIAR PREFERENCE
-// ====================================
+// ======================================================
+// CRIAR PREFERENCE - CHECKOUT PRO
+// ======================================================
 
 app.post(
     "/criar-preferencia",
@@ -192,17 +300,19 @@ app.post(
             console.log(
                 "===================================="
             );
+
             console.log(
                 "🛒 CRIANDO CHECKOUT PRO"
             );
+
             console.log(
                 "===================================="
             );
 
 
-            // ====================================
+            // ==================================================
             // RECEBER DADOS
-            // ====================================
+            // ==================================================
 
             const {
 
@@ -218,10 +328,12 @@ app.post(
                 numero
             );
 
+
             console.log(
                 "Produtos:",
                 produtos
             );
+
 
             console.log(
                 "Valores:",
@@ -229,9 +341,9 @@ app.post(
             );
 
 
-            // ====================================
+            // ==================================================
             // VALIDAR PEDIDO
-            // ====================================
+            // ==================================================
 
             if (!numero) {
 
@@ -264,30 +376,88 @@ app.post(
             }
 
 
-            // ====================================
+            // ==================================================
+            // VALIDAR VALORES
+            // ==================================================
+
+            const total =
+                Number(
+                    valores?.total
+                );
+
+
+            if (
+                !Number.isFinite(total) ||
+                total <= 0
+            ) {
+
+                return res.status(400).json({
+
+                    sucesso: false,
+
+                    erro:
+                        "Valor total do pedido inválido."
+
+                });
+
+            }
+
+
+            // ==================================================
             // TRANSFORMAR PRODUTOS
-            // ====================================
+            // ==================================================
 
             const items =
-                produtos.map(produto => ({
+                produtos.map(
+                    produto => {
 
-                    title:
-                        produto.nome,
+                        const quantidade =
+                            Number(
+                                produto.quantidade
+                            );
 
-                    quantity:
-                        Number(
-                            produto.quantidade
-                        ),
 
-                    unit_price:
-                        Number(
-                            produto.preco
-                        ),
+                        const preco =
+                            Number(
+                                produto.preco
+                            );
 
-                    currency_id:
-                        "BRL"
 
-                }));
+                        if (
+                            !produto.nome ||
+                            !Number.isFinite(quantidade) ||
+                            quantidade <= 0 ||
+                            !Number.isFinite(preco) ||
+                            preco <= 0
+                        ) {
+
+                            throw new Error(
+                                "Produto inválido no pedido."
+                            );
+
+                        }
+
+
+                        return {
+
+                            title:
+                                String(
+                                    produto.nome
+                                ),
+
+                            quantity:
+                                quantidade,
+
+                            unit_price:
+                                preco,
+
+                            currency_id:
+                                "BRL"
+
+                        };
+
+                    }
+                );
 
 
             console.log("");
@@ -295,12 +465,103 @@ app.post(
                 "🛒 ITENS ENVIADOS AO MERCADO PAGO:"
             );
 
-            console.log(items);
+
+            console.log(
+                items
+            );
 
 
-            // ====================================
+            // ==================================================
+            // LOCALIZAR OU CRIAR PEDIDO
+            // ==================================================
+
+            let pedido =
+                pedidos.get(
+                    numero
+                );
+
+
+            if (!pedido) {
+
+                pedido = {
+
+                    numero:
+
+                        numero,
+
+                    produtos:
+
+                        produtos,
+
+                    valores:
+
+                        valores,
+
+                    status:
+
+                        "AGUARDANDO_PAGAMENTO",
+
+                    criadoEm:
+
+                        new Date().toISOString()
+
+                };
+
+            } else {
+
+                // ----------------------------------------------
+                // Preserva o pedido já criado pelo checkout.js
+                // ----------------------------------------------
+
+                pedido.produtos =
+                    produtos;
+
+                pedido.valores =
+                    valores;
+
+
+                if (
+                    !pedido.status ||
+                    pedido.status ===
+                    "AGUARDANDO_PAGAMENTO"
+                ) {
+
+                    pedido.status =
+                        "AGUARDANDO_PAGAMENTO";
+
+                }
+
+            }
+
+
+            pedidos.set(
+                numero,
+                pedido
+            );
+
+
+            salvarPedidos();
+
+
+            console.log("");
+            console.log(
+                "📦 PEDIDO REGISTRADO"
+            );
+
+            console.log(
+                "Número:",
+                numero
+            );
+
+            console.log(
+                "Status:",
+                pedido.status
+            );
+
+
+            // ==================================================
             // CRIAR PREFERENCE
-            // ====================================
+            // ==================================================
 
             const preference =
                 new Preference(mp);
@@ -311,38 +572,81 @@ app.post(
 
                     body: {
 
-                        items,
+                        // --------------------------------------
+                        // PRODUTOS
+                        // --------------------------------------
+
+                        items:
+
+
+                            items,
+
+
+                        // --------------------------------------
+                        // REFERÊNCIA DO PEDIDO
+                        // --------------------------------------
 
                         external_reference:
-                            String(numero),
+
+                            String(
+                                numero
+                            ),
+
+
+                        // --------------------------------------
+                        // WEBHOOK
+                        // --------------------------------------
 
                         notification_url:
-                            process.env.MP_WEBHOOK_URL,
+
+                            MP_WEBHOOK_URL,
+
+
+                        // --------------------------------------
+                        // RETORNOS
+                        // --------------------------------------
 
                         back_urls: {
 
                             success:
-                                process.env.MP_SUCCESS_URL,
+
+                                MP_SUCCESS_URL,
 
                             failure:
-                                process.env.MP_FAILURE_URL,
+
+                                MP_FAILURE_URL,
 
                             pending:
-                                process.env.MP_PENDING_URL
+
+                                MP_PENDING_URL
 
                         },
 
+
+                        // --------------------------------------
+                        // RETORNO AUTOMÁTICO
+                        // --------------------------------------
+
                         auto_return:
+
                             "approved"
+
+                    },
+
+                    requestOptions: {
+
+                        idempotencyKey:
+
+                            crypto.randomUUID()
 
                     }
 
                 });
 
 
-            // ====================================
-            // VERIFICAR RETORNO DO MERCADO PAGO
-            // ====================================
+            // ==================================================
+            // VERIFICAR PREFERENCE
+            // ==================================================
 
             console.log("");
             console.log(
@@ -357,118 +661,77 @@ app.post(
                 "===================================="
             );
 
+
             console.log(
                 "ID:",
                 resultado.id
             );
+
 
             console.log(
                 "Checkout:",
                 resultado.init_point
             );
 
+
             console.log(
-                "Sandbox:",
-                resultado.sandbox_init_point
+                "External Reference:",
+                numero
             );
 
 
-            // ====================================
-            // VERIFICAR CHECKOUT
-            // ====================================
+            // ==================================================
+            // SALVAR DADOS DO CHECKOUT
+            // ==================================================
 
-            if (!resultado.init_point) {
-
-                console.error(
-                    "❌ Mercado Pago não retornou init_point."
-                );
-
-                return res.status(500).json({
-
-                    sucesso: false,
-
-                    erro:
-                        "Checkout do Mercado Pago não foi retornado."
-
-                });
-
-            }
+            pedido.preferenceId =
+                resultado.id;
 
 
-            // ====================================
-            // REGISTRAR PEDIDO
-            // ====================================
-
-            const pedido = {
-
-                numero,
-
-                produtos,
-
-                valores,
-
-                status:
-                    "AGUARDANDO_PAGAMENTO",
-
-                criadoEm:
-                    new Date().toISOString(),
-
-                preferenceId:
-                    resultado.id,
-
-                checkout:
-                    resultado.init_point
-
-            };
+            pedido.checkout =
+                resultado.init_point;
 
 
-            // ====================================
-            // SALVAR PEDIDO
-            // ====================================
+            pedido.checkoutCriadoEm =
+                new Date().toISOString();
+
 
             pedidos.set(
-
                 numero,
-
                 pedido
-
             );
+
 
             salvarPedidos();
 
 
-            // ====================================
+            // ==================================================
             // RESPONDER FRONTEND
-            // ====================================
-
-            console.log("");
-            console.log(
-                "📤 ENVIANDO CHECKOUT PARA FRONTEND"
-            );
-
-            console.log(
-                "URL:",
-                resultado.init_point
-            );
-
+            // ==================================================
 
             return res.json({
 
                 sucesso: true,
 
                 numero:
+
                     numero,
 
                 id:
+
                     resultado.id,
 
                 checkout:
+
                     resultado.init_point,
 
                 sandbox_checkout:
-                    resultado.sandbox_init_point || null,
+
+                    resultado.sandbox_init_point ||
+                    null,
 
                 external_reference:
+
                     numero
 
             });
@@ -489,7 +752,10 @@ app.post(
                 "===================================="
             );
 
-            console.error(erro);
+
+            console.error(
+                erro
+            );
 
 
             return res.status(500).json({
@@ -497,7 +763,7 @@ app.post(
                 sucesso: false,
 
                 erro:
-                    erro.message ||
+                    erro?.message ||
                     "Erro ao criar Checkout Pro."
 
             });
@@ -508,9 +774,9 @@ app.post(
 );
 
 
-// ====================================
+// ======================================================
 // REDIRECIONAR PARA CHECKOUT PRO
-// ====================================
+// ======================================================
 
 app.get(
     "/checkout/:numero",
@@ -530,24 +796,32 @@ app.get(
         );
 
         console.log(
+            "===================================="
+        );
+
+
+        console.log(
             "Pedido:",
             numero
         );
 
 
         const pedido =
-            pedidos.get(numero);
+            pedidos.get(
+                numero
+            );
 
 
-        // ====================================
+        // ==================================================
         // PEDIDO NÃO ENCONTRADO
-        // ====================================
+        // ==================================================
 
         if (!pedido) {
 
             console.log(
                 "❌ Pedido não encontrado."
             );
+
 
             return res.status(404).send(`
 
@@ -563,15 +837,16 @@ app.get(
         }
 
 
-        // ====================================
+        // ==================================================
         // CHECKOUT NÃO ENCONTRADO
-        // ====================================
+        // ==================================================
 
         if (!pedido.checkout) {
 
             console.log(
                 "❌ Checkout não encontrado."
             );
+
 
             return res.status(400).send(`
 
@@ -592,14 +867,11 @@ app.get(
             pedido.checkout
         );
 
+
         console.log(
             "➡ Redirecionando..."
         );
 
-
-        // ====================================
-        // REDIRECIONAMENTO
-        // ====================================
 
         return res.redirect(
             pedido.checkout
@@ -609,9 +881,9 @@ app.get(
 );
 
 
-// ====================================
+// ======================================================
 // CONSULTAR STATUS DO PEDIDO
-// ====================================
+// ======================================================
 
 app.get(
     "/pedido/:numero/status",
@@ -631,13 +903,20 @@ app.get(
         );
 
         console.log(
+            "===================================="
+        );
+
+
+        console.log(
             "Pedido:",
             numero
         );
 
 
         const pedido =
-            pedidos.get(numero);
+            pedidos.get(
+                numero
+            );
 
 
         if (!pedido) {
@@ -645,6 +924,7 @@ app.get(
             console.log(
                 "⚠️ Pedido não encontrado."
             );
+
 
             return res.status(404).json({
 
@@ -663,25 +943,37 @@ app.get(
             sucesso: true,
 
             numero:
+
                 pedido.numero,
 
             status:
+
                 pedido.status,
 
             pagamentoId:
-                pedido.pagamentoId || null,
+
+                pedido.pagamentoId ||
+                null,
 
             statusPagamento:
-                pedido.statusPagamento || null,
+
+                pedido.statusPagamento ||
+                null,
 
             statusDetalhe:
-                pedido.statusDetalhe || null,
+
+                pedido.statusDetalhe ||
+                null,
 
             valorPago:
-                pedido.valorPago || null,
+
+                pedido.valorPago ||
+                null,
 
             dataPagamento:
-                pedido.dataPagamento || null
+
+                pedido.dataPagamento ||
+                null
 
         });
 
@@ -689,15 +981,27 @@ app.get(
 );
 
 
-// ====================================
+// ======================================================
 // PROCESSAR PAGAMENTO COM CARTÃO
-// ====================================
+// ======================================================
+//
+// Mantido para compatibilidade com partes antigas
+// do projeto.
+//
+// O Checkout Pro continua sendo o fluxo principal.
+// ======================================================
 
 app.post(
     "/processar-pagamento",
     async (req, res) => {
 
         try {
+
+            console.log("");
+            console.log(
+                "💳 PROCESSANDO PAGAMENTO"
+            );
+
 
             const {
 
@@ -712,35 +1016,66 @@ app.post(
             } = req.body;
 
 
+            if (
+                !transaction_amount ||
+                !token ||
+                !payment_method_id ||
+                !payer
+            ) {
+
+                return res.status(400).json({
+
+                    sucesso: false,
+
+                    erro:
+                        "Dados de pagamento incompletos."
+
+                });
+
+            }
+
+
             const resultado =
                 await payment.create({
 
                     body: {
 
                         transaction_amount:
+
                             Number(
                                 transaction_amount
                             ),
 
-                        token,
+                        token:
 
-                        description,
+                            token,
+
+                        description:
+
+                            description,
 
                         installments:
+
                             Number(
                                 installments
                             ),
 
-                        payment_method_id,
+                        payment_method_id:
 
-                        issuer_id,
+                            payment_method_id,
+
+                        issuer_id:
+
+                            issuer_id,
 
                         payer: {
 
                             email:
+
                                 payer.email,
 
                             identification:
+
                                 payer.identification
 
                         }
@@ -750,6 +1085,7 @@ app.post(
                     requestOptions: {
 
                         idempotencyKey:
+
                             crypto.randomUUID()
 
                     }
@@ -768,12 +1104,15 @@ app.post(
                 sucesso: true,
 
                 id:
+
                     resultado.id,
 
                 status:
+
                     resultado.status,
 
                 status_detail:
+
                     resultado.status_detail
 
             });
@@ -792,7 +1131,8 @@ app.post(
                 sucesso: false,
 
                 erro:
-                    erro.message
+                    erro?.message ||
+                    "Erro ao processar pagamento."
 
             });
 
@@ -802,9 +1142,9 @@ app.post(
 );
 
 
-// ====================================
+// ======================================================
 // WEBHOOK MERCADO PAGO
-// ====================================
+// ======================================================
 
 app.post(
     "/webhook/mercado-pago",
@@ -812,22 +1152,40 @@ app.post(
 
         console.log("");
         console.log(
+            "===================================="
+        );
+
+        console.log(
             "🔔 WEBHOOK MERCADO PAGO"
         );
+
+        console.log(
+            "===================================="
+        );
+
+
+        console.log(
+            "Body recebido:"
+        );
+
 
         console.log(
             req.body
         );
 
 
-        // ====================================
+        // ==================================================
         // RESPONDER IMEDIATAMENTE
-        // ====================================
+        // ==================================================
 
         res.sendStatus(200);
 
 
         try {
+
+            // ==================================================
+            // IDENTIFICAR EVENTO
+            // ==================================================
 
             const tipoEvento =
                 req.body?.type ||
@@ -840,6 +1198,22 @@ app.post(
                 req.body?.action;
 
 
+            console.log(
+                "Tipo:",
+                tipoEvento
+            );
+
+
+            console.log(
+                "Action:",
+                action
+            );
+
+
+            // ==================================================
+            // PEGAR PAYMENT ID
+            // ==================================================
+
             const paymentId =
                 req.body?.data?.id ||
                 req.query?.["data.id"] ||
@@ -851,38 +1225,40 @@ app.post(
 
 
             console.log(
-                "Tipo:",
-                tipoEvento
-            );
-
-            console.log(
                 "Payment ID:",
                 paymentId
             );
 
 
-            // ====================================
-            // VERIFICAR EVENTO
-            // ====================================
+            // ==================================================
+            // IGNORAR EVENTOS QUE NÃO SÃO PAGAMENTO
+            // ==================================================
 
             if (
+
                 tipoEvento !== "payment" &&
-                action !== "payment.created" &&
-                action !== "payment.updated"
+
+                action !==
+                "payment.created" &&
+
+                action !==
+                "payment.updated"
+
             ) {
 
                 console.log(
                     "ℹ️ Evento ignorado."
                 );
 
+
                 return;
 
             }
 
 
-            // ====================================
-            // VERIFICAR PAYMENT ID
-            // ====================================
+            // ==================================================
+            // VALIDAR PAYMENT ID
+            // ==================================================
 
             if (!paymentId) {
 
@@ -890,14 +1266,15 @@ app.post(
                     "⚠️ Payment ID não informado."
                 );
 
+
                 return;
 
             }
 
 
-            // ====================================
-            // CONSULTAR PAGAMENTO
-            // ====================================
+            // ==================================================
+            // CONSULTAR PAGAMENTO NO MERCADO PAGO
+            // ==================================================
 
             const pagamento =
                 await payment.get({
@@ -910,23 +1287,41 @@ app.post(
 
             console.log("");
             console.log(
-                "====== PAGAMENTO ======"
+                "===================================="
             );
+
+            console.log(
+                "💳 PAGAMENTO CONSULTADO"
+            );
+
+            console.log(
+                "===================================="
+            );
+
 
             console.log(
                 "ID:",
                 pagamento.id
             );
 
+
             console.log(
                 "Status:",
                 pagamento.status
             );
 
+
             console.log(
                 "Detalhe:",
                 pagamento.status_detail
             );
+
+
+            console.log(
+                "Valor:",
+                pagamento.transaction_amount
+            );
+
 
             console.log(
                 "External Reference:",
@@ -934,12 +1329,24 @@ app.post(
             );
 
 
-            // ====================================
+            // ==================================================
             // LOCALIZAR PEDIDO
-            // ====================================
+            // ==================================================
 
             const numeroPedido =
                 pagamento.external_reference;
+
+
+            if (!numeroPedido) {
+
+                console.log(
+                    "⚠️ External Reference não encontrada."
+                );
+
+
+                return;
+
+            }
 
 
             const pedido =
@@ -948,20 +1355,25 @@ app.post(
                 );
 
 
+            // ==================================================
+            // VERIFICAR PEDIDO
+            // ==================================================
+
             if (!pedido) {
 
                 console.log(
-                    "⚠️ Pedido não encontrado."
+                    "⚠️ Pedido não encontrado no backend."
                 );
+
 
                 return;
 
             }
 
 
-            // ====================================
+            // ==================================================
             // PAGAMENTO APROVADO
-            // ====================================
+            // ==================================================
 
             if (
                 pagamento.status ===
@@ -971,21 +1383,39 @@ app.post(
                 pedido.status =
                     "PAGO";
 
+
                 pedido.pagamentoId =
                     pagamento.id;
+
 
                 pedido.statusPagamento =
                     pagamento.status;
 
+
                 pedido.statusDetalhe =
                     pagamento.status_detail;
+
 
                 pedido.valorPago =
                     pagamento.transaction_amount;
 
+
                 pedido.dataPagamento =
                     new Date().toISOString();
 
+
+                // ----------------------------------------------
+                // Forma de pagamento
+                // ----------------------------------------------
+
+                pedido.formaPagamento =
+                    pagamento.payment_method_id ||
+                    null;
+
+
+                // ----------------------------------------------
+                // Atualizar pedido
+                // ----------------------------------------------
 
                 pedidos.set(
                     numeroPedido,
@@ -1006,25 +1436,45 @@ app.post(
                 );
 
                 console.log(
+                    "===================================="
+                );
+
+
+                console.log(
                     "Pedido:",
                     numeroPedido
                 );
+
 
                 console.log(
                     "Status:",
                     pedido.status
                 );
 
+
+                console.log(
+                    "Pagamento:",
+                    pedido.pagamentoId
+                );
+
+
+                console.log(
+                    "Valor pago:",
+                    pedido.valorPago
+                );
+
+
                 console.log(
                     "===================================="
                 );
 
+
             }
 
 
-            // ====================================
+            // ==================================================
             // PAGAMENTO REJEITADO
-            // ====================================
+            // ==================================================
 
             else if (
                 pagamento.status ===
@@ -1034,11 +1484,14 @@ app.post(
                 pedido.status =
                     "PAGAMENTO_REJEITADO";
 
+
                 pedido.pagamentoId =
                     pagamento.id;
 
+
                 pedido.statusPagamento =
                     pagamento.status;
+
 
                 pedido.statusDetalhe =
                     pagamento.status_detail;
@@ -1060,9 +1513,9 @@ app.post(
             }
 
 
-            // ====================================
+            // ==================================================
             // PAGAMENTO PENDENTE
-            // ====================================
+            // ==================================================
 
             else if (
                 pagamento.status ===
@@ -1072,11 +1525,14 @@ app.post(
                 pedido.status =
                     "PAGAMENTO_PENDENTE";
 
+
                 pedido.pagamentoId =
                     pagamento.id;
 
+
                 pedido.statusPagamento =
                     pagamento.status;
+
 
                 pedido.statusDetalhe =
                     pagamento.status_detail;
@@ -1097,10 +1553,30 @@ app.post(
 
             }
 
+
+            // ==================================================
+            // OUTROS STATUS
+            // ==================================================
+
+            else {
+
+                console.log(
+                    "ℹ️ Status recebido:",
+                    pagamento.status
+                );
+
+            }
+
+
         } catch (erro) {
 
+            console.error("");
             console.error(
-                "❌ Erro no Webhook:",
+                "❌ ERRO AO PROCESSAR WEBHOOK"
+            );
+
+
+            console.error(
                 erro
             );
 
@@ -1110,9 +1586,14 @@ app.post(
 );
 
 
-// ==========================================================
+// ======================================================
 // RETORNO PAGAMENTO APROVADO
-// ==========================================================
+// ======================================================
+//
+// NÃO REDIRECIONA MAIS PARA confirmacao.html.
+//
+// O pagamento já foi confirmado pelo webhook.
+// ======================================================
 
 app.get(
     "/pagamento-aprovado",
@@ -1124,7 +1605,7 @@ app.get(
         );
 
         console.log(
-            "🎉 RETORNO DO MERCADO PAGO"
+            "🎉 RETORNO: PAGAMENTO APROVADO"
         );
 
         console.log(
@@ -1133,98 +1614,357 @@ app.get(
 
 
         console.log(
-            "Query recebida:",
+            "Query:",
             req.query
         );
 
 
-        // ====================================
-        // PEGAR DADOS DO MERCADO PAGO
-        // ====================================
+        const numero =
+            req.query.external_reference ||
+            req.query.externalReference ||
+            req.query.pedido ||
+            "";
 
-        const pagamento =
+
+        const paymentId =
             req.query.payment_id ||
             req.query.collection_id ||
             "";
 
 
-        const status =
-            req.query.status ||
-            req.query.collection_status ||
-            "";
-
-
-        const externalReference =
-            req.query.external_reference ||
-            "";
+        console.log(
+            "Pedido:",
+            numero
+        );
 
 
         console.log(
             "Payment ID:",
-            pagamento
-        );
-
-        console.log(
-            "Status:",
-            status
-        );
-
-        console.log(
-            "External Reference:",
-            externalReference
+            paymentId
         );
 
 
-        // ====================================
-        // MONTAR URL DA CONFIRMAÇÃO
-        // ====================================
+        // ==================================================
+        // NÃO USAR confirmacao.html
+        // ==================================================
 
-        const urlConfirmacao =
-            process.env.MP_SUCCESS_URL +
-            "?pedido=" +
-            encodeURIComponent(
-                externalReference
-            ) +
-            "&payment_id=" +
-            encodeURIComponent(
-                pagamento
-            ) +
-            "&status=" +
-            encodeURIComponent(
-                status
-            );
+        return res.send(`
 
+            <!DOCTYPE html>
 
-        console.log("");
-        console.log(
-            "➡ REDIRECIONAMENTO"
-        );
+            <html lang="pt-BR">
 
-        console.log(
-            "URL:",
-            urlConfirmacao
-        );
+            <head>
 
+                <meta charset="UTF-8">
 
-        // ====================================
-        // REDIRECIONAR
-        // ====================================
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                >
 
-        return res.redirect(
-            urlConfirmacao
-        );
+                <title>
+                    Pagamento aprovado | Solver Store
+                </title>
+
+                <style>
+
+                    body {
+
+                        font-family:
+                            Arial,
+                            sans-serif;
+
+                        background:
+                            #f5f7fb;
+
+                        display:
+                            flex;
+
+                        justify-content:
+                            center;
+
+                        align-items:
+                            center;
+
+                        min-height:
+                            100vh;
+
+                        margin:
+                            0;
+
+                    }
+
+                    .box {
+
+                        background:
+                            #ffffff;
+
+                        padding:
+                            40px;
+
+                        border-radius:
+                            16px;
+
+                        text-align:
+                            center;
+
+                        box-shadow:
+                            0 10px 30px
+                            rgba(0,0,0,.08);
+
+                        max-width:
+                            500px;
+
+                        width:
+                            calc(100% - 40px);
+
+                    }
+
+                    h1 {
+
+                        color:
+                            #0f5c43;
+
+                    }
+
+                    p {
+
+                        color:
+                            #555;
+
+                        line-height:
+                            1.6;
+
+                    }
+
+                </style>
+
+            </head>
+
+            <body>
+
+                <div class="box">
+
+                    <h1>
+                        ✅ Pagamento aprovado!
+                    </h1>
+
+                    <p>
+                        Obrigado pela sua compra.
+                    </p>
+
+                    <p>
+                        Seu pagamento foi recebido
+                        pelo Mercado Pago.
+                    </p>
+
+                    ${
+                        numero
+                            ? `
+                                <p>
+                                    Pedido:
+                                    <strong>
+                                        ${numero}
+                                    </strong>
+                                </p>
+                            `
+                            : ""
+                    }
+
+                    <p>
+                        Seu pedido está sendo
+                        processado pela loja.
+                    </p>
+
+                </div>
+
+            </body>
+
+            </html>
+
+        `);
 
     }
 );
 
 
-// =====================================================
+// ======================================================
+// RETORNO PAGAMENTO FALHOU
+// ======================================================
+
+app.get(
+    "/pagamento-falhou",
+    (req, res) => {
+
+        console.log("");
+        console.log(
+            "===================================="
+        );
+
+        console.log(
+            "❌ RETORNO: PAGAMENTO FALHOU"
+        );
+
+        console.log(
+            "===================================="
+        );
+
+
+        console.log(
+            "Query:",
+            req.query
+        );
+
+
+        return res.send(`
+
+            <!DOCTYPE html>
+
+            <html lang="pt-BR">
+
+            <head>
+
+                <meta charset="UTF-8">
+
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                >
+
+                <title>
+                    Pagamento não aprovado
+                </title>
+
+            </head>
+
+            <body>
+
+                <div
+                    style="
+                        max-width:600px;
+                        margin:80px auto;
+                        padding:30px;
+                        text-align:center;
+                        font-family:Arial,sans-serif;
+                    "
+                >
+
+                    <h1>
+                        ❌ Pagamento não aprovado
+                    </h1>
+
+                    <p>
+                        Não foi possível concluir
+                        o pagamento.
+                    </p>
+
+                    <p>
+                        Você pode tentar novamente.
+                    </p>
+
+                </div>
+
+            </body>
+
+            </html>
+
+        `);
+
+    }
+);
+
+
+// ======================================================
+// RETORNO PAGAMENTO PENDENTE
+// ======================================================
+
+app.get(
+    "/pagamento-pendente",
+    (req, res) => {
+
+        console.log("");
+        console.log(
+            "===================================="
+        );
+
+        console.log(
+            "⏳ RETORNO: PAGAMENTO PENDENTE"
+        );
+
+        console.log(
+            "===================================="
+        );
+
+
+        console.log(
+            "Query:",
+            req.query
+        );
+
+
+        return res.send(`
+
+            <!DOCTYPE html>
+
+            <html lang="pt-BR">
+
+            <head>
+
+                <meta charset="UTF-8">
+
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                >
+
+                <title>
+                    Pagamento pendente
+                </title>
+
+            </head>
+
+            <body>
+
+                <div
+                    style="
+                        max-width:600px;
+                        margin:80px auto;
+                        padding:30px;
+                        text-align:center;
+                        font-family:Arial,sans-serif;
+                    "
+                >
+
+                    <h1>
+                        ⏳ Pagamento pendente
+                    </h1>
+
+                    <p>
+                        Seu pagamento ainda está
+                        sendo processado.
+                    </p>
+
+                    <p>
+                        Aguarde a confirmação
+                        do Mercado Pago.
+                    </p>
+
+                </div>
+
+            </body>
+
+            </html>
+
+        `);
+
+    }
+);
+
+
+// ======================================================
 // INICIAR SERVIDOR
-// =====================================================
-
-const PORT =
-    process.env.PORT || 3000;
-
+// ======================================================
 
 app.listen(
     PORT,
@@ -1237,11 +1977,39 @@ app.listen(
         );
 
         console.log(
-            "🚀 BACKEND AMAKHA PARIS INICIADO"
+            "🚀 SOLVER STORE - BACKEND"
         );
 
         console.log(
-            `🌐 http://localhost:${PORT}`
+            "========================================"
+        );
+
+        console.log(
+            `🌐 Local: http://localhost:${PORT}`
+        );
+
+        console.log(
+            "💳 Mercado Pago: CONFIGURADO"
+        );
+
+        console.log(
+            "🔔 Webhook:",
+            MP_WEBHOOK_URL
+        );
+
+        console.log(
+            "✅ Success:",
+            MP_SUCCESS_URL
+        );
+
+        console.log(
+            "❌ Failure:",
+            MP_FAILURE_URL
+        );
+
+        console.log(
+            "⏳ Pending:",
+            MP_PENDING_URL
         );
 
         console.log(
