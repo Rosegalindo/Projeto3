@@ -13,6 +13,31 @@ require("dotenv").config();
 
 const app = express();
 
+// ======================================================
+// ARQUIVOS PÚBLICOS DO FRONTEND
+// ======================================================
+
+const pastaPublica =
+    path.join(__dirname, "..");
+
+app.use(
+    express.static(pastaPublica)
+);
+
+// ======================================================
+// PÁGINA INICIAL
+// ======================================================
+
+app.get("/", (req, res) => {
+
+    res.sendFile(
+        path.join(
+            pastaPublica,
+            "index.html"
+        )
+    );
+
+});
 
 // ======================================================
 // MERCADO PAGO
