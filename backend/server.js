@@ -73,7 +73,7 @@ const PORT =
 // ======================================================
 
 const MP_BASE_URL =
-    "https://COLOQUE-AQUI-SEU-TUNEL.trycloudflare.com";
+    "https://api.solverstore.com.br";
 
 
 const MP_WEBHOOK_URL =
