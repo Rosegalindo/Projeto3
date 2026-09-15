@@ -252,6 +252,106 @@ app.use(
     express.json()
 );
 
+// ======================================================
+// WEBHOOK WHATSAPP - META CLOUD API
+// ======================================================
+
+const WHATSAPP_VERIFY_TOKEN =
+    process.env.WHATSAPP_VERIFY_TOKEN;
+
+
+// ======================================================
+// VERIFICAÇÃO DO WEBHOOK PELA META
+// ======================================================
+
+app.get(
+    "/webhook/whatsapp",
+    (req, res) => {
+
+        const mode =
+            req.query["hub.mode"];
+
+        const token =
+            req.query["hub.verify_token"];
+
+        const challenge =
+            req.query["hub.challenge"];
+
+
+        console.log("");
+        console.log(
+            "===================================="
+        );
+
+        console.log(
+            "📱 VERIFICAÇÃO WEBHOOK WHATSAPP"
+        );
+
+        console.log(
+            "===================================="
+        );
+
+
+        if (
+            mode === "subscribe" &&
+            token === WHATSAPP_VERIFY_TOKEN
+        ) {
+
+            console.log(
+                "✅ Webhook WhatsApp verificado."
+            );
+
+            return res
+                .status(200)
+                .send(challenge);
+
+        }
+
+
+        console.log(
+            "❌ Falha na verificação do webhook WhatsApp."
+        );
+
+        return res
+            .sendStatus(403);
+
+    }
+);
+
+
+// ======================================================
+// RECEBER EVENTOS DO WHATSAPP
+// ======================================================
+
+app.post(
+    "/webhook/whatsapp",
+    (req, res) => {
+
+        console.log("");
+        console.log(
+            "===================================="
+        );
+
+        console.log(
+            "📱 WEBHOOK WHATSAPP"
+        );
+
+        console.log(
+            "===================================="
+        );
+
+
+        console.log(
+            "Evento recebido."
+        );
+
+
+        // A Meta espera uma resposta rápida.
+        return res
+            .sendStatus(200);
+
+    }
+);
 
 // ======================================================
 // ROTA PRINCIPAL
