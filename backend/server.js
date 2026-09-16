@@ -439,11 +439,14 @@ app.post(
             // RECEBER DADOS
             // ==================================================
 
-            const {
+           const {
 
                 numero,
                 produtos,
-                valores
+                valores,
+                cliente,
+                entrega,
+                pagamento
 
             } = req.body;
 
@@ -606,43 +609,70 @@ app.post(
                 );
 
 
-            if (!pedido) {
+                if (!pedido) {
 
-                pedido = {
+            pedido = {
 
-                    numero:
+                numero:
+                    numero,
 
-                        numero,
+                cliente:
+                    cliente || null,
 
-                    produtos:
+                entrega:
+                    entrega || null,
 
-                        produtos,
+                pagamento:
+                    pagamento || {
+                        status:
+                            "AGUARDANDO PAGAMENTO"
+                    },
 
-                    valores:
+                produtos:
+                    produtos,
 
-                        valores,
+                valores:
+                    valores,
 
-                    status:
+                status:
+                    "AGUARDANDO_PAGAMENTO",
 
-                        "AGUARDANDO_PAGAMENTO",
+                criadoEm:
+                    new Date().toISOString()
 
-                    criadoEm:
+            };
 
-                        new Date().toISOString()
+        } else {
+            //---------------------------------------------
+            // Preserva o pedido já criado pelo checkout.js
+            // ----------------------------------------------
 
-                };
+            if (cliente) {
 
-            } else {
+                pedido.cliente =
+                    cliente;
 
-                // ----------------------------------------------
-                // Preserva o pedido já criado pelo checkout.js
-                // ----------------------------------------------
+            }
 
-                pedido.produtos =
-                    produtos;
+            if (entrega) {
 
-                pedido.valores =
-                    valores;
+                pedido.entrega =
+                    entrega;
+
+            }
+
+            if (pagamento) {
+
+                pedido.pagamento =
+                    pagamento;
+
+            }
+
+            pedido.produtos =
+                produtos;
+
+            pedido.valores =
+                valores;
 
 
                 if (
@@ -1017,7 +1047,6 @@ app.get(
         const numero =
             req.params.numero;
 
-
         console.log("");
         console.log(
             "===================================="
@@ -1031,25 +1060,29 @@ app.get(
             "===================================="
         );
 
-
         console.log(
             "Pedido:",
             numero
         );
 
 
-        const pedido =
-            pedidos.get(
-                numero
-            );
+        // ==================================================
+        // LOCALIZAR PEDIDO
+        // ==================================================
 
+        const pedido =
+            pedidos.get(numero);
+
+
+        // ==================================================
+        // PEDIDO NÃO ENCONTRADO
+        // ==================================================
 
         if (!pedido) {
 
             console.log(
                 "⚠️ Pedido não encontrado."
             );
-
 
             return res.status(404).json({
 
@@ -1063,41 +1096,58 @@ app.get(
         }
 
 
+        // ==================================================
+        // RETORNAR DADOS DO PEDIDO
+        // ==================================================
+
         return res.json({
 
             sucesso: true,
 
             numero:
-
                 pedido.numero,
 
             status:
-
                 pedido.status,
 
             pagamentoId:
-
                 pedido.pagamentoId ||
                 null,
 
             statusPagamento:
-
                 pedido.statusPagamento ||
                 null,
 
             statusDetalhe:
-
                 pedido.statusDetalhe ||
                 null,
 
             valorPago:
-
                 pedido.valorPago ||
                 null,
 
             dataPagamento:
-
                 pedido.dataPagamento ||
+                null,
+
+            formaPagamento:
+                pedido.formaPagamento ||
+                null,
+
+            cliente:
+                pedido.cliente ||
+                null,
+
+            entrega:
+                pedido.entrega ||
+                null,
+
+            produtos:
+                pedido.produtos ||
+                [],
+
+            valores:
+                pedido.valores ||
                 null
 
         });
@@ -1712,376 +1762,299 @@ app.post(
 
 
 // ======================================================
-// RETORNO PAGAMENTO APROVADO
-// ======================================================
-//
-// NÃO REDIRECIONA MAIS PARA confirmacao.html.
-//
-// O pagamento já foi confirmado pelo webhook.
+// RETORNO DO MERCADO PAGO
 // ======================================================
 
 app.get(
     "/pagamento-aprovado",
-    (req, res) => {
+    async (req, res) => {
 
         console.log("");
-        console.log(
-            "===================================="
-        );
-
-        console.log(
-            "🎉 RETORNO: PAGAMENTO APROVADO"
-        );
-
-        console.log(
-            "===================================="
-        );
-
-
-        console.log(
-            "Query:",
-            req.query
-        );
-
+        console.log("====================================");
+        console.log("💳 RETORNO MERCADO PAGO");
+        console.log("====================================");
 
         const numero =
             req.query.external_reference ||
             req.query.externalReference ||
-            req.query.pedido ||
-            "";
-
+            req.query.pedido;
 
         const paymentId =
             req.query.payment_id ||
-            req.query.collection_id ||
-            "";
+            req.query.collection_id;
+
+        console.log("Pedido:", numero);
+        console.log("Payment ID:", paymentId);
 
 
-        console.log(
-            "Pedido:",
-            numero
-        );
+// --------------------------------------------------
+        // SEM IDENTIFICAÇÃO DO PEDIDO
+        // --------------------------------------------------
 
+        if (!numero && !paymentId) {
 
-        console.log(
-            "Payment ID:",
-            paymentId
-        );
+            console.log(
+                "❌ Não foi possível identificar o pagamento."
+            );
 
+            return res.status(400).send(`
+                <!DOCTYPE html>
+                <html lang="pt-BR">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport"
+                        content="width=device-width, initial-scale=1.0">
+                    <title>Pagamento</title>
+                </head>
 
-        // ==================================================
-        // NÃO USAR confirmacao.html
-        // ==================================================
+                <body>
 
-        return res.send(`
-
-            <!DOCTYPE html>
-
-            <html lang="pt-BR">
-
-            <head>
-
-                <meta charset="UTF-8">
-
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0"
-                >
-
-                <title>
-                    Pagamento aprovado | Solver Store
-                </title>
-
-                <style>
-
-                    body {
-
-                        font-family:
-                            Arial,
-                            sans-serif;
-
-                        background:
-                            #f5f7fb;
-
-                        display:
-                            flex;
-
-                        justify-content:
-                            center;
-
-                        align-items:
-                            center;
-
-                        min-height:
-                            100vh;
-
-                        margin:
-                            0;
-
-                    }
-
-                    .box {
-
-                        background:
-                            #ffffff;
-
-                        padding:
-                            40px;
-
-                        border-radius:
-                            16px;
-
-                        text-align:
-                            center;
-
-                        box-shadow:
-                            0 10px 30px
-                            rgba(0,0,0,.08);
-
-                        max-width:
-                            500px;
-
-                        width:
-                            calc(100% - 40px);
-
-                    }
-
-                    h1 {
-
-                        color:
-                            #0f5c43;
-
-                    }
-
-                    p {
-
-                        color:
-                            #555;
-
-                        line-height:
-                            1.6;
-
-                    }
-
-                </style>
-
-            </head>
-
-            <body>
-
-                <div class="box">
-
-                    <h1>
-                        ✅ Pagamento aprovado!
-                    </h1>
+                    <h1>Não foi possível identificar o pagamento.</h1>
 
                     <p>
-                        Obrigado pela sua compra.
+                        Por favor, entre em contato com a loja.
                     </p>
 
-                    <p>
-                        Seu pagamento foi recebido
-                        pelo Mercado Pago.
-                    </p>
+                </body>
+                </html>
+            `);
+        }
 
-                    ${
-                        numero
-                            ? `
-                                <p>
-                                    Pedido:
-                                    <strong>
-                                        ${numero}
-                                    </strong>
-                                </p>
-                            `
-                            : ""
-                    }
+        // --------------------------------------------------
+        // LOCALIZA O PEDIDO
+        // --------------------------------------------------
 
-                    <p>
-                        Seu pedido está sendo
-                        processado pela loja.
-                    </p>
+            const numeroPedido = numero;
 
-                </div>
+            const pedido =
+                pedidos.get(numeroPedido);
 
-            </body>
+            if (!pedido) {
 
-            </html>
+                console.log(
+                    "❌ Pedido não encontrado."
+                );
 
-        `);
+                return res.status(404).send(`
+                    <!DOCTYPE html>
+                    <html lang="pt-BR">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport"
+                            content="width=device-width, initial-scale=1.0">
+                        <title>Pedido não encontrado</title>
+                    </head>
 
-    }
-);
+                    <body>
 
+                        <h1>Pedido não encontrado</h1>
 
-// ======================================================
-// RETORNO PAGAMENTO FALHOU
-// ======================================================
+                        <p>
+                            Não conseguimos localizar seu pedido.
+                        </p>
 
-app.get(
-    "/pagamento-falhou",
-    (req, res) => {
+                    </body>
+                    </html>
+                `);
+            }
 
-        console.log("");
+        // --------------------------------------------------
+        // PAGAMENTO AINDA NÃO CONFIRMADO PELO BACKEND
+        // --------------------------------------------------
+
+        if (pedido.status !== "PAGO") {
+
+            console.log(
+                "⏳ Pagamento ainda não confirmado."
+            );
+
+            return res.send(`
+                <!DOCTYPE html>
+                <html lang="pt-BR">
+
+                <head>
+
+                    <meta charset="UTF-8">
+
+                    <meta
+                        name="viewport"
+                        content="width=device-width, initial-scale=1.0"
+                    >
+
+                    <title>Confirmando pagamento</title>
+
+                    <style>
+
+                        body {
+                            font-family: Arial, sans-serif;
+                            text-align: center;
+                            padding: 60px 20px;
+                            background: #f7f7f7;
+                        }
+
+                        .box {
+                            max-width: 500px;
+                            margin: auto;
+                            background: white;
+                            padding: 35px;
+                            border-radius: 15px;
+                            box-shadow:
+                                0 5px 20px
+                                rgba(0,0,0,0.08);
+                        }
+
+                        h1 {
+                            margin-bottom: 15px;
+                        }
+
+                        p {
+                            color: #555;
+                            line-height: 1.6;
+                        }
+
+                        .loading {
+                            font-size: 40px;
+                            margin-bottom: 20px;
+                        }
+
+                    </style>
+
+                </head>
+
+                <body>
+
+                    <div class="box">
+
+                        <div class="loading">
+                            ⏳
+                        </div>
+
+                        <h1>
+                            Confirmando seu pagamento
+                        </h1>
+
+                        <p>
+                            Estamos aguardando a confirmação
+                            do Mercado Pago.
+                        </p>
+
+                        <p>
+                            Esta página será atualizada
+                            automaticamente.
+                        </p>
+
+                    </div>
+
+                    <script>
+
+                        const numeroPedido =
+                            ${JSON.stringify(String(pedido.numero))};
+
+                        let tentativas = 0;
+
+                        const verificarPagamento =
+                            async () => {
+
+                                try {
+
+                                    const resposta =
+                                        await fetch(
+                                            "/pedido/" +
+                                            encodeURIComponent(
+                                                numeroPedido
+                                            ) +
+                                            "/status"
+                                        );
+
+                                    if (!resposta.ok) {
+                                        return;
+                                    }
+
+                                    const dados =
+                                        await resposta.json();
+
+                                    console.log(
+                                        "Status:",
+                                        dados
+                                    );
+
+                                    if (
+                                        dados.status === "PAGO"
+                                    ) {
+
+                                        window.location.href =
+                                            "/pages/confirmacao.html?pedido=" +
+                                            encodeURIComponent(
+                                                numeroPedido
+                                            );
+
+                                        return;
+                                    }
+
+                                    if (
+                                        dados.status ===
+                                        "PAGAMENTO_REJEITADO"
+                                    ) {
+
+                                        window.location.href =
+                                            "/pagamento-rejeitado?pedido=" +
+                                            encodeURIComponent(
+                                                numeroPedido
+                                            );
+
+                                        return;
+                                    }
+
+                                    tentativas++;
+
+                                    if (tentativas < 15) {
+
+                                        setTimeout(
+                                            verificarPagamento,
+                                            2000
+                                        );
+
+                                    }
+
+                                } catch (erro) {
+
+                                    console.error(
+                                        "Erro ao verificar pagamento:",
+                                        erro
+                                    );
+
+                                }
+
+                            };
+
+                        verificarPagamento();
+
+                    </script>
+
+                </body>
+
+                </html>
+            `);
+        }
+
+        // --------------------------------------------------
+        // PAGAMENTO CONFIRMADO
+        // --------------------------------------------------
+
         console.log(
-            "===================================="
+            "✅ Pagamento confirmado pelo backend."
         );
 
         console.log(
-            "❌ RETORNO: PAGAMENTO FALHOU"
+            "➡️ Liberando página de confirmação."
         );
 
-        console.log(
-            "===================================="
+        return res.redirect(
+            "/pages/confirmacao.html?pedido=" +
+            encodeURIComponent(
+                String(pedido.numero)
+            )
         );
-
-
-        console.log(
-            "Query:",
-            req.query
-        );
-
-
-        return res.send(`
-
-            <!DOCTYPE html>
-
-            <html lang="pt-BR">
-
-            <head>
-
-                <meta charset="UTF-8">
-
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0"
-                >
-
-                <title>
-                    Pagamento não aprovado
-                </title>
-
-            </head>
-
-            <body>
-
-                <div
-                    style="
-                        max-width:600px;
-                        margin:80px auto;
-                        padding:30px;
-                        text-align:center;
-                        font-family:Arial,sans-serif;
-                    "
-                >
-
-                    <h1>
-                        ❌ Pagamento não aprovado
-                    </h1>
-
-                    <p>
-                        Não foi possível concluir
-                        o pagamento.
-                    </p>
-
-                    <p>
-                        Você pode tentar novamente.
-                    </p>
-
-                </div>
-
-            </body>
-
-            </html>
-
-        `);
-
-    }
-);
-
-
-// ======================================================
-// RETORNO PAGAMENTO PENDENTE
-// ======================================================
-
-app.get(
-    "/pagamento-pendente",
-    (req, res) => {
-
-        console.log("");
-        console.log(
-            "===================================="
-        );
-
-        console.log(
-            "⏳ RETORNO: PAGAMENTO PENDENTE"
-        );
-
-        console.log(
-            "===================================="
-        );
-
-
-        console.log(
-            "Query:",
-            req.query
-        );
-
-
-        return res.send(`
-
-            <!DOCTYPE html>
-
-            <html lang="pt-BR">
-
-            <head>
-
-                <meta charset="UTF-8">
-
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0"
-                >
-
-                <title>
-                    Pagamento pendente
-                </title>
-
-            </head>
-
-            <body>
-
-                <div
-                    style="
-                        max-width:600px;
-                        margin:80px auto;
-                        padding:30px;
-                        text-align:center;
-                        font-family:Arial,sans-serif;
-                    "
-                >
-
-                    <h1>
-                        ⏳ Pagamento pendente
-                    </h1>
-
-                    <p>
-                        Seu pagamento ainda está
-                        sendo processado.
-                    </p>
-
-                    <p>
-                        Aguarde a confirmação
-                        do Mercado Pago.
-                    </p>
-
-                </div>
-
-            </body>
-
-            </html>
-
-        `);
 
     }
 );

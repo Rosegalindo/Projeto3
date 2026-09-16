@@ -61,10 +61,15 @@ function montarEntrega(pedido){
 
 function montarPagamento(pedido){
 
+    const metodo =
+        pedido.pagamento?.metodo ||
+        pedido.pagamento?.status ||
+        "MERCADO PAGO";
+
     return `══════════════════════
-​*PAGAMENTO*
+*PAGAMENTO*
 ══════════════════════
-${pedido.pagamento.metodo.toUpperCase()}
+${metodo.toUpperCase()}
 
 `;
 

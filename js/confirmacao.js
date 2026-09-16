@@ -105,16 +105,25 @@ async function carregarResumo(){
     // CONSULTAR BACKEND
     // ====================================
 
-    try{
+        const apiUrl =
+            window.API_URL ||
+            (
+                window.location.hostname === "localhost" ||
+                window.location.hostname === "127.0.0.1"
+                    ? "http://localhost:3000"
+                    : "https://api.solverstore.com.br"
+            );
 
-        console.log(
-            "🔎 Consultando status do pedido no backend..."
-        );
+        try{
+
+            console.log(
+                "🔎 Consultando status do pedido no backend..."
+            );
 
 
         const resposta =
             await fetch(
-                `http://localhost:3000/pedido/${encodeURIComponent(numeroPedido)}/status`
+                `${apiUrl}/pedido/${encodeURIComponent(numeroPedido)}/status`
             );
 
 
@@ -306,13 +315,10 @@ function registrarEventos(){
 // ENVIAR PEDIDO
 // =====================================================
 
-function enviarPedido(){
+async function enviarPedido(){
 
     const pedido =
         carregar(STORAGE.PEDIDO);
-
-    console.log("ENTREGA:");
-    console.log(pedido.entrega);
 
     if(!pedido){
 
@@ -322,6 +328,67 @@ function enviarPedido(){
 
     }
 
+    console.log("ENTREGA:");
+    console.log(pedido.entrega);
+
+
+// ====================================
+// CONFIRMAR PAGAMENTO NO BACKEND
+// ====================================
+
+const apiUrl =
+    window.API_URL ||
+    (
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
+            ? "http://localhost:3000"
+            : "https://api.solverstore.com.br"
+    );
+
+        try{
+
+            const resposta =
+                await fetch(
+                    `${apiUrl}/pedido/${encodeURIComponent(pedido.numero)}/status`
+                );
+
+            const resultado =
+                await resposta.json();
+
+            console.log(
+                "🔎 Status antes de enviar WhatsApp:",
+                resultado
+            );
+
+            if(
+                !resposta.ok ||
+                !resultado.sucesso ||
+                resultado.status !== "PAGO"
+            ){
+
+                alert(
+                    "O pagamento ainda não foi confirmado. O pedido não será enviado."
+                );
+
+                return;
+
+            }
+
+        }catch(erro){
+
+            console.error(
+                "❌ Erro ao confirmar pagamento antes do WhatsApp:",
+                erro
+            );
+
+            alert(
+                "Não foi possível confirmar o pagamento. Tente novamente."
+            );
+
+            return;
+
+        }
+
     const mensagem =
         montarMensagem(pedido);
 
@@ -330,8 +397,6 @@ function enviarPedido(){
     limparPedido();
 
 }
-
-
 
 // =====================================================
 // LIMPAR DADOS

@@ -110,16 +110,24 @@ document.addEventListener("DOMContentLoaded", () => {
             // --------------------------------------------------
 
             const dados = {
-                numero: pedido.numero,
+            numero: pedido.numero,
 
-                produtos: pedido.produtos || [],
+            cliente: pedido.cliente || null,
 
-                valores: pedido.valores || {
-                    subtotal: total,
-                    frete: 0,
-                    total: total
-                }
-            };
+            entrega: pedido.entrega || null,
+
+            pagamento: pedido.pagamento || {
+                status: "AGUARDANDO PAGAMENTO"
+            },
+
+            produtos: pedido.produtos || [],
+
+            valores: pedido.valores || {
+                subtotal: total,
+                frete: 0,
+                total: total
+            }
+        };
 
 
             console.log("📦 DADOS ENVIADOS:");
@@ -130,17 +138,17 @@ document.addEventListener("DOMContentLoaded", () => {
             // FETCH
             // --------------------------------------------------
 
-            const resposta = await fetch(url, {
+           const resposta = await fetch(apiUrl + "/criar-preferencia", {
 
-                method: "POST",
+            method: "POST",
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-                body: JSON.stringify(dados)
+            body: JSON.stringify(dados)
 
-            });
+        });
 
 
             console.log("📡 STATUS HTTP:", resposta.status);
