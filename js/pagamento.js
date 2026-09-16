@@ -243,9 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("🔗", checkoutUrl);
             console.log("========================================");
 
-
             window.location.href = checkoutUrl;
-
 
         } catch (erro) {
 
