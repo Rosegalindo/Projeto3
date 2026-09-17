@@ -183,7 +183,6 @@ async function carregarResumo(){
 
         }
 
-
         // ====================================
         // CARREGAR PEDIDO LOCAL
         // ====================================
@@ -228,6 +227,25 @@ async function carregarResumo(){
 
         }
 
+        // ====================================
+        // ATUALIZAR PAGAMENTO LOCALMENTE
+        // ====================================
+
+        pedido.pagamento = {
+            ...(pedido.pagamento || {}),
+            status: "PAGO",
+            metodo: "MERCADO PAGO"
+        };
+
+        console.log(
+            "💳 Pagamento atualizado localmente:",
+            pedido.pagamento
+        );
+
+        localStorage.setItem(
+            STORAGE.PEDIDO,
+            JSON.stringify(pedido)
+        );
 
         // ====================================
         // MOSTRAR TOTAL
