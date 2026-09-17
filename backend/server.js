@@ -1982,14 +1982,14 @@ app.get(
                                         dados.status === "PAGO"
                                     ) {
 
-                                        return res.redirect(
-                                        "https://solverstore.com.br/pages/confirmacao.html?pedido=" +
-                                        encodeURIComponent(
-                                            String(pedido.numero)
-                                        )
-                                    );
+                                        window.location.href =
+                                            "https://solverstore.com.br/pages/confirmacao.html?pedido=" +
+                                            encodeURIComponent(
+                                                String(pedido.numero)
+                                            );
 
                                         return;
+
                                     }
 
                                     if (
