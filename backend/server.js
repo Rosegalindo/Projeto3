@@ -1579,14 +1579,17 @@ app.post(
                     new Date().toISOString();
 
 
-                // ----------------------------------------------
+                // ---------------------------------------------
                 // Forma de pagamento
-                // ----------------------------------------------
+                // ---------------------------------------------
 
                 pedido.formaPagamento =
                     pagamento.payment_method_id ||
                     null;
 
+                pedido.tipoPagamento =
+                    pagamento.payment_type_id ||
+                    null;
 
                 // ----------------------------------------------
                 // Atualizar pedido
