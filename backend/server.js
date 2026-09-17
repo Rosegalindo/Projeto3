@@ -1982,11 +1982,12 @@ app.get(
                                         dados.status === "PAGO"
                                     ) {
 
-                                        window.location.href =
-                                            "/pages/confirmacao.html?pedido=" +
-                                            encodeURIComponent(
-                                                numeroPedido
-                                            );
+                                        return res.redirect(
+                                        "https://solverstore.com.br/pages/confirmacao.html?pedido=" +
+                                        encodeURIComponent(
+                                            String(pedido.numero)
+                                        )
+                                    );
 
                                         return;
                                     }
@@ -1996,11 +1997,12 @@ app.get(
                                         "PAGAMENTO_REJEITADO"
                                     ) {
 
-                                        window.location.href =
-                                            "/pagamento-rejeitado?pedido=" +
-                                            encodeURIComponent(
-                                                numeroPedido
-                                            );
+                                        return res.redirect(
+                                        "https://solverstore.com.br/pages/confirmacao.html?pedido=" +
+                                        encodeURIComponent(
+                                            String(pedido.numero)
+                                        )
+                                    );
 
                                         return;
                                     }
@@ -2049,11 +2051,8 @@ app.get(
             "➡️ Liberando página de confirmação."
         );
 
-        return res.redirect(
-            "/pages/confirmacao.html?pedido=" +
-            encodeURIComponent(
-                String(pedido.numero)
-            )
+        res.redirect(
+            `https://solverstore.com.br/pages/confirmacao.html?pedido=${numeroPedido}`
         );
 
     }
