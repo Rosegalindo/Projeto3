@@ -408,14 +408,29 @@ const apiUrl =
 
         }
 
-    const mensagem =
-        montarMensagem(pedido);
+        pedido.pagamento = {
+            ...(pedido.pagamento || {}),
+            status: "PAGO",
+            metodo: resultado.formaPagamento || pedido.pagamento?.metodo || "MERCADO PAGO",
+            tipo: resultado.tipoPagamento || pedido.pagamento?.tipo || null
+        };
 
-    enviarWhatsApp(mensagem);
+        localStorage.setItem(
+            STORAGE.PEDIDO,
+            JSON.stringify(pedido)
+        );
 
-    limparPedido();
+        console.log(
+            "💳 Pagamento final para WhatsApp:",
+            pedido.pagamento
+        );
 
-}
+        const mensagem =
+            montarMensagem(pedido);
+
+        enviarWhatsApp(mensagem);
+
+        }
 
 // =====================================================
 // LIMPAR DADOS
