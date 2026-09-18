@@ -1134,6 +1134,10 @@ app.get(
                 pedido.formaPagamento ||
                 null,
 
+            tipoPagamento:
+                pedido.tipoPagamento ||
+                null,
+
             cliente:
                 pedido.cliente ||
                 null,

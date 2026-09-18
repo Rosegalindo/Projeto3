@@ -234,7 +234,8 @@ async function carregarResumo(){
         pedido.pagamento = {
             ...(pedido.pagamento || {}),
             status: "PAGO",
-            metodo: resultado.formaPagamento || pedido.pagamento?.metodo || "MERCADO PAGO"
+            metodo: resultado.formaPagamento || pedido.pagamento?.metodo || "MERCADO PAGO",
+            tipo: resultado.tipoPagamento || pedido.pagamento?.tipo || null
         };
 
         console.log(

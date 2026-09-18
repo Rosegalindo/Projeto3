@@ -61,15 +61,38 @@ function montarEntrega(pedido){
 
 function montarPagamento(pedido){
 
-    const metodo =
-        pedido.pagamento?.metodo ||
-        pedido.pagamento?.status ||
-        "MERCADO PAGO";
+    const tipo =
+        pedido.pagamento?.tipo;
+
+    let metodo = "MERCADO PAGO";
+
+    if(tipo === "bank_transfer"){
+
+        metodo = "PIX";
+
+    }else if(tipo === "credit_card"){
+
+        metodo = "CARTÃO DE CRÉDITO";
+
+    }else if(tipo === "debit_card"){
+
+        metodo = "CARTÃO DE DÉBITO";
+
+    }else if(tipo === "account_money"){
+
+        metodo = "SALDO MERCADO PAGO";
+
+    }else if(pedido.pagamento?.metodo){
+
+        metodo =
+            pedido.pagamento.metodo.toUpperCase();
+
+    }
 
     return `══════════════════════
 *PAGAMENTO*
 ══════════════════════
-${metodo.toUpperCase()}
+${metodo}
 
 `;
 
