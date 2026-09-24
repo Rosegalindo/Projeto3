@@ -61,32 +61,12 @@ function montarEntrega(pedido){
 
 function montarPagamento(pedido){
 
-    const tipo =
-        pedido.pagamento?.tipo;
+    const tipo = pedido.pagamento?.tipo;
 
-    let metodo = "MERCADO PAGO";
+    let metodo = "PIX";
 
-    if(tipo === "bank_transfer"){
-
-        metodo = "PIX";
-
-    }else if(tipo === "credit_card"){
-
+    if(tipo === "credit_card"){
         metodo = "CARTÃO DE CRÉDITO";
-
-    }else if(tipo === "debit_card"){
-
-        metodo = "CARTÃO DE DÉBITO";
-
-    }else if(tipo === "account_money"){
-
-        metodo = "SALDO MERCADO PAGO";
-
-    }else if(pedido.pagamento?.metodo){
-
-        metodo =
-            pedido.pagamento.metodo.toUpperCase();
-
     }
 
     return `══════════════════════
@@ -95,7 +75,6 @@ function montarPagamento(pedido){
 ${metodo}
 
 `;
-
 }
 // ======================================================
 // 04. PRODUTOS
