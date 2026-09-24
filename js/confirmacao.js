@@ -379,6 +379,13 @@ const apiUrl =
                 resultado
             );
 
+            console.log(
+                "🔎 STATUS RECEBIDO:",
+                resultado.status,
+                "TIPO:",
+                typeof resultado.status
+            );
+
             if(
                 !resposta.ok ||
                 !resultado.sucesso ||
