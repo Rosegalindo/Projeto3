@@ -236,7 +236,7 @@ async function carregarResumo(){
             status: "PAGO",
             metodo: pedido.pagamento?.metodo || "MERCADO PAGO",
             tipo: pedido.pagamento?.tipo || null
-            };
+        };
 
         console.log(
             "💳 Pagamento atualizado localmente:",
