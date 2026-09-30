@@ -137,9 +137,12 @@ const payment =
 const arquivoPedidos =
     path.join(
         __dirname,
+        "..",
+        "..",
+        "..",
+        "data",
         "pedidos.json"
     );
-
 
 let pedidos =
     new Map();
