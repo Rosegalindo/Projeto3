@@ -974,10 +974,46 @@ app.get(
         );
 
 
-        const pedido =
-            pedidos.get(
-                numero
+        let pedido =
+    pedidos.get(numero);
+
+    // Se não encontrar na memória,
+    // recarrega os pedidos do arquivo
+    if (!pedido && fs.existsSync(arquivoPedidos)) {
+
+    try {
+
+        const dados =
+            fs.readFileSync(
+                arquivoPedidos,
+                "utf8"
             );
+
+        const pedidosSalvos =
+            JSON.parse(dados);
+
+        pedidos =
+            new Map(
+                pedidosSalvos
+            );
+
+        pedido =
+            pedidos.get(numero);
+
+        console.log(
+            "🔄 Pedido recarregado do arquivo:",
+            numero
+        );
+
+    } catch (erro) {
+
+        console.error(
+            "❌ Erro ao recarregar pedidos:",
+            erro
+        );
+
+    }
+}
 
 
         // ==================================================
