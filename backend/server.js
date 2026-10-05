@@ -140,6 +140,7 @@ const arquivoPedidos =
         "..",
         "..",
         "..",
+        "..",
         "data",
         "pedidos.json"
     );
