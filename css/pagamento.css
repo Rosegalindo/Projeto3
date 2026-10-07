@@ -362,9 +362,9 @@ button:hover{
 
 .icone-pagamento{
 
-    width:56px;
+    width:auto;
 
-    height:56px;
+    height:auto;
 
     display:flex;
 
@@ -372,11 +372,11 @@ button:hover{
 
     justify-content:center;
 
-    margin-bottom:18px;
+    margin-bottom:0;
 
-    border-radius:14px;
+    border-radius:0;
 
-    background:#e8f8f0;
+    background:transparent;
 
     color:#0f5c43;
 
@@ -393,9 +393,15 @@ button:hover{
 
 .pagamento-card h2{
 
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
     margin-bottom:10px;
 
-    font-size:26px;
+    font-size:28px;
 
     color:#222;
 
