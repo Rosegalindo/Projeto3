@@ -178,12 +178,44 @@ function montarMensagem(pedido){
 // 08. ENVIAR WHATSAPP
 // ======================================================
 
+
 function enviarWhatsApp(mensagem){
 
     const texto = encodeURIComponent(mensagem);
 
     const url =
-`https://wa.me/${CONFIG.loja.whatsapp}?text=${texto}`;
+        `https://wa.me/${CONFIG.loja.whatsapp}?text=${texto}`;
+
+    let saiuDaLoja = false;
+
+    function acompanharRetorno(){
+
+        if(document.hidden){
+
+            saiuDaLoja = true;
+
+            return;
+
+        }
+
+        if(saiuDaLoja){
+
+            document.removeEventListener(
+                "visibilitychange",
+                acompanharRetorno
+            );
+
+            window.location.href =
+                "https://solverstore.com.br/";
+
+        }
+
+    }
+
+    document.addEventListener(
+        "visibilitychange",
+        acompanharRetorno
+    );
 
     window.open(
         url,
