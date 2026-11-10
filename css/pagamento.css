@@ -357,54 +357,41 @@ button:hover{
 
 }
 
+/* TÍTULO DO PAGAMENTO */
+
+.titulo-pagamento {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+}
 
 /* ÍCONE PRINCIPAL */
 
-.icone-pagamento{
-
-    width:auto;
-
-    height:auto;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    margin-bottom:0;
-
-    border-radius:0;
-
-    background:transparent;
-
-    color:#0f5c43;
-
+.icone-pagamento {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border-radius: 14px;
+    background: #e8f8f0;
+    color: #0f5c43;
 }
 
-.icone-pagamento i{
-
-    font-size:28px;
-
+.icone-pagamento i {
+    font-size: 28px;
 }
 
 
 /* TÍTULO */
 
-.pagamento-card h2{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    margin-bottom:10px;
-
-    font-size:28px;
-
-    color:#222;
-
+.pagamento-card h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #222;
 }
 
 
