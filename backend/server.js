@@ -2115,6 +2115,38 @@ app.get(
 );
 
 
+ // ======================================================
+ // RETORNO DE PAGAMENTO PENDENTE
+ // ======================================================
+
+app.get("/pagamento-pendente", (req, res) => {
+
+    console.log("");
+    console.log("====================================");
+    console.log("⏳ RETORNO DE PAGAMENTO PENDENTE");
+    console.log("====================================");
+
+    // Preserva os parâmetros enviados pelo Mercado Pago
+    const parametros = new URLSearchParams();
+
+    for (const [chave, valor] of Object.entries(req.query)) {
+        if (typeof valor === "string") {
+            parametros.set(chave, valor);
+        }
+    }
+
+    const consulta = parametros.toString();
+
+    // Encaminha para a rota que verifica o status do pedido
+    return res.redirect(
+        302,
+        "/pagamento-aprovado" +
+        (consulta ? "?" + consulta : "")
+    );
+
+});
+
+
 // ======================================================
 // INICIAR SERVIDOR
 // ======================================================
