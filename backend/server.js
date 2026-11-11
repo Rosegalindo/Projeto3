@@ -1149,16 +1149,14 @@ app.get(
         // RETORNAR DADOS DO PEDIDO
         // ==================================================
 
-return res.json({
-    sucesso: true,
-    numero: pedido.numero,
-    status: pedido.status,
-    statusPagamento: pedido.statusPagamento || null
-});
-
+        return res.json({
+            sucesso: true,
+            numero: pedido.numero,
+            status: pedido.status,
+            statusPagamento: pedido.statusPagamento || null
+        });
     }
 );
-
 
 // ======================================================
 // PROCESSAR PAGAMENTO COM CARTÃO
