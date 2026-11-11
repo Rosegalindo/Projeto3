@@ -2145,3 +2145,24 @@ app.listen(
 
     }
 );
+
+
+ // ============================================
+ // CONFIGURAÇÃO PÚBLICA DO MERCADO PAGO
+ // ============================================
+
+app.get("/configuracao-pagamento", (req, res) => {
+    const publicKey = process.env.MP_PUBLIC_KEY;
+
+    if (!publicKey) {
+        return res.status(500).json({
+            sucesso: false,
+            erro: "Chave pública do Mercado Pago não configurada."
+        });
+    }
+
+    return res.json({
+        sucesso: true,
+        publicKey
+    });
+});
