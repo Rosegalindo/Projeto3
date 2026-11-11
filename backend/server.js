@@ -1149,61 +1149,12 @@ app.get(
         // RETORNAR DADOS DO PEDIDO
         // ==================================================
 
-        return res.json({
-
-            sucesso: true,
-
-            numero:
-                pedido.numero,
-
-            status:
-                pedido.status,
-
-            pagamentoId:
-                pedido.pagamentoId ||
-                null,
-
-            statusPagamento:
-                pedido.statusPagamento ||
-                null,
-
-            statusDetalhe:
-                pedido.statusDetalhe ||
-                null,
-
-            valorPago:
-                pedido.valorPago ||
-                null,
-
-            dataPagamento:
-                pedido.dataPagamento ||
-                null,
-
-            formaPagamento:
-                pedido.formaPagamento ||
-                null,
-
-            tipoPagamento:
-                pedido.tipoPagamento ||
-                null,
-
-            cliente:
-                pedido.cliente ||
-                null,
-
-            entrega:
-                pedido.entrega ||
-                null,
-
-            produtos:
-                pedido.produtos ||
-                [],
-
-            valores:
-                pedido.valores ||
-                null
-
-        });
+return res.json({
+    sucesso: true,
+    numero: pedido.numero,
+    status: pedido.status,
+    statusPagamento: pedido.statusPagamento || null
+});
 
     }
 );
