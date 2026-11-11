@@ -1328,21 +1328,12 @@ app.post(
 
 
             return res.json({
-
                 sucesso: true,
-
-                id:
-
-                    resultado.id,
-
-                status:
-
-                    resultado.status,
-
-                status_detail:
-
-                    resultado.status_detail
-
+                id: resultado.id,
+                status: resultado.status,
+                status_detail: resultado.status_detail,
+                checkout: resultado.init_point,
+                init_point: resultado.init_point
             });
 
 
